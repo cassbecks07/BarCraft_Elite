@@ -19,7 +19,13 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Crear proyecto Android con WebView
+      - name: Descargar e instalar Gradle 8.5 compatible
+        run: |
+          wget https://services.gradle.org/distributions/gradle-8.5-bin.zip
+          unzip -q gradle-8.5-bin.zip
+          echo "$PWD/gradle-8.5/bin" >> $GITHUB_PATH
+
+      - name: Preparar proyecto Android estructurado
         run: |
           mkdir -p app/src/main/assets app/src/main/java/com/gustavosuarez/barcraft
           
@@ -38,6 +44,7 @@ jobs:
                   super.onCreate(savedInstanceState);
                   WebView webView = new WebView(this);
                   webView.getSettings().setJavaScriptEnabled(true);
+                  webView.getSettings().setDomStorageEnabled(true);
                   webView.setWebViewClient(new WebViewClient());
                   webView.loadUrl("file:///android_asset/index.html");
                   setContentView(webView);
@@ -51,13 +58,13 @@ jobs:
               <uses-permission android:name="android.permission.INTERNET" />
               <application
                   android:label="BarCraft Elite"
-                  android:icon="@mipmap/ic_launcher">
+                  android:usesCleartextTraffic="true">
                   <activity
                       android:name=".MainActivity"
                       android:exported="true">
                       <intent-filter>
-                        <action android:name="android.intent.action.MAIN" />
-                        <category android:name="android.intent.category.LAUNCHER" />
+                          <action android:name="android.intent.action.MAIN" />
+                          <category android:name="android.intent.category.LAUNCHER" />
                       </intent-filter>
                   </activity>
               </application>
@@ -73,7 +80,7 @@ jobs:
                   mavenCentral()
               }
               dependencies {
-                  classpath 'com.android.tools.build:gradle:8.1.0'
+                  classpath 'com.android.tools.build:gradle:8.2.0'
               }
           }
           allprojects {
@@ -103,7 +110,7 @@ jobs:
 
           echo "sdk.dir=$ANDROID_HOME" > local.properties
 
-      - name: Compilar APK directamente con Gradle del sistema
+      - name: Compilar APK con Gradle 8.5
         run: |
           gradle assembleDebug
 
@@ -112,3 +119,4 @@ jobs:
         with:
           name: BarCraft-Elite-APK
           path: app/build/outputs/apk/debug/app-debug.apk
+          
