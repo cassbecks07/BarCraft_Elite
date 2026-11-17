@@ -24,11 +24,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Instalar Capacitor y generar proyecto Android
+      - name: Inicializar proyecto y Capacitor local
         run: |
-          npm install -g @capacitor/cli @capacitor/core @capacitor/android
           mkdir -p www
           cp index.html www/
+          npm init -y
+          npm install @capacitor/core @capacitor/cli @capacitor/android
           
           cat << 'EOF' > capacitor.config.json
           {
