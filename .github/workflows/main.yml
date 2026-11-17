@@ -19,22 +19,35 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Descargar e instalar Gradle 8.5 compatible
+      - name: Descargar e instalar Gradle 8.5
         run: |
           wget https://services.gradle.org/distributions/gradle-8.5-bin.zip
           unzip -q gradle-8.5-bin.zip
           echo "$PWD/gradle-8.5/bin" >> $GITHUB_PATH
 
-      - name: Preparar proyecto Android estructurado
+      - name: Preparar proyecto con Logo e Inmersivo Fullscreen
         run: |
           mkdir -p app/src/main/assets app/src/main/java/com/gustavosuarez/barcraft
+          mkdir -p app/src/main/res/mipmap-hdpi app/src/main/res/mipmap-mdpi app/src/main/res/mipmap-xhdpi app/src/main/res/mipmap-xxhdpi app/src/main/res/mipmap-xxxhdpi
           
           cp index.html app/src/main/assets/index.html
 
+          # Asignar tu logo.jpg como icono adaptativo en todas las densidades
+          if [ -f "logo.jpg" ]; then
+            cp logo.jpg app/src/main/res/mipmap-hdpi/ic_launcher.png
+            cp logo.jpg app/src/main/res/mipmap-mdpi/ic_launcher.png
+            cp logo.jpg app/src/main/res/mipmap-xhdpi/ic_launcher.png
+            cp logo.jpg app/src/main/res/mipmap-xxhdpi/ic_launcher.png
+            cp logo.jpg app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+          fi
+
+          # Clase Java con WebView y Pantalla Completa absoluta
           cat << 'EOF' > app/src/main/java/com/gustavosuarez/barcraft/MainActivity.java
           package com.gustavosuarez.barcraft;
           import android.app.Activity;
           import android.os.Bundle;
+          import android.view.Window;
+          import android.view.WindowManager;
           import android.webkit.WebView;
           import android.webkit.WebViewClient;
 
@@ -42,6 +55,12 @@ jobs:
               @Override
               protected void onCreate(Bundle savedInstanceState) {
                   super.onCreate(savedInstanceState);
+                  
+                  // Forzar pantalla completa y eliminar título por completo
+                  requestWindowFeature(Window.FEATURE_NO_TITLE);
+                  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                          WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
                   WebView webView = new WebView(this);
                   webView.getSettings().setJavaScriptEnabled(true);
                   webView.getSettings().setDomStorageEnabled(true);
@@ -52,16 +71,20 @@ jobs:
           }
           EOF
 
+          # Manifiesto configurado con el tema Fullscreen y tu icono
           cat << 'EOF' > app/src/main/AndroidManifest.xml
           <manifest xmlns:android="http://schemas.android.com/apk/res/android"
               package="com.gustavosuarez.barcraft">
               <uses-permission android:name="android.permission.INTERNET" />
               <application
                   android:label="BarCraft Elite"
+                  android:icon="@mipmap/ic_launcher"
+                  android:roundIcon="@mipmap/ic_launcher"
                   android:usesCleartextTraffic="true">
                   <activity
                       android:name=".MainActivity"
-                      android:exported="true">
+                      android:exported="true"
+                      android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
                       <intent-filter>
                           <action android:name="android.intent.action.MAIN" />
                           <category android:name="android.intent.category.LAUNCHER" />
@@ -110,7 +133,7 @@ jobs:
 
           echo "sdk.dir=$ANDROID_HOME" > local.properties
 
-      - name: Compilar APK con Gradle 8.5
+      - name: Compilar APK Definitivo
         run: |
           gradle assembleDebug
 
@@ -119,4 +142,3 @@ jobs:
         with:
           name: BarCraft-Elite-APK
           path: app/build/outputs/apk/debug/app-debug.apk
-          
