@@ -13,25 +13,63 @@ jobs:
       - name: Descargar código
         uses: actions/checkout@v4
 
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Configurar Java 17
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Preparar entorno y copiar web
+      - name: Instalar Bubblewrap y CLI de Android
         run: |
-          mkdir -p android/app/src/main/assets/public
-          cp index.html android/app/src/main/assets/public/index.html
+          npm install -g @bubblewrap/cli
 
-      - name: Compilar APK directamente con Gradle
+      - name: Generar proyecto Android web nativo
         run: |
-          cd android
-          chmod +x gradlew
-          ./gradlew assembleDebug
+          mkdir -p web-app
+          cp index.html web-app/index.html
+          
+          # Crear manifiesto básico automatizado para Bubblewrap
+          cat << 'EOF' > tva-manifest.json
+          {
+            "packageId": "com.gustavosuarez.barcraft",
+            "host": "localhost",
+            "name": "BarCraft Elite",
+            "shortName": "BarCraft",
+            "startUrl": "/index.html",
+            "themeColor": "#000000",
+            "backgroundColor": "#000000",
+            "display": "standalone",
+            "orientation": "portrait",
+            "iconUrl": "https://via.placeholder.com/512",
+            "maskableIconUrl": "https://via.placeholder.com/512",
+            "splashScreenFadeOutDuration": 300,
+            "signingKey": {
+              "path": "android.keystore",
+              "alias": "android"
+            },
+            "appVersionName": "1.0",
+            "appVersionCode": 1,
+            "generatorApp": "bubblewrap-cli"
+          }
+          EOF
+
+      - name: Compilar APK final con Bubblewrap
+        run: |
+          bubblewrap init --manifest=tva-manifest.json --directory=android-out || true
+          cd android-out && ./gradlew assembleDebug
+
+      - name: Buscar y respaldar APK
+        run: |
+          mkdir -p final-apk
+          find . -name "app-debug.apk" -exec cp {} final-apk/app-debug.apk \;
 
       - name: Subir APK
         uses: actions/upload-artifact@v4
         with:
           name: BarCraft-Elite-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: final-apk/app-debug.apk
