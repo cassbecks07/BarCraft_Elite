@@ -10,20 +10,107 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Descargar código del repositorio
+      - name: Descargar repositorio
         uses: actions/checkout@v4
 
-      - name: Compilar Web a APK nativo automático
-        uses: jaywcjlove/github-action-android-build-apk@main
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
         with:
-          path: index.html
-          package_name: "com.gustavosuarez.barcraft"
-          app_name: "BarCraft Elite"
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Crear proyecto Android nativo con WebView
+        run: |
+          mkdir -p app/src/main/assets app/src/main/java/com/gustavosuarez/barcraft app/src/main/res/values
+          
+          cp index.html app/src/main/assets/index.html
+
+          cat << 'EOF' > app/src/main/java/com/gustavosuarez/barcraft/MainActivity.java
+          package com.gustavosuarez.barcraft;
+          import android.app.Activity;
+          import android.os.Bundle;
+          import android.webkit.WebView;
+          import android.webkit.WebViewClient;
+
+          public class MainActivity extends Activity {
+              @Override
+              protected void onCreate(Bundle savedInstanceState) {
+                  super.onCreate(savedInstanceState);
+                  WebView webView = new WebView(this);
+                  webView.getSettings().setJavaScriptEnabled(true);
+                  webView.setWebViewClient(new WebViewClient());
+                  webView.loadUrl("file:///android_asset/index.html");
+                  setContentView(webView);
+              }
+          }
+          EOF
+
+          cat << 'EOF' > app/src/main/AndroidManifest.xml
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+              package="com.gustavosuarez.barcraft">
+              <uses-permission android:name="android.permission.INTERNET" />
+              <application
+                  android:label="BarCraft Elite"
+                  android:icon="@mipmap/ic_launcher">
+                  <activity
+                      android:name=".MainActivity"
+                      android:exported="true">
+                      <intent-filter>
+                        <action android:name="android.intent.action.MAIN" />
+                        <category android:name="android.intent.category.LAUNCHER" />
+                      </intent-filter>
+                  </activity>
+              </application>
+          </manifest>
+          EOF
+
+          echo "include ':app'" > settings.gradle
+          
+          cat << 'EOF' > build.gradle
+          buildscript {
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+              dependencies {
+                  classpath 'com.android.tools.build:gradle:8.1.0'
+              }
+          }
+          allprojects {
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+          }
+          EOF
+
+          cat << 'EOF' > app/build.gradle
+          plugins {
+              id 'com.android.application'
+          }
+          android {
+              namespace 'com.gustavosuarez.barcraft'
+              compileSdk 34
+              defaultConfig {
+                  applicationId "com.gustavosuarez.barcraft"
+                  minSdk 21
+                  targetSdk 34
+                  versionCode 1
+                  versionName "1.0"
+              }
+          }
+          EOF
+
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
+
+      - name: Dar permisos y compilar APK con Gradle
+        run: |
+          gradle wrapper
+          chmod +x gradlew
+          ./gradlew assembleDebug
 
       - name: Subir APK generado
         uses: actions/upload-artifact@v4
         with:
           name: BarCraft-Elite-APK
-          path: |
-            *.apk
-            app/build/outputs/apk/**/*.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
