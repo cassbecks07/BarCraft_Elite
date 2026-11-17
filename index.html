@@ -898,7 +898,17 @@
                         ]
                     }
                 ],
-                labPrep: []
+                labPrep: [
+                    {
+                        nombre: "Sirope Simple",
+                        cat: "Sirope Artesanal",
+                        rendimiento: 1000,
+                        unidadMedida: "ml",
+                        shelfLife: "30 días",
+                        procedimiento: "Mezclar partes iguales de azúcar y agua caliente hasta disolver por completo. Enfriar y embotellar.",
+                        ingredientes: [{ id: "INS-001", cant: 100, unid: "ml" }]
+                    }
+                ]
             },
             ecoboutique_bar: {
                 brandName: "EcoBoutique Plaza",
@@ -2204,6 +2214,12 @@
                             </div>
                             <div class="escandallo-meta"><span class="meta-chip">📦 Rend: ${lab.rendimiento} ${lab.unidadMedida || 'ml'}</span><span class="meta-chip">⏳ ${currentLang === 'es' ? 'Vida Útil' : 'Shelf Life'}: ${lab.shelfLife || 'N/A'}</span></div>
                             <div class="ing-list">${listaIngHTML}</div>
+                            ${lab.procedimiento ? `
+                                <div style="background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 9px; padding: 7px 9px; margin-bottom: 6px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);">
+                                    <span style="font-size:7px; font-weight:700; color:var(--primary-light); display:block; margin-bottom:2px; text-transform:uppercase;">📝 ${currentLang === 'es' ? 'Procedimiento' : 'Procedure'}</span>
+                                    <p style="font-size:8px; color:#e2e8f0; line-height:1.35; white-space:pre-wrap;">${lab.procedimiento}</p>
+                                </div>
+                            ` : ''}
                             <div class="calc-row"><span>${t('batchCost')}</span> <strong style="color:var(--primary-light);">$${calcLab.costoTotalBatch.toFixed(2)}</strong></div>
                             <div class="calc-row total"><span>${t('costPerUnit')}</span> <span style="color:#34d399;">$${calcLab.costoPorUnidad.toFixed(4)}</span></div>
                         </div>
