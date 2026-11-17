@@ -24,13 +24,21 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Preparar carpeta web e instalar Capacitor
+      - name: Preparar entorno Capacitor y Android
         run: |
           mkdir -p www
           cp index.html www/
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init "BarCraft Elite" "com.gustavosuarez.barcraft" --web-dir www
+          
+          # Crear archivo de configuración manual para evitar bloqueos interactivos
+          echo '{
+            "appId": "com.gustavosuarez.barcraft",
+            "appName": "BarCraft Elite",
+            "webDir": "www",
+            "bundledWebRuntime": false
+          }' > capacitor.config.json
+          
           npx cap add android
           npx cap sync android
 
