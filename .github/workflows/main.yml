@@ -10,34 +10,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Descargar código del repositorio
+      - name: Descargar código
         uses: actions/checkout@v4
 
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
 
-      - name: Configurar Java 17
+      - name: Configurar Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Preparar entorno Capacitor y Android
+      - name: Instalar Capacitor y generar proyecto Android
         run: |
+          npm install -g @capacitor/cli @capacitor/core @capacitor/android
           mkdir -p www
           cp index.html www/
-          npm init -y
-          npm install @capacitor/core @capacitor/cli @capacitor/android
           
-          # Crear archivo de configuración manual para evitar bloqueos interactivos
-          echo '{
+          cat << 'EOF' > capacitor.config.json
+          {
             "appId": "com.gustavosuarez.barcraft",
             "appName": "BarCraft Elite",
             "webDir": "www",
             "bundledWebRuntime": false
-          }' > capacitor.config.json
+          }
+          EOF
           
           npx cap add android
           npx cap sync android
@@ -48,7 +48,7 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: Subir APK listo para descargar
+      - name: Subir APK
         uses: actions/upload-artifact@v4
         with:
           name: BarCraft-Elite-APK
