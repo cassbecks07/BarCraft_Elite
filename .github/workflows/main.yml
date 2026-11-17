@@ -13,37 +13,25 @@ jobs:
       - name: Descargar código
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Configurar Java
-        uses: actions/setup-java@v4
+      - name: Configurar Java 17
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Crear estructura manual para Android
+      - name: Preparar entorno y copiar web
         run: |
           mkdir -p android/app/src/main/assets/public
           cp index.html android/app/src/main/assets/public/index.html
-          
-          npm init -y
-          npm install @capacitor/core @capacitor/android
-          
-          cat << 'EOF' > capacitor.config.json
-          {
-            "appId": "com.gustavosuarez.barcraft",
-            "appName": "BarCraft Elite",
-            "webDir": "android/app/src/main/assets/public",
-            "bundledWebRuntime": false
-          }
-          EOF
 
-      - name: Compilar con Gradle
+      - name: Compilar APK directamente con Gradle
         run: |
           cd android
-          gradle wrapper || true
-          chmod +x gradlew || true
-          ./gradlew assembleDebug || npx @capacitor/android update
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Subir APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: BarCraft-Elite-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
