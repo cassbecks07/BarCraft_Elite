@@ -16,7 +16,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
 
       - name: Configurar Java
         uses: actions/setup-java@v4
@@ -24,15 +24,28 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Instalar y compilar con Capacitor CLI
+      - name: Preparar entorno Capacitor limpio
         run: |
+          mkdir -p android/app/src/main/assets/public
+          cp index.html android/app/src/main/assets/public/index.html
+          
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx @capacitor/cli init "BarCraft Elite" "com.gustavosuarez.barcraft" --web-dir index.html
-          npx @capacitor/cli add android
-          npx @capacitor/cli sync android
+          
+          cat << 'EOF' > capacitor.config.json
+          {
+            "appId": "com.gustavosuarez.barcraft",
+            "appName": "BarCraft Elite",
+            "webDir": "android/app/src/main/assets/public",
+            "bundledWebRuntime": false
+          }
+          EOF
 
-      - name: Dar permisos y compilar APK
+      - name: Sincronizar plataforma Android
+        run: |
+          npx cap sync android
+
+      - name: Compilar APK con Gradle
         run: |
           cd android
           chmod +x gradlew
