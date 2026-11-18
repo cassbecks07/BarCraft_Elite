@@ -581,10 +581,6 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                     <span id="navHomeSpan">Inicio</span>
                 </div>
-                <div class="nav-item" id="nav-calendar" onclick="abrirCalendario()">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    <span id="navAgendaSpan">Agenda</span>
-                </div>
                 <div class="nav-item" id="nav-insumos" onclick="abrirInsumos()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                     <span id="navInsumosSpan">Insumos</span>
@@ -592,6 +588,10 @@
                 <div class="nav-item" id="nav-escandallo" onclick="abrirEscandallo()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10M6 14h6"/></svg>
                     <span id="navRecetasSpan">Recetas</span>
+                </div>
+                <div class="nav-item" id="nav-lab" onclick="abrirLab()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.31L4.35 18.5a2 2 0 0 0 1.72 3h11.86a2 2 0 0 0 1.72-3L14 9.31V2h-4z"></path><line x1="8" y1="2" x2="16" y2="2"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    <span id="navLabSpan">Lab</span>
                 </div>
                 <div class="nav-item" id="nav-resumen" onclick="abrirResumen()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
@@ -605,6 +605,22 @@
         </div>
 
     </div>
+
+    <!-- MODAL DE CONFIRMACIÓN ESTILIZADO -->
+    <div class="modal-overlay" id="modalConfirmacion" style="display:none;">
+        <div class="modal-box" style="max-width: 300px; text-align: center; padding: 20px !important;">
+            <div style="font-size: 28px; margin-bottom: 8px;">⚠️</div>
+            <h3 id="confirmTitulo" style="color: var(--primary-light); font-size: 13px; margin-bottom: 8px;">¿Estás seguro?</h3>
+            <p id="confirmMensaje" style="font-size: 9px; color: #cbd5e1; margin-bottom: 16px; line-height: 1.4;">Mensaje de confirmación aquí...</p>
+            <div style="display: flex; gap: 8px;">
+                <button class="btn-action-sm" style="flex: 1; padding: 10px; font-size: 9px;" onclick="cerrarModal('modalConfirmacion')">Cancelar</button>
+                <button class="btn-gold" style="flex: 1; padding: 10px; font-size: 9px;" id="btnConfirmarAccion">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- INPUT FILE PARA IMPORTAR ARCHIVOS CSV COMPATIBLES CON GOOGLE SHEETS -->
+    <input type="file" id="fileSelectorInput" style="display:none;" accept=".csv, .txt, .json" onchange="procesarArchivoSeleccionado(event)">
 
     <div class="modal-overlay" id="modalCalendarioNota" style="display:none;">
         <div class="modal-box" style="max-width: 320px;">
@@ -658,45 +674,6 @@
                 <div class="pin-btn" onclick="borrarDigitoPin()" style="font-size:13px;">⌫</div>
             </div>
             <button class="btn-action-sm" style="margin-top:4px; width:100%; padding:6px;" onclick="cerrarModalPin()" id="btnCancelPin">Cancelar</button>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="modalCsvExport">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3 id="txtBackupTitle">Copia de Seguridad (Backup)</h3>
-                <button class="modal-close" onclick="cerrarModal('modalCsvExport')">✕</button>
-            </div>
-            <p style="font-size:7.5px; color:#94a3b8; margin-bottom:4px;" id="txtBackupSub">Guarda este texto en un bloc de notas para no perder tus datos nunca:</p>
-            <textarea class="modal-textarea" id="txtCsvExport" readonly></textarea>
-            <div style="display: flex; gap: 6px; margin-top:4px;">
-                <button class="btn-gold" style="flex:1;" onclick="copiarCsvTexto()" id="btnCopyBackup">📋 Copiar Backup</button>
-                <button class="btn-gold" style="flex:1; background:rgba(6,182,212,0.2); color:#22d3ee; border:1px solid rgba(6,182,212,0.4);" onclick="abrirModalRestaurar()" id="btnRestoreModalBtn">📥 Restaurar</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="modalRestaurarBackup">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3 id="txtRestoreTitle">📥 Restaurar Backup</h3>
-                <button class="modal-close" onclick="cerrarModal('modalRestaurarBackup')">✕</button>
-            </div>
-            <p style="font-size:7.5px; color:#94a3b8; margin-bottom:4px;" id="txtRestoreSub">Pega aquí el código de respaldo que guardaste:</p>
-            <textarea class="modal-textarea" id="txtRestaurarInput" placeholder='{"barcraft_elite": {...}}'></textarea>
-            <button class="btn-gold" onclick="ejecutarRestauracionBackup()" id="btnExecuteRestore">⚡ Cargar y Restaurar</button>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="modalCsvImport">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3 id="modalImportTitle">📥 Importar desde Excel / CSV</h3>
-                <button class="modal-close" onclick="cerrarModal('modalCsvImport')">✕</button>
-            </div>
-            <p style="font-size:7.5px; color:#94a3b8; margin-bottom:4px;" id="modalImportDesc">Pega aquí tus datos tabulados o formato CSV:</p>
-            <textarea class="modal-textarea" id="txtCsvImport" placeholder="Ron Cacique,Destilados,Botella,750,8.50"></textarea>
-            <button class="btn-gold" onclick="ejecutarImportacionCsv()" id="btnProcessImport">⚡ Procesar e Importar</button>
         </div>
     </div>
 
@@ -861,6 +838,7 @@
         let sessionPendingUnlock = null;
         let pinIngresado = "";
         let labFiltroCategoria = "TODOS";
+        let insumoFiltroCategoria = "TODOS";
         let tipoImportacionActual = 'insumos';
 
         let calAnioActual = new Date().getFullYear();
@@ -969,11 +947,11 @@
                 configServicios: "Carta del Evento:", addCocktail: "+ Cóctel", listaCompras: "Lista de Compras", btnGenerarPresupuesto: "📄 Generar Propuesta",
                 modalTitle: "Propuesta Comercial", btnCopiar: "📋 Copiar Propuesta",
                 selectBiz: "Selecciona un", selectBizSub: "Acceso protegido con PIN o biometría.", createBizBtn: "+ Crear Nuevo Negocio / Sesión",
-                navHome: "Inicio", navAgenda: "Agenda", navInsumos: "Insumos", navRecetas: "Recetas", navRent: "Rentabilidad", navBrand: "Brand",
+                navHome: "Inicio", navInsumos: "Insumos", navRecetas: "Recetas", navLab: "Lab", navRent: "Rentabilidad", navBrand: "Brand",
                 directContact: "Contacto Directo", reserveEvents: "Reserva y eventos",
                 agendaTitle: "Agenda & Notas", agendaSub: "Toca un día para editar nota",
                 workLabel: "Trabajo", offLabel: "Libre", eventLabel: "Cita/Evento", monthNotes: "Notas y Citas del Mes", noNotes: "No hay notas registradas este mes.",
-                importBtn: "📥 Importar", backBtn: "← Volver", labTitle: "🧪 Lab & Prep",
+                importBtn: "📥 Importar", exportSheetBtn: "📊 Exportar Sheet", backBtn: "← Volver", labTitle: "🧪 Lab & Prep",
                 allCategories: "📂 Todas las Categorías", siropeArt: "🍯 Sirope Artesanal", bitter: "💧 Bitter", premade: "🧊 Premade", shrub: "🌿 Shrub", cordial: "🍷 Cordial", infusion: "☕ Infusión",
                 noLabPreps: "No hay preparaciones registradas. Toca el botón <b>+</b> abajo para crear una.", batchCost: "Costo Total Lote:", costPerUnit: "Costo por unidad:",
                 configTitle: "Ajustes & Brand", changeBizBtn: "🔄 Cambiar / Seleccionar Empresa", backupBtn: "📋 Exportar Backup", restoreBtn: "📥 Restaurar",
@@ -1002,11 +980,11 @@
                 configServicios: "Event Menu:", addCocktail: "+ Cocktail", listaCompras: "Shopping List", btnGenerarPresupuesto: "📄 Generate Quote",
                 modalTitle: "Commercial Proposal", btnCopiar: "📋 Copy Proposal",
                 selectBiz: "Select a", selectBizSub: "Protected access with PIN or biometrics.", createBizBtn: "+ Create New Business / Session",
-                navHome: "Home", navAgenda: "Agenda", navInsumos: "Ingredients", navRecetas: "Recipes", navRent: "Profit", navBrand: "Brand",
+                navHome: "Home", navInsumos: "Ingredients", navRecetas: "Recipes", navLab: "Lab", navRent: "Profit", navBrand: "Brand",
                 directContact: "Direct Contact", reserveEvents: "Booking & events",
                 agendaTitle: "Agenda & Notes", agendaSub: "Tap a day to edit note",
                 workLabel: "Work", offLabel: "Off", eventLabel: "Event/Appointment", monthNotes: "Month Notes & Events", noNotes: "No notes registered this month.",
-                importBtn: "📥 Import", backBtn: "← Back", labTitle: "🧪 Lab & Prep",
+                importBtn: "📥 Import", exportSheetBtn: "📊 Export Sheet", backBtn: "← Back", labTitle: "🧪 Lab & Prep",
                 allCategories: "📂 All Categories", siropeArt: "🍯 Craft Syrup", bitter: "💧 Bitter", premade: "🧊 Premade", shrub: "🌿 Shrub", cordial: "🍷 Cordial", infusion: "☕ Infusion",
                 noLabPreps: "No preparations registered. Tap the <b>+</b> button below to create one.", batchCost: "Total Batch Cost:", costPerUnit: "Cost per unit:",
                 configTitle: "Settings & Brand", changeBizBtn: "🔄 Change / Select Business", backupBtn: "📋 Export Backup", restoreBtn: "📥 Restore",
@@ -1020,15 +998,26 @@
 
         function t(key) { return i18n[currentLang][key] || key; }
         
+        function mostrarConfirmacion(titulo, mensaje, onConfirmar) {
+            document.getElementById('confirmTitulo').innerText = titulo;
+            document.getElementById('confirmMensaje').innerText = mensaje;
+            const btnAceptar = document.getElementById('btnConfirmarAccion');
+            btnAceptar.onclick = function() {
+                cerrarModal('modalConfirmacion');
+                if (typeof onConfirmar === 'function') onConfirmar();
+            };
+            document.getElementById('modalConfirmacion').style.display = 'flex';
+        }
+
         function actualizarTextosEstaticos() {
             document.getElementById('txtSelectBiz').innerHTML = `${currentLang === 'es' ? 'Selecciona un' : 'Select a'} <span>${currentLang === 'es' ? 'Negocio' : 'Business'}</span>`;
             document.getElementById('txtSelectBizSub').innerText = t('selectBizSub');
             document.getElementById('btnCreateBiz').innerText = t('createBizBtn');
             
             document.getElementById('navHomeSpan').innerText = t('navHome');
-            document.getElementById('navAgendaSpan').innerText = t('navAgenda');
             document.getElementById('navInsumosSpan').innerText = t('navInsumos');
             document.getElementById('navRecetasSpan').innerText = t('navRecetas');
+            document.getElementById('navLabSpan').innerText = t('navLab');
             document.getElementById('navRentSpan').innerText = t('navRent');
             document.getElementById('navBrandSpan').innerText = t('navBrand');
         }
@@ -1068,8 +1057,6 @@
                         let parts = pair.split(':');
                         return { val: parts[0], text: parts[1] || parts[0] };
                     });
-                } else if (container.dataset.dynamicItemsFunc) {
-                    itemsList = window[container.dataset.dynamicItemsFunc]() || [];
                 }
 
                 if (itemsList.length === 0) return;
@@ -1116,7 +1103,6 @@
             currentLang = lang;
             const dropHeader = document.getElementById('labelLangSelect');
             if (dropHeader) dropHeader.innerText = lang === 'es' ? '🇪🇸 Español (ES)' : '🇬🇧 English (EN)';
-            
             actualizarTextosEstaticos();
 
             if (activeModule === 'menu') renderHome();
@@ -1150,11 +1136,6 @@
                 if(!appSessions[key].labPrep) appSessions[key].labPrep = [];
                 if(!appSessions[key].fontScale) appSessions[key].fontScale = 1.1;
                 if(!appSessions[key].calendario) appSessions[key].calendario = {};
-                if(appSessions[key].cocteles) {
-                    appSessions[key].cocteles.forEach(c => {
-                        if(c.descripcion === undefined) c.descripcion = "";
-                    });
-                }
             }
             actualizarTextosEstaticos();
         }
@@ -1238,7 +1219,7 @@
                 cerrarModalPin();
                 seleccionarSesion(sessionPendingUnlock);
             } else {
-                alert(currentLang === 'es' ? "❌ PIN incorrecto (Prueba con 1234)." : "❌ Incorrect PIN (Try 1234).");
+                mostrarConfirmacion("PIN Incorrecto", currentLang === 'es' ? "PIN incorrecto (Prueba con 1234)." : "Incorrect PIN (Try 1234).", () => {});
                 pinIngresado = "";
                 actualizarPuntosPin();
             }
@@ -1246,11 +1227,11 @@
 
         async function intentarBiometria() {
             try {
-                alert(currentLang === 'es' ? "👆 Lector biométrico activado. Acceso concedido." : "👆 Biometric reader activated. Access granted.");
+                mostrarConfirmacion("Biometría", currentLang === 'es' ? "Lector biométrico activado. Acceso concedido." : "Biometric reader activated. Access granted.", () => {});
                 cerrarModalPin();
                 seleccionarSesion(sessionPendingUnlock);
             } catch(e) {
-                alert(currentLang === 'es' ? "No se pudo verificar la biometría. Usa el PIN." : "Could not verify biometrics. Use PIN.");
+                mostrarConfirmacion("Aviso", currentLang === 'es' ? "No se pudo verificar la biometría. Usa el PIN." : "Could not verify biometrics. Use PIN.", () => {});
             }
         }
 
@@ -1363,13 +1344,9 @@
         }
 
         function manejarAccionFlotante() {
-            if (activeModule === 'insumos') {
-                abrirModalInsumo();
-            } else if (activeModule === 'escandallo') {
-                abrirModalCoctel();
-            } else if (activeModule === 'lab') {
-                abrirModalLab();
-            }
+            if (activeModule === 'insumos') abrirModalInsumo();
+            else if (activeModule === 'escandallo') abrirModalCoctel();
+            else if (activeModule === 'lab') abrirModalLab();
         }
 
         function renderHome() {
@@ -1480,7 +1457,7 @@
 
         function abrirCalendario() {
             activeModule = 'calendar';
-            setActiveNav('nav-calendar');
+            setActiveNav('');
             actualizarBotonFlotante();
             let ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
@@ -1502,7 +1479,6 @@
 
             let hoy = new Date();
             let esMesActual = (hoy.getFullYear() === calAnioActual && hoy.getMonth() === calMesActual);
-
             let listaEventosHtml = '';
 
             for (let dia = 1; dia <= totalDiasMes; dia++) {
@@ -1551,6 +1527,7 @@
                 <div class="module-header-bar">
                     <h2 class="module-title-h2">${t('agendaTitle')}</h2>
                     <div style="display:flex; gap:4px;">
+                        <button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button>
                         <button class="btn-action-sm" onclick="cambiarMesCal(-1)">◀</button>
                         <button class="btn-action-sm" onclick="cambiarMesCal(1)">▶</button>
                     </div>
@@ -1561,9 +1538,7 @@
                         <h3>${mesesNombres[calMesActual]} ${calAnioActual}</h3>
                         <span style="font-size:6.5px; color:#94a3b8;">${t('agendaSub')}</span>
                     </div>
-                    <div class="cal-grid">
-                        ${celdasHTML}
-                    </div>
+                    <div class="cal-grid">${celdasHTML}</div>
                     <div class="legend-row">
                         <div class="legend-item"><div class="legend-box" style="background:#d4af37;"></div><span>${t('workLabel')}</span></div>
                         <div class="legend-item"><div class="legend-box" style="background:#34d399;"></div><span>${t('offLabel')}</span></div>
@@ -1606,7 +1581,6 @@
             document.getElementById('txtCalStatusLbl').innerText = currentLang === 'es' ? 'Estado:' : 'Status:';
             document.getElementById('txtCalNoteLbl').innerText = currentLang === 'es' ? 'Nota / Explicación:' : 'Note / Explanation:';
             document.getElementById('btnSaveCal').innerText = currentLang === 'es' ? '💾 Guardar Evento / Nota' : '💾 Save Event / Note';
-            
             document.getElementById('calInputNota').value = dataDia.nota || '';
 
             document.getElementById('modalCalendarioNota').style.display = 'flex';
@@ -1624,12 +1598,8 @@
             let nota = document.getElementById('calInputNota').value.trim();
 
             if (!ses.calendario) ses.calendario = {};
-
-            if (!tipo && !nota) {
-                delete ses.calendario[fechaKey];
-            } else {
-                ses.calendario[fechaKey] = { tipo: tipo || 'work', nota };
-            }
+            if (!tipo && !nota) delete ses.calendario[fechaKey];
+            else ses.calendario[fechaKey] = { tipo: tipo || 'work', nota };
 
             guardarDatosSesionActual();
             cerrarModal('modalCalendarioNota');
@@ -1643,57 +1613,49 @@
             actualizarBotonFlotante();
             let ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
+
+            let categoriasDisponibles = ["TODOS", "Destilados", "Licores & Cremas", "Frutas/Frescos", "Sirope/Insumos", "Consumibles", "General"];
+            let nombresCategorias = {
+                "TODOS": currentLang === 'es' ? "📂 Todas las Categorías" : "📂 All Categories", 
+                "Destilados": "🥃 Destilados",
+                "Licores & Cremas": "🧊 Licores & Cremas", 
+                "Frutas/Frescos": "🍋 Frutas/Frescos", 
+                "Sirope/Insumos": "🍯 Sirope/Insumos", 
+                "Consumibles": "🧊 Consumibles", 
+                "General": "📦 General"
+            };
+
+            let filtroPairs = categoriasDisponibles.map(cat => `${cat}:${nombresCategorias[cat] || cat}`).join('|');
+
             let html = `
                 <div class="module-header-bar">
                     <h2 class="module-title-h2">${t('titleInsumos')} (${ses.insumos.length})</h2>
-                    <button class="btn-action-sm cyan" onclick="abrirModalImportar('insumos')">${t('importBtn')}</button>
+                    <div style="display:flex; gap:4px;">
+                        <button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button>
+                        <button class="btn-action-sm emerald" onclick="exportarInsumosASheet()">${t('exportSheetBtn')}</button>
+                        <button class="btn-action-sm cyan" onclick="dispararSelectorArchivo('insumos')">${t('importBtn')}</button>
+                    </div>
+                </div>
+                <div class="native-dropdown-container" id="dropInsumoFiltro" data-global-items="${filtroPairs}" style="z-index: 60;">
+                    <div class="native-dropdown-header" onclick="toggleNativeDropdown('dropInsumoFiltro', seleccionarFiltroInsumo)">
+                        <span>${nombresCategorias[insumoFiltroCategoria] || insumoFiltroCategoria}</span>
+                    </div>
                 </div>
                 <input type="text" class="search-input" placeholder="${t('searchInsumos')}" oninput="filtrarInsumos(this.value)">
                 <div id="listaInsumos" style="flex-grow:1; overflow-y:auto;">
             `;
-            if (ses.insumos.length === 0) {
-                html += `<p style="text-align:center; color:#94a3b8; margin-top:20px; font-size:8.5px;">${currentLang === 'es' ? 'Sin insumos cargados.' : 'No ingredients loaded.'}</p>`;
+
+            let filtrados = ses.insumos.filter(item => {
+                if (insumoFiltroCategoria === 'TODOS') return true;
+                let catItem = item.cat[currentLang] || item.cat.es || item.cat || "";
+                return catItem.trim().toLowerCase() === insumoFiltroCategoria.trim().toLowerCase();
+            });
+
+            if (filtrados.length === 0) {
+                html += `<p style="text-align:center; color:#94a3b8; margin-top:20px; font-size:8.5px;">${currentLang === 'es' ? 'Sin insumos en esta categoría.' : 'No ingredients in this category.'}</p>`;
             } else {
-                ses.insumos.forEach((item, idx) => {
-                    let costoOz30ml = item.contenido > 0 ? ((item.costo / item.contenido) * 30 * 1.03).toFixed(3) : '0.000';
-                    let nombreItem = item.nombre[currentLang] || item.nombre.es || item.nombre;
-                    let catItem = item.cat[currentLang] || item.cat.es || item.cat;
-                    let unidadItem = item.unidad[currentLang] || item.unidad.es || item.unidad;
-                    html += `
-                        <div class="insumo-card">
-                            <div class="insumo-info">
-                                <h4>${nombreItem}</h4>
-                                <span>${catItem} &bull; ${unidadItem} (${item.contenido}${unidadItem === 'Kg' || unidadItem === 'Gramo' || unidadItem === 'Gram' ? 'gr' : 'ml'})</span>
-                            </div>
-                            <div class="insumo-actions">
-                                <div><small style="font-size:6px; color:#94a3b8; display:block; text-align:right;">30ml/gr: $${costoOz30ml}</small></div>
-                                <div class="insumo-price">
-                                    <input type="number" step="0.5" value="${item.costo.toFixed(2)}" onchange="actualizarCostoInsumo(${idx}, this.value)">
-                                </div>
-                                <button class="btn-action-sm" onclick="abrirModalEditarInsumo(${idx})" title="Editar">✏️</button>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-            html += `</div>`;
-            container.innerHTML = html;
-        }
-
-        function actualizarCostoInsumo(idx, val) {
-            getActiveSession().insumos[idx].costo = parseFloat(val) || 0;
-            guardarDatosSesionActual();
-        }
-
-        function filtrarInsumos(filtro) {
-            let ses = getActiveSession();
-            const lista = document.getElementById('listaInsumos');
-            if (!lista) return;
-            let html = '';
-            ses.insumos.forEach((item, idx) => {
-                let nom = (item.nombre[currentLang] || item.nombre.es || '').toLowerCase();
-                let cat = (item.cat[currentLang] || item.cat.es || '').toLowerCase();
-                if (nom.includes(filtro.toLowerCase()) || cat.includes(filtro.toLowerCase())) {
+                filtrados.forEach((item) => {
+                    let idx = ses.insumos.indexOf(item);
                     let costoOz30ml = item.contenido > 0 ? ((item.costo / item.contenido) * 30 * 1.03).toFixed(3) : '0.000';
                     let nombreItem = item.nombre[currentLang] || item.nombre.es || item.nombre;
                     let catItem = item.cat[currentLang] || item.cat.es || item.cat;
@@ -1710,18 +1672,102 @@
                                     <input type="number" step="0.5" value="${item.costo.toFixed(2)}" onchange="actualizarCostoInsumo(${idx}, this.value)">
                                 </div>
                                 <button class="btn-action-sm" onclick="abrirModalEditarInsumo(${idx})" title="Editar">✏️</button>
+                                <button class="btn-icon-del" onclick="eliminarInsumoItem(${idx})" title="Eliminar">✕</button>
                             </div>
                         </div>
                     `;
-                }
+                });
+            }
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        function seleccionarFiltroInsumo(catVal) { insumoFiltroCategoria = catVal; abrirInsumos(); }
+
+        function exportarInsumosASheet() {
+            let ses = getActiveSession();
+            let csvContent = "Nombre,Categoria,Unidad,Contenido,CostoCompra\n";
+            ses.insumos.forEach(item => {
+                let nom = item.nombre[currentLang] || item.nombre.es || "";
+                let cat = item.cat[currentLang] || item.cat.es || "";
+                let und = item.unidad[currentLang] || item.unidad.es || "";
+                csvContent += `"${nom}","${cat}","${und}",${item.contenido},${item.costo}\n`;
             });
+
+            let blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            let url = URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            a.href = url;
+            a.download = `Insumos_${ses.brandName.replace(/\s+/g, '_')}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function eliminarInsumoItem(idx) {
+            let ses = getActiveSession();
+            let item = ses.insumos[idx];
+            let nombre = item ? (item.nombre[currentLang] || item.nombre.es || item.nombre) : '';
+            mostrarConfirmacion("Eliminar Insumo", currentLang === 'es' ? `¿Estás seguro de eliminar el insumo "${nombre}"?` : `Are you sure you want to delete "${nombre}"?`, () => {
+                ses.insumos.splice(idx, 1);
+                guardarDatosSesionActual();
+                abrirInsumos();
+            });
+        }
+
+        function actualizarCostoInsumo(idx, val) {
+            getActiveSession().insumos[idx].costo = parseFloat(val) || 0;
+            guardarDatosSesionActual();
+        }
+
+        function filtrarInsumos(filtro) {
+            let ses = getActiveSession();
+            const lista = document.getElementById('listaInsumos');
+            if (!lista) return;
+            let html = '';
+            
+            let filtrados = ses.insumos.filter(item => {
+                if (insumoFiltroCategoria !== 'TODOS') {
+                    let catItem = item.cat[currentLang] || item.cat.es || item.cat || "";
+                    if (catItem.trim().toLowerCase() !== insumoFiltroCategoria.trim().toLowerCase()) return false;
+                }
+                let nom = (item.nombre[currentLang] || item.nombre.es || '').toLowerCase();
+                let cat = (item.cat[currentLang] || item.cat.es || '').toLowerCase();
+                return nom.includes(filtro.toLowerCase()) || cat.includes(filtro.toLowerCase());
+            });
+
+            if (filtrados.length === 0) {
+                html += `<p style="text-align:center; color:#94a3b8; margin-top:20px; font-size:8.5px;">${currentLang === 'es' ? 'No se encontraron insumos.' : 'No ingredients found.'}</p>`;
+            } else {
+                filtrados.forEach((item) => {
+                    let idx = ses.insumos.indexOf(item);
+                    let costoOz30ml = item.contenido > 0 ? ((item.costo / item.contenido) * 30 * 1.03).toFixed(3) : '0.000';
+                    let nombreItem = item.nombre[currentLang] || item.nombre.es || item.nombre;
+                    let catItem = item.cat[currentLang] || item.cat.es || item.cat;
+                    let unidadItem = item.unidad[currentLang] || item.unidad.es || item.unidad;
+                    html += `
+                        <div class="insumo-card">
+                            <div class="insumo-info">
+                                <h4>${nombreItem}</h4>
+                                <span>${catItem} &bull; ${unidadItem} (${item.contenido}${unidadItem === 'Kg' || unidadItem === 'Gramo' ? 'gr' : 'ml'})</span>
+                            </div>
+                            <div class="insumo-actions">
+                                <div><small style="font-size:6px; color:#94a3b8; display:block; text-align:right;">30ml/gr: $${costoOz30ml}</small></div>
+                                <div class="insumo-price">
+                                    <input type="number" step="0.5" value="${item.costo.toFixed(2)}" onchange="actualizarCostoInsumo(${idx}, this.value)">
+                                </div>
+                                <button class="btn-action-sm" onclick="abrirModalEditarInsumo(${idx})" title="Editar">✏️</button>
+                                <button class="btn-icon-del" onclick="eliminarInsumoItem(${idx})" title="Eliminar">✕</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
             lista.innerHTML = html;
         }
 
-        function seleccionarCatInsumo(catVal) {
-            document.getElementById('labelCatInsumo').innerText = catVal;
-        }
-
+        function seleccionarCatInsumo(catVal) { document.getElementById('labelCatInsumo').innerText = catVal; }
         function seleccionarUnidInsumo(unidVal) {
             document.getElementById('labelUnidInsumo').innerText = unidVal;
             actualizarLabelContenidoSegunUnidad(unidVal);
@@ -1730,24 +1776,14 @@
         function actualizarLabelContenidoSegunUnidad(unidVal) {
             const lbl = document.getElementById('labelContenidoDinamico');
             if (!lbl) return;
-            if (unidVal === 'Kg' || unidVal === 'Gramo' || unidVal === 'Gram') {
-                lbl.innerText = currentLang === 'es' ? 'CONTENIDO (GR):' : 'CONTENT (GR):';
-            } else if (unidVal === 'Unidad' || unidVal === 'Lata' || unidVal === 'Unit' || unidVal === 'Can') {
-                lbl.innerText = currentLang === 'es' ? 'CONTENIDO (UNIDADES):' : 'CONTENT (UNITS):';
-            } else {
-                lbl.innerText = currentLang === 'es' ? 'CONTENIDO (ML):' : 'CONTENT (ML):';
-            }
+            if (unidVal === 'Kg' || unidVal === 'Gramo') lbl.innerText = currentLang === 'es' ? 'CONTENIDO (GR):' : 'CONTENT (GR):';
+            else if (unidVal === 'Unidad' || unidVal === 'Lata') lbl.innerText = currentLang === 'es' ? 'CONTENIDO (UNIDADES):' : 'CONTENT (UNITS):';
+            else lbl.innerText = currentLang === 'es' ? 'CONTENIDO (ML):' : 'CONTENT (ML):';
         }
 
         function limpiarFormularioInsumo() {
             document.getElementById('editInsumoIndex').value = "-1";
             document.getElementById('modalInsumoTitle').innerText = currentLang === 'es' ? "Nuevo Insumo / Botella" : "New Ingredient / Bottle";
-            document.getElementById('lblInsumoName').innerText = currentLang === 'es' ? "Nombre:" : "Name:";
-            document.getElementById('lblInsumoCat').innerText = currentLang === 'es' ? "Categoría:" : "Category:";
-            document.getElementById('lblInsumoUnit').innerText = currentLang === 'es' ? "Unidad:" : "Unit:";
-            document.getElementById('lblInsumoCost').innerText = currentLang === 'es' ? "Costo Compra ($):" : "Purchase Cost ($):";
-            document.getElementById('btnSaveInsumo').innerText = currentLang === 'es' ? "💾 Guardar Insumo" : "💾 Save Ingredient";
-
             document.getElementById('nuevoInsumoNombre').value = "";
             document.getElementById('labelCatInsumo').innerText = "Destilados";
             document.getElementById('labelUnidInsumo').innerText = "Botella";
@@ -1771,12 +1807,6 @@
 
             document.getElementById('editInsumoIndex').value = idx;
             document.getElementById('modalInsumoTitle').innerText = currentLang === 'es' ? "✏️ Editar Insumo" : "✏️ Edit Ingredient";
-            document.getElementById('lblInsumoName').innerText = currentLang === 'es' ? "Nombre:" : "Name:";
-            document.getElementById('lblInsumoCat').innerText = currentLang === 'es' ? "Categoría:" : "Category:";
-            document.getElementById('lblInsumoUnit').innerText = currentLang === 'es' ? "Unidad:" : "Unit:";
-            document.getElementById('lblInsumoCost').innerText = currentLang === 'es' ? "Costo Compra ($):" : "Purchase Cost ($):";
-            document.getElementById('btnSaveInsumo').innerText = currentLang === 'es' ? "💾 Guardar Insumo" : "💾 Save Ingredient";
-
             document.getElementById('nuevoInsumoNombre').value = item.nombre[currentLang] || item.nombre.es || item.nombre || "";
             document.getElementById('labelCatInsumo').innerText = catStr;
             document.getElementById('labelUnidInsumo').innerText = unidStr;
@@ -1795,17 +1825,10 @@
             const unidad = document.getElementById('labelUnidInsumo').innerText;
             const contenido = parseFloat(document.getElementById('nuevoInsumoContenido').value) || 750;
             const costo = parseFloat(document.getElementById('nuevoInsumoCosto').value) || 0.00;
-            if (!nombre) { alert(currentLang === 'es' ? "Ingresa un nombre." : "Enter a name."); return; }
+            if (!nombre) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ingresa un nombre." : "Enter a name.", () => {}); return; }
 
             if (editIdx >= 0) {
-                ses.insumos[editIdx] = {
-                    ...ses.insumos[editIdx],
-                    nombre: { es: nombre, en: nombre },
-                    cat: { es: cat, en: cat },
-                    unidad: { es: unidad, en: unidad },
-                    contenido,
-                    costo
-                };
+                ses.insumos[editIdx] = { ...ses.insumos[editIdx], nombre: { es: nombre, en: nombre }, cat: { es: cat, en: cat }, unidad: { es: unidad, en: unidad }, contenido, costo };
             } else {
                 ses.insumos.push({
                     id: "INS-" + Math.random().toString(36).substring(2,7),
@@ -1829,7 +1852,10 @@
                 container.innerHTML = `
                     <div class="module-header-bar">
                         <h2 class="module-title-h2">${currentLang === 'es' ? 'Recetas' : 'Recipes'}</h2>
-                        <button class="btn-action-sm cyan" onclick="abrirModalImportar('recetas')">${t('importBtn')}</button>
+                        <div style="display:flex; gap:4px;">
+                            <button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button>
+                            <button class="btn-action-sm cyan" onclick="dispararSelectorArchivo('recetas')">${t('importBtn')}</button>
+                        </div>
                     </div>
                     <p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:8.5px;">${currentLang === 'es' ? 'Sin recetas en este negocio. Toca el botón <b>+</b> abajo para agregar.' : 'No recipes in this business. Tap the <b>+</b> button below to add.'}</p>
                 `;
@@ -1872,8 +1898,10 @@
                 <div class="module-header-bar">
                     <h2 class="module-title-h2">${t('titleEscandallo')}</h2>
                     <div style="display:flex; gap:4px;">
-                        <button class="btn-action-sm cyan" onclick="abrirModalImportar('recetas')">${t('importBtn')}</button>
+                        <button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button>
+                        <button class="btn-action-sm cyan" onclick="dispararSelectorArchivo('recetas')">${t('importBtn')}</button>
                         <button class="btn-action-sm" onclick="abrirModalEditarCoctel(${coctelSeleccionadoIdx})">${t('btnEditCoctel')}</button>
+                        <button class="btn-action-sm" style="background:rgba(239,68,68,0.2); border-color:rgba(239,68,68,0.4); color:#f87171;" onclick="eliminarRecetaActual(${coctelSeleccionadoIdx})" title="Eliminar Receta">🗑️</button>
                     </div>
                 </div>
 
@@ -1914,6 +1942,18 @@
             `;
         }
 
+        function eliminarRecetaActual(idx) {
+            let ses = getActiveSession();
+            let c = ses.cocteles[idx];
+            let nombre = c ? (c.nombre[currentLang] || c.nombre.es || c.nombre) : '';
+            mostrarConfirmacion("Eliminar Receta", currentLang === 'es' ? `¿Estás seguro de eliminar la receta "${nombre}"?` : `Are you sure you want to delete "${nombre}"?`, () => {
+                ses.cocteles.splice(idx, 1);
+                coctelSeleccionadoIdx = 0;
+                guardarDatosSesionActual();
+                abrirEscandallo();
+            });
+        }
+
         function seleccionarCoctelIdx(idxVal) {
             coctelSeleccionadoIdx = parseInt(idxVal);
             abrirEscandallo();
@@ -1921,39 +1961,48 @@
 
         function actualizarPVP(idx, val) { getActiveSession().cocteles[idx].pvp = parseFloat(val) || 0; guardarDatosSesionActual(); abrirEscandallo(); }
         function actualizarCantIng(cIdx, iIdx, val) { getActiveSession().cocteles[cIdx].ingredientes[iIdx].cant = parseFloat(val) || 0; guardarDatosSesionActual(); abrirEscandallo(); }
+        function seleccionarMetodoCoctel(metodoVal) { document.getElementById('labelMetodoCoctel').innerText = metodoVal; }
 
-        function seleccionarMetodoCoctel(metodoVal) {
-            document.getElementById('labelMetodoCoctel').innerText = metodoVal;
-        }
-
-        function abrirModalImportar(tipo) {
+        function dispararSelectorArchivo(tipo) {
             tipoImportacionActual = tipo;
-            const title = document.getElementById('modalImportTitle');
-            const desc = document.getElementById('modalImportDesc');
-            const txt = document.getElementById('txtCsvImport');
-            
-            if (tipo === 'insumos') {
-                title.innerText = currentLang === 'es' ? "📥 Importar Insumos (CSV / Excel)" : "📥 Import Ingredients (CSV / Excel)";
-                desc.innerText = currentLang === 'es' ? "Formato por línea: Nombre, Categoría, Unidad, Contenido(ml/gr), Costo($)" : "Format per line: Name, Category, Unit, Content(ml/gr), Cost($)";
-                txt.value = "Vodka Absolut,Destilados,Botella,750,18.00\nZumo Naranja,Frutas,Litro,1000,3.00";
-            } else {
-                title.innerText = currentLang === 'es' ? "📥 Importar Recetas (CSV / Excel)" : "📥 Import Recipes (CSV / Excel)";
-                desc.innerText = currentLang === 'es' ? "Formato por línea: Nombre, Cristalería, Método, Descripción, PVP, [ID_Insumo:Cantidad:Unidad,...]" : "Format per line: Name, Glassware, Method, Description, Price, [Ing_ID:Qty:Unit,...]";
-                txt.value = "Negroni,Vaso Lowball,Refrescado,Clásico aperitivo amargo,8.00,INS-001:30:ml|INS-012:30:ml";
-            }
-            document.getElementById('modalCsvImport').style.display = 'flex';
+            document.getElementById('fileSelectorInput').click();
         }
 
-        function ejecutarImportacionCsv() {
+        function procesarArchivoSeleccionado(event) {
+            const archivo = event.target.files[0];
+            if (!archivo) return;
+
+            let nombreArchivo = archivo.name.toLowerCase();
+            if (nombreArchivo.endsWith('.xlsx') || nombreArchivo.endsWith('.xls')) {
+                mostrarConfirmacion(
+                    "Formato no compatible", 
+                    currentLang === 'es' 
+                        ? "⚠️ Los archivos de Excel (.xlsx) no se pueden leer directamente como texto. Por favor, descarga tu Google Sheets como archivo CSV (.csv) e inténtalo de nuevo." 
+                        : "⚠️ Excel files (.xlsx) cannot be read directly. Please download your Google Sheet as a CSV file and try again.", 
+                    () => {}
+                );
+                event.target.value = "";
+                return;
+            }
+
+            const lector = new FileReader();
+            lector.onload = function(e) {
+                let contenido = e.target.result;
+                ejecutarImportacionDatos(contenido);
+            };
+            lector.readAsText(archivo);
+            event.target.value = "";
+        }
+
+        function ejecutarImportacionDatos(text) {
             let ses = getActiveSession();
-            let text = document.getElementById('txtCsvImport').value.trim();
-            if (!text) { alert(currentLang === 'es' ? "Ingresa datos para importar." : "Enter data to import."); return; }
-            let lineas = text.split('\n');
+            let lineas = text.trim().split('\n');
             let importados = 0;
 
             if (tipoImportacionActual === 'insumos') {
-                lineas.forEach(linea => {
-                    let partes = linea.split(',').map(p => p.trim());
+                lineas.forEach((linea, index) => {
+                    if (index === 0 && linea.toLowerCase().includes('nombre')) return; // Omitir cabecera
+                    let partes = linea.split(/[,\t]+/).map(p => p.replace(/^["']|["']$/g, '').trim());
                     if (partes.length >= 5) {
                         ses.insumos.push({
                             id: "INS-" + Math.random().toString(36).substring(2,7),
@@ -1968,20 +2017,18 @@
                     }
                 });
                 guardarDatosSesionActual();
-                cerrarModal('modalCsvImport');
-                alert(currentLang === 'es' ? `✅ Se importaron ${importados} insumos correctamente.` : `✅ Imported ${importados} ingredients successfully.`);
+                mostrarConfirmacion("Importación Exitosa", currentLang === 'es' ? `✅ Se importaron ${importados} insumos correctamente.` : `✅ Imported ${importados} ingredients successfully.`, () => {});
                 abrirInsumos();
-            } else {
-                lineas.forEach(linea => {
-                    let partes = linea.split(',').map(p => p.trim());
+            } else if (tipoImportacionActual === 'recetas') {
+                lineas.forEach((linea, index) => {
+                    if (index === 0 && linea.toLowerCase().includes('nombre')) return;
+                    let partes = linea.split(/[,\t]+/).map(p => p.replace(/^["']|["']$/g, '').trim());
                     if (partes.length >= 6) {
                         let ingBrutos = partes[5].split('|');
                         let ingredientes = [];
                         ingBrutos.forEach(ib => {
                             let sub = ib.split(':');
-                            if(sub.length >= 3) {
-                                ingredientes.push({ id: sub[0], cant: parseFloat(sub[1])||30, unid: sub[2] });
-                            }
+                            if(sub.length >= 3) ingredientes.push({ id: sub[0], cant: parseFloat(sub[1])||30, unid: sub[2] });
                         });
                         ses.cocteles.push({
                             nombre: { es: partes[0], en: partes[0] },
@@ -1995,29 +2042,49 @@
                     }
                 });
                 guardarDatosSesionActual();
-                cerrarModal('modalCsvImport');
-                alert(currentLang === 'es' ? `✅ Se importaron ${importados} recetas correctamente.` : `✅ Imported ${importados} recipes successfully.`);
+                mostrarConfirmacion("Importación Exitosa", currentLang === 'es' ? `✅ Se importaron ${importados} recetas correctamente.` : `✅ Imported ${importados} recipes successfully.`, () => {});
                 abrirEscandallo();
+            } else if (tipoImportacionActual === 'backup') {
+                try {
+                    let parsed = JSON.parse(text);
+                    if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                        appSessions = parsed;
+                        guardarDatosSesionActual();
+                        mostrarConfirmacion("Restauración", currentLang === 'es' ? "✅ ¡Backup restaurado con éxito!" : "✅ Backup restored successfully!", () => {
+                            mostrarSelectorSesiones();
+                        });
+                    }
+                } catch(err) {
+                    mostrarConfirmacion("Error", currentLang === 'es' ? "❌ Archivo de respaldo inválido." : "❌ Invalid backup file.", () => {});
+                }
             }
+        }
+
+        function exportarBackupArchivo() {
+            let backupJson = JSON.stringify(appSessions, null, 2);
+            let blob = new Blob([backupJson], { type: 'application/json' });
+            let url = URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            a.href = url;
+            a.download = `BarCraft_Backup_${currentSessionId}_${new Date().toISOString().slice(0,10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function dispararRestaurarBackup() {
+            tipoImportacionActual = 'backup';
+            document.getElementById('fileSelectorInput').click();
         }
 
         function abrirModalCoctel() {
             let ses = getActiveSession();
             if (ses.insumos.length === 0) {
-                alert(currentLang === 'es' ? "Primero debes crear al menos un insumo." : "You must create at least one ingredient first.");
-                abrirInsumos();
+                mostrarConfirmacion("Aviso", currentLang === 'es' ? "Primero debes crear al menos un insumo." : "You must create at least one ingredient first.", () => { abrirInsumos(); });
                 return;
             }
             document.getElementById('modalCoctelTitle').innerText = currentLang === 'es' ? "Nueva Receta / Cóctel" : "New Recipe / Cocktail";
-            document.getElementById('lblCoctelName').innerText = currentLang === 'es' ? "Nombre:" : "Name:";
-            document.getElementById('lblCoctelGlass').innerText = currentLang === 'es' ? "Cristalería:" : "Glassware:";
-            document.getElementById('lblCoctelMethod').innerText = currentLang === 'es' ? "Método de Elaboración:" : "Preparation Method:";
-            document.getElementById('lblCoctelDesc').innerText = currentLang === 'es' ? "Descripción / Perfil de Sabor:" : "Description / Flavor Profile:";
-            document.getElementById('lblCoctelPvp').innerText = currentLang === 'es' ? "PVP Venta ($):" : "Menu Price ($):";
-            document.getElementById('lblCoctelIngs').innerText = currentLang === 'es' ? "Ingredientes:" : "Ingredients:";
-            document.getElementById('btnAddIngModal').innerText = currentLang === 'es' ? "+ Agregar" : "+ Add";
-            document.getElementById('btnSaveCoctel').innerText = currentLang === 'es' ? "💾 Guardar Receta" : "💾 Save Recipe";
-
             document.getElementById('editCoctelIndex').value = "-1";
             document.getElementById('nuevoCoctelNombre').value = "";
             document.getElementById('nuevoCoctelGlass').value = "";
@@ -2038,15 +2105,6 @@
             if (!c) return;
 
             document.getElementById('modalCoctelTitle').innerText = currentLang === 'es' ? "Editar Receta" : "Edit Recipe";
-            document.getElementById('lblCoctelName').innerText = currentLang === 'es' ? "Nombre:" : "Name:";
-            document.getElementById('lblCoctelGlass').innerText = currentLang === 'es' ? "Cristalería:" : "Glassware:";
-            document.getElementById('lblCoctelMethod').innerText = currentLang === 'es' ? "Método de Elaboración:" : "Preparation Method:";
-            document.getElementById('lblCoctelDesc').innerText = currentLang === 'es' ? "Descripción / Perfil de Sabor:" : "Description / Flavor Profile:";
-            document.getElementById('lblCoctelPvp').innerText = currentLang === 'es' ? "PVP Venta ($):" : "Menu Price ($):";
-            document.getElementById('lblCoctelIngs').innerText = currentLang === 'es' ? "Ingredientes:" : "Ingredients:";
-            document.getElementById('btnAddIngModal').innerText = currentLang === 'es' ? "+ Agregar" : "+ Add";
-            document.getElementById('btnSaveCoctel').innerText = currentLang === 'es' ? "💾 Guardar Receta" : "💾 Save Recipe";
-
             document.getElementById('editCoctelIndex').value = idx;
             document.getElementById('nuevoCoctelNombre').value = c.nombre[currentLang] || c.nombre.es || "";
             document.getElementById('nuevoCoctelGlass').value = c.cristaleria[currentLang] || c.cristaleria.es || "";
@@ -2057,10 +2115,7 @@
 
             const container = document.getElementById('contenedorIngredientesModal');
             container.innerHTML = '';
-            c.ingredientes.forEach(ing => {
-                agregarFilaIngredienteModal(ing.id, ing.cant, ing.unid);
-            });
-
+            c.ingredientes.forEach(ing => { agregarFilaIngredienteModal(ing.id, ing.cant, ing.unid); });
             document.getElementById('modalNuevoCoctel').style.display = 'flex';
         }
 
@@ -2073,7 +2128,6 @@
             
             const insObj = ses.insumos.find(i => i.id === defId) || ses.insumos[0];
             const insName = insObj ? (insObj.nombre[currentLang] || insObj.nombre.es) : (currentLang === 'es' ? 'Seleccionar insumo...' : 'Select ingredient...');
-
             let insPairs = ses.insumos.map(i => `${i.id}:${i.nombre[currentLang] || i.nombre.es}`).join('|');
 
             const div = document.createElement('div');
@@ -2102,24 +2156,16 @@
 
         function seleccionarInsumoFila(dropId, insId, insName) {
             const drop = document.getElementById(dropId);
-            if (drop) {
-                drop.setAttribute('data-inshid', insId);
-                document.getElementById('lbl-' + dropId).innerText = `🍸 ${insName}`;
-            }
+            if (drop) { drop.setAttribute('data-inshid', insId); document.getElementById('lbl-' + dropId).innerText = `🍸 ${insName}`; }
         }
 
         function seleccionarUnidFila(dropId, unidad) {
             const drop = document.getElementById(dropId);
-            if (drop) {
-                drop.setAttribute('data-unidval', unidad);
-                document.getElementById('lbl-' + dropId).innerText = unidad;
-            }
+            if (drop) { drop.setAttribute('data-unidval', unidad); document.getElementById('lbl-' + dropId).innerText = unidad; }
         }
 
         function cerrarModalIfOutside(event, modalId) {
-            if (event.target.id === modalId) {
-                cerrarModal(modalId);
-            }
+            if (event.target.id === modalId) cerrarModal(modalId);
         }
 
         function guardarCoctelModal() {
@@ -2130,7 +2176,7 @@
             const metodo = document.getElementById('labelMetodoCoctel').innerText;
             const descripcion = document.getElementById('nuevoCoctelDesc').value.trim();
             const pvp = parseFloat(document.getElementById('nuevoCoctelPvp').value) || 0.00;
-            if (!nombre) { alert(currentLang === 'es' ? "Ingresa un nombre." : "Enter a name."); return; }
+            if (!nombre) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ingresa un nombre." : "Enter a name.", () => {}); return; }
             
             const filas = document.querySelectorAll('#contenedorIngredientesModal .event-recipe-row');
             let ingredientes = [];
@@ -2142,7 +2188,7 @@
                 let unid = dropUnid ? dropUnid.getAttribute('data-unidval') : 'ml';
                 if (id && cant > 0) ingredientes.push({ id, cant, unid });
             });
-            if (ingredientes.length === 0) { alert(currentLang === 'es' ? "Agrega al menos 1 ingrediente." : "Add at least 1 ingredient."); return; }
+            if (ingredientes.length === 0) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Agrega al menos 1 ingrediente." : "Add at least 1 ingredient.", () => {}); return; }
 
             if (editIdx >= 0) {
                 ses.cocteles[editIdx] = { nombre: { es: nombre, en: nombre }, cristaleria: { es: glass, en: glass }, metodo: { es: metodo, en: metodo }, descripcion, pvp, ingredientes };
@@ -2159,7 +2205,7 @@
 
         function abrirLab() {
             activeModule = 'lab';
-            setActiveNav('');
+            setActiveNav('nav-lab');
             actualizarBotonFlotante();
             let ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
@@ -2167,8 +2213,13 @@
 
             let categoriasDisponibles = ["TODOS", "Sirope Artesanal", "Bitter", "Premade", "Shrub", "Cordial", "Infusión"];
             let nombresCategorias = {
-                "TODOS": t('allCategories'), "Sirope Artesanal": t('siropeArt'),
-                "Bitter": t('bitter'), "Premade": t('premade'), "Shrub": t('shrub'), "Cordial": t('cordial'), "Infusión": t('infusion')
+                "TODOS": currentLang === 'es' ? "📂 Todas las Categorías" : "📂 All Categories", 
+                "Sirope Artesanal": currentLang === 'es' ? "🍯 Sirope Artesanal" : "🍯 Craft Syrup",
+                "Bitter": currentLang === 'es' ? "💧 Bitter" : "💧 Bitter", 
+                "Premade": currentLang === 'es' ? "🧊 Premade" : "🧊 Premade", 
+                "Shrub": currentLang === 'es' ? "🌿 Shrub" : "🌿 Shrub", 
+                "Cordial": currentLang === 'es' ? "🍷 Cordial" : "🍷 Cordial", 
+                "Infusión": currentLang === 'es' ? "☕ Infusión" : "☕ Infusion"
             };
 
             let filtroPairs = categoriasDisponibles.map(cat => `${cat}:${nombresCategorias[cat] || cat}`).join('|');
@@ -2176,6 +2227,7 @@
             let html = `
                 <div class="module-header-bar">
                     <h2 class="module-title-h2">${t('labTitle')}</h2>
+                    <button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button>
                 </div>
                 <div class="native-dropdown-container" id="dropLabFiltro" data-global-items="${filtroPairs}" style="z-index: 60;">
                     <div class="native-dropdown-header" onclick="toggleNativeDropdown('dropLabFiltro', seleccionarFiltroLab)">
@@ -2185,7 +2237,11 @@
                 <div style="flex-grow:1; overflow-y:auto; display:flex; flex-direction:column; gap:5px; padding-top:2px;" id="listaLabCards">
             `;
 
-            let filtrados = ses.labPrep.filter(item => labFiltroCategoria === 'TODOS' || item.cat === labFiltroCategoria);
+            let filtrados = ses.labPrep.filter(item => {
+                if (labFiltroCategoria === 'TODOS') return true;
+                return (item.cat || "").trim().toLowerCase() === labFiltroCategoria.trim().toLowerCase();
+            });
+
             if (filtrados.length === 0) {
                 html += `<p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:8.5px;">${t('noLabPreps')}</p>`;
             } else {
@@ -2193,15 +2249,17 @@
                     let realIdx = ses.labPrep.indexOf(lab);
                     const calcLab = calcularDatosLab(lab, ses.insumos);
                     let listaIngHTML = '';
-                    lab.ingredientes.forEach(ing => {
-                        const ins = ses.insumos.find(x => x.id === ing.id);
-                        if (ins) {
-                            let costoUnit = ins.contenido > 0 ? (ins.costo / ins.contenido) : 0;
-                            let costoLin = costoUnit * ing.cant;
-                            let nombreIns = ins.nombre[currentLang] || ins.nombre.es || ins.nombre;
-                            listaIngHTML += `<div class="ing-item"><span>${nombreIns}</span><div style="display:flex; align-items:center; gap:5px;"><span style="font-size:7.5px; color:var(--primary-light);">${ing.cant} ${ing.unid}</span><strong style="color:#cbd5e1; width:34px; text-align:right;">$${costoLin.toFixed(2)}</strong></div></div>`;
-                        }
-                    });
+                    if (lab.ingredientes && Array.isArray(lab.ingredientes)) {
+                        lab.ingredientes.forEach(ing => {
+                            const ins = ses.insumos.find(x => x.id === ing.id);
+                            if (ins) {
+                                let costoUnit = ins.contenido > 0 ? (ins.costo / ins.contenido) : 0;
+                                let costoLin = costoUnit * ing.cant;
+                                let nombreIns = ins.nombre[currentLang] || ins.nombre.es || ins.nombre;
+                                listaIngHTML += `<div class="ing-item"><span>${nombreIns}</span><div style="display:flex; align-items:center; gap:5px;"><span style="font-size:7.5px; color:var(--primary-light);">${ing.cant} ${ing.unid}</span><strong style="color:#cbd5e1; width:34px; text-align:right;">$${costoLin.toFixed(2)}</strong></div></div>`;
+                            }
+                        });
+                    }
                     html += `
                         <div class="escandallo-card" style="margin-bottom:0;">
                             <div class="escandallo-header">
@@ -2230,29 +2288,13 @@
             container.innerHTML = html;
         }
 
-        function seleccionarFiltroLab(catVal) {
-            labFiltroCategoria = catVal;
-            abrirLab();
-        }
-
-        function seleccionarLabCatModal(catVal) {
-            document.getElementById('labelLabCatModal').innerText = catVal;
-        }
+        function seleccionarFiltroLab(catVal) { labFiltroCategoria = catVal; abrirLab(); }
+        function seleccionarLabCatModal(catVal) { document.getElementById('labelLabCatModal').innerText = catVal; }
 
         function abrirModalLab() {
             let ses = getActiveSession();
-            if (ses.insumos.length === 0) { alert(currentLang === 'es' ? "Crea insumos primero." : "Create ingredients first."); abrirInsumos(); return; }
+            if (ses.insumos.length === 0) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Crea insumos primero." : "Create ingredients first.", () => { abrirInsumos(); }); return; }
             document.getElementById('modalLabTitle').innerText = currentLang === 'es' ? "🔬 Nueva Preparación" : "🔬 New Preparation";
-            document.getElementById('lblLabName').innerText = currentLang === 'es' ? "Nombre Lab:" : "Lab Name:";
-            document.getElementById('lblLabCat').innerText = currentLang === 'es' ? "Categoría:" : "Category:";
-            document.getElementById('lblLabRend').innerText = currentLang === 'es' ? "Rendimiento Total:" : "Total Yield:";
-            document.getElementById('lblLabUnit').innerText = currentLang === 'es' ? "Unidad de Medida:" : "Unit of Measure:";
-            document.getElementById('lblLabLife').innerText = currentLang === 'es' ? "Vida Útil:" : "Shelf Life:";
-            document.getElementById('lblLabBatchIngs').innerText = currentLang === 'es' ? "Ingredientes del Batch:" : "Batch Ingredients:";
-            document.getElementById('btnAddLabIng').innerText = currentLang === 'es' ? "+ Ingrediente" : "+ Ingredient";
-            document.getElementById('lblLabProc').innerText = currentLang === 'es' ? "Procedimiento:" : "Procedure:";
-            document.getElementById('btnSaveLab').innerText = currentLang === 'es' ? "💾 Guardar Preparación" : "💾 Save Preparation";
-
             document.getElementById('editLabIndex').value = "-1";
             document.getElementById('labNombre').value = "";
             document.getElementById('labelLabCatModal').innerText = "Sirope Artesanal";
@@ -2273,16 +2315,6 @@
             let lab = ses.labPrep[idx];
             if (!lab) return;
             document.getElementById('modalLabTitle').innerText = currentLang === 'es' ? "✏️ Editar Preparación" : "✏️ Edit Preparation";
-            document.getElementById('lblLabName').innerText = currentLang === 'es' ? "Nombre Lab:" : "Lab Name:";
-            document.getElementById('lblLabCat').innerText = currentLang === 'es' ? "Categoría:" : "Category:";
-            document.getElementById('lblLabRend').innerText = currentLang === 'es' ? "Rendimiento Total:" : "Total Yield:";
-            document.getElementById('lblLabUnit').innerText = currentLang === 'es' ? "Unidad de Medida:" : "Unit of Measure:";
-            document.getElementById('lblLabLife').innerText = currentLang === 'es' ? "Vida Útil:" : "Shelf Life:";
-            document.getElementById('lblLabBatchIngs').innerText = currentLang === 'es' ? "Ingredientes del Batch:" : "Batch Ingredients:";
-            document.getElementById('btnAddLabIng').innerText = currentLang === 'es' ? "+ Ingrediente" : "+ Ingredient";
-            document.getElementById('lblLabProc').innerText = currentLang === 'es' ? "Procedimiento:" : "Procedure:";
-            document.getElementById('btnSaveLab').innerText = currentLang === 'es' ? "💾 Guardar Preparación" : "💾 Save Preparation";
-
             document.getElementById('editLabIndex').value = idx;
             document.getElementById('labNombre').value = lab.nombre || "";
             document.getElementById('labelLabCatModal').innerText = lab.cat || "Sirope Artesanal";
@@ -2334,30 +2366,28 @@
 
         function seleccionarInsumoLabFila(dropId, insId, insName) {
             const drop = document.getElementById(dropId);
-            if (drop) {
-                drop.setAttribute('data-inshid', insId);
-                document.getElementById('lbl-' + dropId).innerText = `🍸 ${insName}`;
-            }
+            if (drop) { drop.setAttribute('data-inshid', insId); document.getElementById('lbl-' + dropId).innerText = `🍸 ${insName}`; }
         }
 
         function seleccionarUnidLabFila(dropId, unidad) {
             const drop = document.getElementById(dropId);
-            if (drop) {
-                drop.setAttribute('data-unidval', unidad);
-                document.getElementById('lbl-' + dropId).innerText = unidad;
-            }
+            if (drop) { drop.setAttribute('data-unidval', unidad); document.getElementById('lbl-' + dropId).innerText = unidad; }
         }
 
         function guardarLabModal() {
             let ses = getActiveSession();
             const editIdx = parseInt(document.getElementById('editLabIndex').value);
             const nombre = document.getElementById('labNombre').value.trim();
-            const cat = document.getElementById('labelLabCatModal').innerText;
+            const cat = document.getElementById('labelLabCatModal').innerText.trim();
             const rendimiento = parseFloat(document.getElementById('labRendimiento').value) || 1000;
             const unidadMedida = document.getElementById('labUnidadMedida').value.trim() || "ml";
             const shelfLife = document.getElementById('labShelfLife').value.trim() || "N/A";
             const procedimiento = document.getElementById('labProcedimiento').value.trim();
-            if (!nombre) { alert(currentLang === 'es' ? "Ingresa un nombre." : "Enter a name."); return; }
+            
+            if (!nombre) { 
+                mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ingresa un nombre para la preparación." : "Enter a preparation name.", () => {}); 
+                return; 
+            }
 
             const filas = document.querySelectorAll('#contenedorIngredientesLab .event-recipe-row');
             let ingredientes = [];
@@ -2367,13 +2397,23 @@
                 let cant = parseFloat(f.querySelector('.inp-cant-lab').value) || 0;
                 let dropUnid = f.querySelectorAll('.native-dropdown-container')[1];
                 let unid = dropUnid ? dropUnid.getAttribute('data-unidval') : 'ml';
-                if (cant > 0) ingredientes.push({ id, cant, unid });
+                if (id && cant > 0) ingredientes.push({ id, cant, unid });
             });
-            if (ingredientes.length === 0) { alert(currentLang === 'es' ? "Agrega al menos 1 ingrediente." : "Add at least 1 ingredient."); return; }
+
+            if (ingredientes.length === 0) { 
+                mostrarConfirmacion("Aviso", currentLang === 'es' ? "Agrega al menos 1 ingrediente válido." : "Add at least 1 valid ingredient.", () => {}); 
+                return; 
+            }
+
             if (!ses.labPrep) ses.labPrep = [];
 
-            if (editIdx >= 0) ses.labPrep[editIdx] = { nombre, cat, rendimiento, unidadMedida, shelfLife, procedimiento, ingredientes };
-            else ses.labPrep.push({ nombre, cat, rendimiento, unidadMedida, shelfLife, procedimiento, ingredientes });
+            let objetoLab = { nombre, cat, rendimiento, unidadMedida, shelfLife, procedimiento, ingredientes };
+
+            if (editIdx >= 0) {
+                ses.labPrep[editIdx] = objetoLab;
+            } else {
+                ses.labPrep.push(objetoLab);
+            }
 
             guardarDatosSesionActual();
             cerrarModal('modalLabPrep');
@@ -2382,11 +2422,11 @@
 
         function eliminarLabItem(idx) {
             let ses = getActiveSession();
-            if (confirm(currentLang === 'es' ? "¿Estás seguro de eliminar esta preparación?" : "Are you sure you want to delete this preparation?")) {
+            mostrarConfirmacion("Eliminar Preparación", currentLang === 'es' ? "¿Estás seguro de eliminar esta preparación?" : "Are you sure you want to delete this preparation?", () => {
                 ses.labPrep.splice(idx, 1);
                 guardarDatosSesionActual();
                 abrirLab();
-            }
+            });
         }
 
         function abrirResumen() {
@@ -2396,7 +2436,7 @@
             let ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
             if (ses.cocteles.length === 0) {
-                container.innerHTML = `<div class="module-header-bar"><h2 class="module-title-h2">${t('titleResumen')}</h2></div><p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:8.5px;">${currentLang === 'es' ? 'Sin recetas.' : 'No recipes.'}</p>`;
+                container.innerHTML = `<div class="module-header-bar"><h2 class="module-title-h2">${t('titleResumen')}</h2><button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button></div><p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:8.5px;">${currentLang === 'es' ? 'Sin recetas.' : 'No recipes.'}</p>`;
                 return;
             }
             let sumaDc = 0, sumaMargen = 0, tarjetasHTML = '';
@@ -2421,7 +2461,7 @@
             const avgDc = ses.cocteles.length > 0 ? sumaDc / ses.cocteles.length : 0;
             const avgMar = ses.cocteles.length > 0 ? sumaMargen / ses.cocteles.length : 0;
             container.innerHTML = `
-                <div class="module-header-bar"><h2 class="module-title-h2">${t('titleResumen')}</h2></div>
+                <div class="module-header-bar"><h2 class="module-title-h2">${t('titleResumen')}</h2><button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button></div>
                 <div class="resumen-kpi-grid">
                     <div class="kpi-box"><span>${t('avgDrinkCost')}</span><strong style="color:${avgDc <= 28 ? '#34d399' : '#f87171'};">${avgDc.toFixed(1)}%</strong></div>
                     <div class="kpi-box"><span>${t('avgMargin')}</span><strong style="color:#34d399;">+$${avgMar.toFixed(2)}</strong></div>
@@ -2650,10 +2690,7 @@
             const container = document.getElementById('moduleContainer');
             
             let themePairs = '';
-            for (let k in themesMap) {
-                let th = themesMap[k];
-                themePairs += `${k}:${th.name}|`;
-            }
+            for (let k in themesMap) themePairs += `${k}:${themesMap[k].name}|`;
             themePairs = themePairs.slice(0, -1);
 
             let currentScale = ses.fontScale || 1.1;
@@ -2661,7 +2698,10 @@
 
             container.innerHTML = `
                 <div class="config-card">
-                    <h3 style="color:var(--primary-light); font-size:10px;">${t('configTitle')} (${ses.brandName})</h3>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h3 style="color:var(--primary-light); font-size:10px;">${t('configTitle')} (${ses.brandName})</h3>
+                        <button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button>
+                    </div>
                     
                     <div class="config-group">
                         <span class="config-label">${currentLang === 'es' ? 'Cambiar de Empresa / Sesión' : 'Change Business / Session'}</span>
@@ -2671,8 +2711,8 @@
                     <div class="config-group">
                         <span class="config-label">${currentLang === 'es' ? 'Copia de Seguridad (Backup & Restaurar)' : 'Backup & Restore'}</span>
                         <div style="display:flex; gap:6px;">
-                            <button class="btn-gold" style="flex:1; padding:8px;" onclick="exportarBackup()">${t('backupBtn')}</button>
-                            <button class="btn-gold" style="flex:1; background:rgba(6,182,212,0.2); color:#22d3ee; border:1px solid rgba(6,182,212,0.4); padding:8px;" onclick="abrirModalRestaurar()">${t('restoreBtn')}</button>
+                            <button class="btn-gold" style="flex:1; padding:8px;" onclick="exportarBackupArchivo()">${t('backupBtn')}</button>
+                            <button class="btn-gold" style="flex:1; background:rgba(6,182,212,0.2); color:#22d3ee; border:1px solid rgba(6,182,212,0.4); padding:8px;" onclick="dispararRestaurarBackup()">${t('restoreBtn')}</button>
                         </div>
                     </div>
 
@@ -2743,15 +2783,11 @@
             let wpp = document.getElementById('cfgWhatsapp').value.trim();
             let pinVal = document.getElementById('cfgPin').value.trim();
 
-            if (!nuevoId || !nombre) { alert(currentLang === 'es' ? "El ID y Nombre son obligatorios." : "ID and Name are required."); return; }
-
-            if (pinVal.length > 0 && pinVal.length !== 4) {
-                alert(currentLang === 'es' ? "⚠️ El PIN de seguridad debe ser de exactamente 4 dígitos." : "⚠️ Security PIN must be exactly 4 digits.");
-                return;
-            }
+            if (!nuevoId || !nombre) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "El ID y Nombre son obligatorios." : "ID and Name are required.", () => {}); return; }
+            if (pinVal.length > 0 && pinVal.length !== 4) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "⚠️ El PIN debe ser de 4 dígitos." : "⚠️ PIN must be 4 digits.", () => {}); return; }
 
             if (nuevoId !== currentSessionId) {
-                if (appSessions[nuevoId]) { alert(currentLang === 'es' ? "Ese ID ya está en uso por otro negocio." : "That ID is already in use by another business."); return; }
+                if (appSessions[nuevoId]) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ese ID ya está en uso." : "ID in use.", () => {}); return; }
                 appSessions[nuevoId] = appSessions[currentSessionId];
                 delete appSessions[currentSessionId];
                 currentSessionId = nuevoId;
@@ -2768,20 +2804,8 @@
             renderBranding();
         }
 
-        function cambiarEscalaTexto(scaleVal) {
-            let ses = getActiveSession();
-            ses.fontScale = scaleVal;
-            guardarDatosSesionActual();
-            applyBranding();
-            renderBranding();
-        }
-
-        function cambiarTemaNegocio(kVal) {
-            getActiveSession().bgTheme = kVal;
-            guardarDatosSesionActual();
-            applyBranding();
-            renderBranding();
-        }
+        function cambiarEscalaTexto(scaleVal) { getActiveSession().fontScale = scaleVal; guardarDatosSesionActual(); applyBranding(); renderBranding(); }
+        function cambiarTemaNegocio(kVal) { getActiveSession().bgTheme = kVal; guardarDatosSesionActual(); applyBranding(); renderBranding(); }
 
         function abrirModalNuevoNegocio() {
             document.getElementById('txtNewBizModalTitle').innerText = t('newBizTitle');
@@ -2803,72 +2827,32 @@
             let nombre = document.getElementById('sesionNombreNegocio').value.trim();
             let rol = document.getElementById('sesionRolNegocio').value.trim() || "GUSTAVO SUÁREZ • BARTENDER";
             let pin = document.getElementById('sesionPinNegocio').value.trim() || "1234";
-            if (!key || !nombre) { alert(currentLang === 'es' ? "Ingresa ID y nombre válidos." : "Enter valid ID and name."); return; }
-            if (appSessions[key]) { alert(currentLang === 'es' ? "Ese ID ya existe." : "That ID already exists."); return; }
+            if (!key || !nombre) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ingresa ID y nombre." : "Enter ID and name.", () => {}); return; }
+            if (appSessions[key]) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ese ID ya existe." : "ID exists.", () => {}); return; }
 
             appSessions[key] = {
                 brandName: nombre, brandRole: rol, whatsapp: "", instagram: "", logoData: "",
                 bgTheme: "mokalounge", fontScale: 1.1, pin: pin, calendario: {}, insumos: [], cocteles: [], labPrep: []
             };
             guardarDatosSesionActual();
-
-            document.getElementById('sesionIdKey').value, "";
-            document.getElementById('sesionNombreNegocio').value = "";
-            document.getElementById('sesionRolNegocio').value = "";
-            document.getElementById('sesionPinNegocio').value = "1234";
-
             cerrarModal('modalNuevoNegocio');
             seleccionarSesion(key);
         }
 
         function eliminarSesionActual() {
             let keys = Object.keys(appSessions);
-            if (keys.length <= 1) { alert(currentLang === 'es' ? "Debes tener al menos un negocio activo." : "You must have at least one active business."); return; }
-            if (confirm(currentLang === 'es' ? "¿Estás seguro de eliminar este negocio?" : "Are you sure you want to delete this business?")) {
+            if (keys.length <= 1) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "⚠️ Debes tener al menos un negocio." : "⚠️ At least one business required.", () => {}); return; }
+            let ses = getActiveSession();
+            mostrarConfirmacion("Eliminar Empresa", currentLang === 'es' ? `¿Eliminar "${ses.brandName}"?` : `Delete "${ses.brandName}"?`, () => {
                 delete appSessions[currentSessionId];
-                guardarDatosSesionActual();
+                    guardarDatosSesionActual();
+                currentSessionId = Object.keys(appSessions)[0];
+                document.getElementById('dashboard').style.display = 'none';
                 mostrarSelectorSesiones();
-            }
+            });
         }
 
         function cerrarModal(id) { document.getElementById(id).style.display = 'none'; }
-        function copiarCsvTexto() { document.getElementById('txtCsvExport').select(); document.execCommand('copy'); alert(currentLang === 'es' ? "¡Backup copiado al portapapeles!" : "Backup copied to clipboard!"); }
-        
-        function exportarBackup() {
-            let backupJson = JSON.stringify(appSessions, null, 2);
-            document.getElementById('txtCsvExport').value = backupJson;
-            document.getElementById('modalCsvExport').style.display = 'flex';
-            document.getElementById('txtBackupTitle').innerText = currentLang === 'es' ? "Copia de Seguridad (Backup)" : "Backup & Security Copy";
-            document.getElementById('txtBackupSub').innerText = currentLang === 'es' ? "Guarda este texto en un bloc de notas para no perder tus datos nunca:" : "Save this text in a notepad to never lose your data:";
-            document.getElementById('btnCopyBackup').innerText = currentLang === 'es' ? "📋 Copiar Backup" : "📋 Copy Backup";
-            document.getElementById('btnRestoreModalBtn').innerText = currentLang === 'es' ? "📥 Restaurar" : "📥 Restore";
-        }
-
-        function abrirModalRestaurar() {
-            cerrarModal('modalCsvExport');
-            document.getElementById('modalRestaurarBackup').style.display = 'flex';
-            document.getElementById('txtRestoreTitle').innerText = currentLang === 'es' ? "📥 Restaurar Backup" : "📥 Restore Backup";
-            document.getElementById('txtRestoreSub').innerText = currentLang === 'es' ? "Pega aquí el código de respaldo que guardaste:" : "Paste your saved backup code here:";
-            document.getElementById('btnExecuteRestore').innerText = currentLang === 'es' ? "⚡ Cargar y Restaurar" : "⚡ Load and Restore";
-        }
-
-        function ejecutarRestauracionBackup() {
-            let txt = document.getElementById('txtRestaurarInput').value.trim();
-            try {
-                let parsed = JSON.parse(txt);
-                if (parsed && typeof parsed === 'object') {
-                    appSessions = parsed;
-                    guardarDatosSesionActual();
-                    alert(currentLang === 'es' ? "✅ ¡Backup restaurado con éxito!" : "✅ Backup restored successfully!");
-                    cerrarModal('modalRestaurarBackup');
-                    mostrarSelectorSesiones();
-                } else {
-                    alert(currentLang === 'es' ? "Formato inválido." : "Invalid format.");
-                }
-            } catch(e) {
-                alert(currentLang === 'es' ? "❌ Error al leer el código JSON. Verifica que esté completo." : "❌ Error reading JSON code. Verify it is complete.");
-            }
-        }
 
         window.addEventListener('DOMContentLoaded', initApp);
     </script>
