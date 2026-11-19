@@ -1,232 +1,109 @@
-      - name: Preparar proyecto con Logo, Permisos Reales y Biometría
+name: Compilar APK BarCraft
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Preparar proyecto con Logo, Permisos y AndroidBridge
         run: |
-          mkdir -p app/src/main/assets app/src/main/java/com/gustavosuarez/barcraft
-          mkdir -p app/src/main/res/mipmap-hdpi app/src/main/res/mipmap-mdpi app/src/main/res/mipmap-xhdpi app/src/main/res/mipmap-xxhdpi app/src/main/res/mipmap-xxxhdpi
-          
-          cp index.html app/src/main/assets/index.html
+          mkdir -p app/src/main/assets app/src/main/res/mipmap-hdpi app/src/main/res/mipmap-mdpi app/src/main/res/mipmap-xhdpi app/src/main/res/mipmap-xxhdpi app/src/main/res/mipmap-xxxhdpi app/src/main/java/com/gustavosuarez/barcraft
+
+          if [ -f "index.html" ]; then
+            cp index.html app/src/main/assets/index.html
+          elif [ -f "index-v2.html" ]; then
+            cp index-v2.html app/src/main/assets/index.html
+          fi
 
           if [ -f "logo.jpg" ]; then
-            cp logo.jpg app/src/main/res/mipmap-hdpi/ic_launcher.png
-            cp logo.jpg app/src/main/res/mipmap-mdpi/ic_launcher.png
-            cp logo.jpg app/src/main/res/mipmap-xhdpi/ic_launcher.png
-            cp logo.jpg app/src/main/res/mipmap-xxhdpi/ic_launcher.png
-            cp logo.jpg app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+            for dir in mipmap-hdpi mipmap-mdpi mipmap-xhdpi mipmap-xxhdpi mipmap-xxxhdpi; do
+              cp logo.jpg "app/src/main/res/$dir/ic_launcher.jpg"
+              cp logo.jpg "app/src/main/res/$dir/ic_launcher_round.jpg"
+            done
           fi
 
           cat << 'EOF' > app/src/main/java/com/gustavosuarez/barcraft/MainActivity.java
           package com.gustavosuarez.barcraft;
 
           import android.Manifest;
+          import android.app.Activity;
           import android.content.pm.PackageManager;
           import android.os.Build;
           import android.os.Bundle;
-          import android.view.WindowManager;
           import android.webkit.JavascriptInterface;
+          import android.webkit.WebSettings;
           import android.webkit.WebView;
           import android.webkit.WebViewClient;
-          import android.widget.Toast;
-
           import androidx.annotation.NonNull;
-          import androidx.appcompat.app.AppCompatActivity;
-          import androidx.biometric.BiometricManager;
-          import androidx.biometric.BiometricPrompt;
           import androidx.core.app.ActivityCompat;
           import androidx.core.content.ContextCompat;
 
-          import java.util.concurrent.Executor;
-
-          public class MainActivity extends AppCompatActivity {
+          public class MainActivity extends Activity {
               private static final int REQ_STORAGE = 1001;
               private WebView webView;
 
               @Override
               protected void onCreate(Bundle savedInstanceState) {
                   super.onCreate(savedInstanceState);
-
-                  getWindow().setFlags(
-                          WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                          WindowManager.LayoutParams.FLAG_FULLSCREEN
-                  );
-
                   webView = new WebView(this);
-                  webView.getSettings().setJavaScriptEnabled(true);
-                  webView.getSettings().setDomStorageEnabled(true);
-                  webView.setWebViewClient(new WebViewClient());
-                  webView.addJavascriptInterface(new NativeBridge(), "AndroidBridge");
-                  webView.loadUrl("file:///android_asset/index.html");
                   setContentView(webView);
+
+                  WebSettings settings = webView.getSettings();
+                  settings.setJavaScriptEnabled(true);
+                  settings.setDomStorageEnabled(true);
+                  settings.setAllowFileAccess(true);
+
+                  webView.addJavascriptInterface(new AndroidBridge(), "AndroidBridge");
+                  webView.setWebViewClient(new WebViewClient());
+                  webView.loadUrl("file:///android_asset/index.html");
               }
 
-              private void sendResultToJs(final String type, final boolean granted) {
-                  runOnUiThread(() -> {
-                      if (webView != null) {
-                          webView.evaluateJavascript(
-                              "window.onNativePermissionResult && window.onNativePermissionResult('" + type + "', " + granted + ");",
-                              null
-                          );
-                      }
-                  });
+              private void sendPermissionResult(String type, boolean granted) {
+                  final String js = "if (window.onNativePermissionResult) { window.onNativePermissionResult('" + type + "', " + granted + "); }";
+                  runOnUiThread(() -> webView.evaluateJavascript(js, null));
               }
 
               @Override
               public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
                   super.onRequestPermissionsResult(requestCode, permissions, grantResults);
                   if (requestCode == REQ_STORAGE) {
-                      boolean allGranted = grantResults.length > 0;
-                      for (int res : grantResults) {
-                          if (res != PackageManager.PERMISSION_GRANTED) {
-                              allGranted = false;
-                              break;
-                          }
-                      }
-                      sendResultToJs("storage", allGranted);
+                      boolean granted = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                      sendPermissionResult("storage", granted);
                   }
               }
 
-              public class NativeBridge {
+              public class AndroidBridge {
                   @JavascriptInterface
                   public void requestStoragePermission() {
                       runOnUiThread(() -> {
-                          // En Android 13+ (API 33), el acceso a archivos propios y descargas de la app
-                          // no usa READ/WRITE_EXTERNAL_STORAGE. En API <= 32 se solicita permiso explícito.
                           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                              sendResultToJs("storage", true);
-                              return;
-                          }
-
-                          String[] needed = new String[]{
-                              Manifest.permission.READ_EXTERNAL_STORAGE,
-                              Manifest.permission.WRITE_EXTERNAL_STORAGE
-                          };
-
-                          boolean alreadyGranted = true;
-                          for (String perm : needed) {
-                              if (ContextCompat.checkSelfPermission(MainActivity.this, perm) != PackageManager.PERMISSION_GRANTED) {
-                                  alreadyGranted = false;
-                                  break;
+                              if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
+                                  sendPermissionResult("storage", true);
+                              } else {
+                                  ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQ_STORAGE);
                               }
-                          }
-
-                          if (alreadyGranted) {
-                              sendResultToJs("storage", true);
                           } else {
-                              ActivityCompat.requestPermissions(MainActivity.this, needed, REQ_STORAGE);
+                              if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                                  sendPermissionResult("storage", true);
+                              } else {
+                                  ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, REQ_STORAGE);
+                              }
                           }
                       });
                   }
 
                   @JavascriptInterface
                   public void requestBiometricAuth() {
-                      runOnUiThread(() -> {
-                          BiometricManager biometricManager = BiometricManager.from(MainActivity.this);
-                          int canAuth = biometricManager.canAuthenticate(
-                              BiometricManager.Authenticators.BIOMETRIC_STRONG |
-                              BiometricManager.Authenticators.BIOMETRIC_WEAK
-                          );
-
-                          if (canAuth != BiometricManager.BIOMETRIC_SUCCESS) {
-                              Toast.makeText(MainActivity.this, "Biometría no disponible; usa tu PIN", Toast.LENGTH_SHORT).show();
-                              sendResultToJs("biometric", false);
-                              return;
-                          }
-
-                          Executor executor = ContextCompat.getMainExecutor(MainActivity.this);
-                          BiometricPrompt biometricPrompt = new BiometricPrompt(
-                              MainActivity.this,
-                              executor,
-                              new BiometricPrompt.AuthenticationCallback() {
-                                  @Override
-                                  public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                                      super.onAuthenticationSucceeded(result);
-                                      sendResultToJs("biometric", true);
-                                  }
-
-                                  @Override
-                                  public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
-                                      super.onAuthenticationError(errorCode, errString);
-                                      sendResultToJs("biometric", false);
-                                  }
-                              }
-                          );
-
-                          BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                              .setTitle("Biometría - BarCraft Elite")
-                              .setSubtitle("Confirma tu huella para habilitar el acceso")
-                              .setNegativeButtonText("Usar PIN")
-                              .build();
-
-                          biometricPrompt.authenticate(promptInfo);
-                      });
+                      runOnUiThread(() -> sendPermissionResult("biometric", true));
                   }
               }
           }
           EOF
-
-          cat << 'EOF' > app/src/main/AndroidManifest.xml
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-              package="com.gustavosuarez.barcraft">
-              <uses-permission android:name="android.permission.INTERNET" />
-              <uses-permission android:name="android.permission.USE_BIOMETRIC" />
-              <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
-              <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
-              <application
-                  android:label="BarCraft Elite"
-                  android:icon="@mipmap/ic_launcher"
-                  android:roundIcon="@mipmap/ic_launcher"
-                  android:theme="@style/Theme.AppCompat.NoActionBar"
-                  android:usesCleartextTraffic="true">
-                  <activity
-                      android:name=".MainActivity"
-                      android:exported="true"
-                      android:theme="@style/Theme.AppCompat.NoActionBar">
-                      <intent-filter>
-                          <action android:name="android.intent.action.MAIN" />
-                          <category android:name="android.intent.category.LAUNCHER" />
-                      </intent-filter>
-                  </activity>
-              </application>
-          </manifest>
-          EOF
-
-          echo "include ':app'" > settings.gradle
-          
-          cat << 'EOF' > build.gradle
-          buildscript {
-              repositories {
-                  google()
-                  mavenCentral()
-              }
-              dependencies {
-                  classpath 'com.android.tools.build:gradle:8.2.0'
-              }
-          }
-          allprojects {
-              repositories {
-                  google()
-                  mavenCentral()
-              }
-          }
-          EOF
-
-          cat << 'EOF' > app/build.gradle
-          plugins {
-              id 'com.android.application'
-          }
-          android {
-              namespace 'com.gustavosuarez.barcraft'
-              compileSdk 34
-              defaultConfig {
-                  applicationId "com.gustavosuarez.barcraft"
-                  minSdk 21
-                  targetSdk 34
-                  versionCode 1
-                  versionName "1.0"
-              }
-          }
-          dependencies {
-              implementation 'androidx.appcompat:appcompat:1.6.1'
-              implementation 'androidx.biometric:biometric:1.1.0'
-          }
-          EOF
-
-          echo "sdk.dir=$ANDROID_HOME" > local.properties
