@@ -1,38 +1,10 @@
-name: Compilar APK BarCraft
-
-on:
-  push:
-    branches: [ "main" ]
-  workflow_dispatch:
-
-jobs:
-  build-apk:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Descargar repositorio
-        uses: actions/checkout@v4
-
-      - name: Configurar Java 17
-        uses: actions/setup-java@v5
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Descargar e instalar Gradle 8.5
-        run: |
-          wget https://services.gradle.org/distributions/gradle-8.5-bin.zip
-          unzip -q gradle-8.5-bin.zip
-          echo "$PWD/gradle-8.5/bin" >> $GITHUB_PATH
-
-      - name: Preparar proyecto con Logo e Inmersivo Fullscreen
+      - name: Preparar proyecto con Logo, Permisos Reales y Biometría
         run: |
           mkdir -p app/src/main/assets app/src/main/java/com/gustavosuarez/barcraft
           mkdir -p app/src/main/res/mipmap-hdpi app/src/main/res/mipmap-mdpi app/src/main/res/mipmap-xhdpi app/src/main/res/mipmap-xxhdpi app/src/main/res/mipmap-xxxhdpi
           
           cp index.html app/src/main/assets/index.html
 
-          # Asignar tu logo.jpg como icono adaptativo en todas las densidades
           if [ -f "logo.jpg" ]; then
             cp logo.jpg app/src/main/res/mipmap-hdpi/ic_launcher.png
             cp logo.jpg app/src/main/res/mipmap-mdpi/ic_launcher.png
@@ -41,50 +13,172 @@ jobs:
             cp logo.jpg app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
           fi
 
-          # Clase Java con WebView y Pantalla Completa absoluta
           cat << 'EOF' > app/src/main/java/com/gustavosuarez/barcraft/MainActivity.java
           package com.gustavosuarez.barcraft;
-          import android.app.Activity;
+
+          import android.Manifest;
+          import android.content.pm.PackageManager;
+          import android.os.Build;
           import android.os.Bundle;
-          import android.view.Window;
           import android.view.WindowManager;
+          import android.webkit.JavascriptInterface;
           import android.webkit.WebView;
           import android.webkit.WebViewClient;
+          import android.widget.Toast;
 
-          public class MainActivity extends Activity {
+          import androidx.annotation.NonNull;
+          import androidx.appcompat.app.AppCompatActivity;
+          import androidx.biometric.BiometricManager;
+          import androidx.biometric.BiometricPrompt;
+          import androidx.core.app.ActivityCompat;
+          import androidx.core.content.ContextCompat;
+
+          import java.util.concurrent.Executor;
+
+          public class MainActivity extends AppCompatActivity {
+              private static final int REQ_STORAGE = 1001;
+              private WebView webView;
+
               @Override
               protected void onCreate(Bundle savedInstanceState) {
                   super.onCreate(savedInstanceState);
-                  
-                  // Forzar pantalla completa y eliminar título por completo
-                  requestWindowFeature(Window.FEATURE_NO_TITLE);
-                  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                          WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-                  WebView webView = new WebView(this);
+                  getWindow().setFlags(
+                          WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                          WindowManager.LayoutParams.FLAG_FULLSCREEN
+                  );
+
+                  webView = new WebView(this);
                   webView.getSettings().setJavaScriptEnabled(true);
                   webView.getSettings().setDomStorageEnabled(true);
                   webView.setWebViewClient(new WebViewClient());
+                  webView.addJavascriptInterface(new NativeBridge(), "AndroidBridge");
                   webView.loadUrl("file:///android_asset/index.html");
                   setContentView(webView);
+              }
+
+              private void sendResultToJs(final String type, final boolean granted) {
+                  runOnUiThread(() -> {
+                      if (webView != null) {
+                          webView.evaluateJavascript(
+                              "window.onNativePermissionResult && window.onNativePermissionResult('" + type + "', " + granted + ");",
+                              null
+                          );
+                      }
+                  });
+              }
+
+              @Override
+              public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+                  super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                  if (requestCode == REQ_STORAGE) {
+                      boolean allGranted = grantResults.length > 0;
+                      for (int res : grantResults) {
+                          if (res != PackageManager.PERMISSION_GRANTED) {
+                              allGranted = false;
+                              break;
+                          }
+                      }
+                      sendResultToJs("storage", allGranted);
+                  }
+              }
+
+              public class NativeBridge {
+                  @JavascriptInterface
+                  public void requestStoragePermission() {
+                      runOnUiThread(() -> {
+                          // En Android 13+ (API 33), el acceso a archivos propios y descargas de la app
+                          // no usa READ/WRITE_EXTERNAL_STORAGE. En API <= 32 se solicita permiso explícito.
+                          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                              sendResultToJs("storage", true);
+                              return;
+                          }
+
+                          String[] needed = new String[]{
+                              Manifest.permission.READ_EXTERNAL_STORAGE,
+                              Manifest.permission.WRITE_EXTERNAL_STORAGE
+                          };
+
+                          boolean alreadyGranted = true;
+                          for (String perm : needed) {
+                              if (ContextCompat.checkSelfPermission(MainActivity.this, perm) != PackageManager.PERMISSION_GRANTED) {
+                                  alreadyGranted = false;
+                                  break;
+                              }
+                          }
+
+                          if (alreadyGranted) {
+                              sendResultToJs("storage", true);
+                          } else {
+                              ActivityCompat.requestPermissions(MainActivity.this, needed, REQ_STORAGE);
+                          }
+                      });
+                  }
+
+                  @JavascriptInterface
+                  public void requestBiometricAuth() {
+                      runOnUiThread(() -> {
+                          BiometricManager biometricManager = BiometricManager.from(MainActivity.this);
+                          int canAuth = biometricManager.canAuthenticate(
+                              BiometricManager.Authenticators.BIOMETRIC_STRONG |
+                              BiometricManager.Authenticators.BIOMETRIC_WEAK
+                          );
+
+                          if (canAuth != BiometricManager.BIOMETRIC_SUCCESS) {
+                              Toast.makeText(MainActivity.this, "Biometría no disponible; usa tu PIN", Toast.LENGTH_SHORT).show();
+                              sendResultToJs("biometric", false);
+                              return;
+                          }
+
+                          Executor executor = ContextCompat.getMainExecutor(MainActivity.this);
+                          BiometricPrompt biometricPrompt = new BiometricPrompt(
+                              MainActivity.this,
+                              executor,
+                              new BiometricPrompt.AuthenticationCallback() {
+                                  @Override
+                                  public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                                      super.onAuthenticationSucceeded(result);
+                                      sendResultToJs("biometric", true);
+                                  }
+
+                                  @Override
+                                  public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                                      super.onAuthenticationError(errorCode, errString);
+                                      sendResultToJs("biometric", false);
+                                  }
+                              }
+                          );
+
+                          BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                              .setTitle("Biometría - BarCraft Elite")
+                              .setSubtitle("Confirma tu huella para habilitar el acceso")
+                              .setNegativeButtonText("Usar PIN")
+                              .build();
+
+                          biometricPrompt.authenticate(promptInfo);
+                      });
+                  }
               }
           }
           EOF
 
-          # Manifiesto configurado con el tema Fullscreen y tu icono
           cat << 'EOF' > app/src/main/AndroidManifest.xml
           <manifest xmlns:android="http://schemas.android.com/apk/res/android"
               package="com.gustavosuarez.barcraft">
               <uses-permission android:name="android.permission.INTERNET" />
+              <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+              <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+              <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
               <application
                   android:label="BarCraft Elite"
                   android:icon="@mipmap/ic_launcher"
                   android:roundIcon="@mipmap/ic_launcher"
+                  android:theme="@style/Theme.AppCompat.NoActionBar"
                   android:usesCleartextTraffic="true">
                   <activity
                       android:name=".MainActivity"
                       android:exported="true"
-                      android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+                      android:theme="@style/Theme.AppCompat.NoActionBar">
                       <intent-filter>
                           <action android:name="android.intent.action.MAIN" />
                           <category android:name="android.intent.category.LAUNCHER" />
@@ -129,16 +223,10 @@ jobs:
                   versionName "1.0"
               }
           }
+          dependencies {
+              implementation 'androidx.appcompat:appcompat:1.6.1'
+              implementation 'androidx.biometric:biometric:1.1.0'
+          }
           EOF
 
           echo "sdk.dir=$ANDROID_HOME" > local.properties
-
-      - name: Compilar APK Definitivo
-        run: |
-          gradle assembleDebug
-
-      - name: Subir APK generado
-        uses: actions/upload-artifact@v4
-        with:
-          name: BarCraft-Elite-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
