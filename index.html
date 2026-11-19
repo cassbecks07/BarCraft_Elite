@@ -125,6 +125,71 @@
         }
         .btn-splash-iniciar:active { transform: scale(0.96); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
 
+
+        .onboarding-screen {
+            position: absolute;
+            inset: 0;
+            background: rgba(6, 6, 10, 0.96);
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            z-index: 1500;
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .perm-card {
+            background: var(--glass-card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 10px;
+            box-shadow: var(--glass-highlight);
+        }
+
+        .perm-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .perm-card-header h4 {
+            font-size: calc(10.5px * var(--font-scale));
+            color: var(--primary-light);
+            font-weight: 800;
+        }
+
+        .perm-status {
+            font-size: calc(7px * var(--font-scale));
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 999px;
+            text-transform: uppercase;
+        }
+
+        .perm-status.pending {
+            background: rgba(245, 158, 11, 0.18);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .perm-status.granted {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.45);
+        }
+
+        .perm-card p {
+            font-size: calc(8px * var(--font-scale));
+            color: #cbd5e1;
+            line-height: 1.35;
+            margin-bottom: 8px;
+        }
+
         .session-screen { display: none; flex-direction: column; height: 100%; padding: 16px; overflow-y: auto; animation: fadeIn 0.35s ease forwards; justify-content: center; }
         .session-header { text-align: center; margin-bottom: 14px; }
         .session-header h2 { font-size: calc(14px * var(--font-scale)); font-weight: 800; color: #fff; margin-bottom: 2px; }
@@ -558,6 +623,43 @@
             </div>
 
             <button class="btn-splash-iniciar" id="btnIniciarApp" onclick="entrarALaBarra()">🍸 Iniciar Barra</button>
+        </div>
+
+        <div class="onboarding-screen" id="firstRunScreen">
+            <div>
+                <div class="session-header" style="margin-bottom: 16px;">
+                    <h2>Configuración <span>Inicial</span></h2>
+                    <p>Debes conceder ambos permisos para continuar a BarCraft Elite.</p>
+                </div>
+
+                <div class="perm-card">
+                    <div class="perm-card-header">
+                        <h4>💾 Almacenamiento y Respaldos</h4>
+                        <span class="perm-status pending" id="badgePermStorage">Pendiente</span>
+                    </div>
+                    <p>Necesario para guardar tus datos locales, exportar/importar respaldos JSON y descargar planillas CSV.</p>
+                    <button class="btn-action-sm cyan" style="width:100%; padding:8px;" onclick="solicitarPermisoAlmacenamiento()">
+                        Conceder acceso de almacenamiento
+                    </button>
+                </div>
+
+                <div class="perm-card">
+                    <div class="perm-card-header">
+                        <h4>👆 Acceso Biométrico</h4>
+                        <span class="perm-status pending" id="badgePermBio">Pendiente</span>
+                    </div>
+                    <p>Permite iniciar sesión con huella o biometría del equipo y mantener el PIN de 4 dígitos como respaldo.</p>
+                    <button class="btn-action-sm emerald" style="width:100%; padding:8px;" onclick="solicitarPermisoBiometrico()">
+                        Habilitar datos biométricos
+                    </button>
+                </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <button class="btn-gold" id="btnContinuarOnboarding" onclick="completarPrimeraApertura()" disabled style="opacity: 0.45; cursor: not-allowed;">
+                    🔒 Acepta ambos permisos para continuar
+                </button>
+            </div>
         </div>
 
         <div class="session-screen" id="sessionSelectorScreen">
@@ -1140,16 +1242,156 @@
             actualizarTextosEstaticos();
         }
 
+        const FIRST_RUN_KEY = 'barCraft_firstRunCompleted_v1';
+
+        let onboardingState = {
+            storageGranted: false,
+            biometricEnabled: false
+        };
+
+        window.onNativePermissionResult = function(type, granted) {
+            if (type === 'storage') {
+                onboardingState.storageGranted = Boolean(granted);
+                actualizarBadgesOnboarding();
+                if (!granted) {
+                    mostrarConfirmacion(
+                        "Permiso de almacenamiento",
+                        currentLang === 'es'
+                            ? "No se concedió el permiso de almacenamiento. Inténtalo de nuevo para continuar."
+                            : "Storage permission was not granted. Please try again to continue.",
+                        () => {}
+                    );
+                }
+            } else if (type === 'biometric') {
+                onboardingState.biometricEnabled = Boolean(granted);
+                actualizarBadgesOnboarding();
+                if (granted && document.getElementById('modalPinSeguridad').style.display === 'flex' && sessionPendingUnlock) {
+                    const sid = sessionPendingUnlock;
+                    cerrarModalPin();
+                    seleccionarSesion(sid);
+                } else if (!granted && document.getElementById('firstRunScreen').style.display === 'flex') {
+                    mostrarConfirmacion(
+                        "Biometría requerida",
+                        currentLang === 'es'
+                            ? "Debes verificar o habilitar los datos biométricos para continuar."
+                            : "You must verify or enable biometrics to continue.",
+                        () => {}
+                    );
+                }
+            }
+        };
+
+        function verificarPrimeraApertura() {
+            const yaConfigurado = localStorage.getItem(FIRST_RUN_KEY) === 'true';
+            const screen = document.getElementById('firstRunScreen');
+            if (!screen) return false;
+
+            if (!yaConfigurado) {
+                screen.style.display = 'flex';
+                actualizarBadgesOnboarding();
+                return true;
+            }
+            screen.style.display = 'none';
+            return false;
+        }
+
+        function actualizarBadgesOnboarding() {
+            const bStorage = document.getElementById('badgePermStorage');
+            const bBio = document.getElementById('badgePermBio');
+            const btnContinuar = document.getElementById('btnContinuarOnboarding');
+
+            if (bStorage) {
+                bStorage.textContent = onboardingState.storageGranted ? 'Activo' : 'Pendiente';
+                bStorage.className = 'perm-status ' + (onboardingState.storageGranted ? 'granted' : 'pending');
+            }
+            if (bBio) {
+                bBio.textContent = onboardingState.biometricEnabled ? 'Activo' : 'Pendiente';
+                bBio.className = 'perm-status ' + (onboardingState.biometricEnabled ? 'granted' : 'pending');
+            }
+
+            const todoListo = Boolean(onboardingState.storageGranted && onboardingState.biometricEnabled);
+            if (btnContinuar) {
+                btnContinuar.disabled = !todoListo;
+                btnContinuar.style.opacity = todoListo ? '1' : '0.45';
+                btnContinuar.style.cursor = todoListo ? 'pointer' : 'not-allowed';
+                btnContinuar.textContent = todoListo
+                    ? '✅ Continuar a BarCraft Elite'
+                    : '🔒 Acepta ambos permisos para continuar';
+            }
+        }
+
+        async function solicitarPermisoAlmacenamiento() {
+            if (window.AndroidBridge && typeof window.AndroidBridge.requestStoragePermission === 'function') {
+                window.AndroidBridge.requestStoragePermission();
+                return;
+            }
+
+            try {
+                if (navigator.storage && navigator.storage.persist) {
+                    await navigator.storage.persist();
+                }
+                localStorage.setItem('barCraft_storageCheck', String(Date.now()));
+                onboardingState.storageGranted = true;
+                actualizarBadgesOnboarding();
+            } catch (err) {
+                onboardingState.storageGranted = true;
+                actualizarBadgesOnboarding();
+            }
+        }
+
+        async function solicitarPermisoBiometrico() {
+            if (window.AndroidBridge && typeof window.AndroidBridge.requestBiometricAuth === 'function') {
+                window.AndroidBridge.requestBiometricAuth();
+                return;
+            }
+
+            try {
+                if (window.PublicKeyCredential && typeof PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable === 'function') {
+                    await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+                }
+                onboardingState.biometricEnabled = true;
+                actualizarBadgesOnboarding();
+            } catch (e) {
+                onboardingState.biometricEnabled = false;
+                actualizarBadgesOnboarding();
+            }
+        }
+
+        function completarPrimeraApertura() {
+            if (!onboardingState.storageGranted || !onboardingState.biometricEnabled) {
+                actualizarBadgesOnboarding();
+                mostrarConfirmacion(
+                    "Permisos requeridos",
+                    currentLang === 'es'
+                        ? "Debes conceder el acceso de almacenamiento y habilitar los datos biométricos para continuar."
+                        : "You must grant storage access and enable biometrics to continue.",
+                    () => {}
+                );
+                return;
+            }
+
+            localStorage.setItem(FIRST_RUN_KEY, 'true');
+            localStorage.setItem('barCraft_perms_v1', JSON.stringify(onboardingState));
+            document.getElementById('firstRunScreen').style.display = 'none';
+            mostrarSelectorSesiones();
+        }
+
         function entrarALaBarra() {
             const splash = document.getElementById('splash');
+            const continuar = () => {
+                if (!verificarPrimeraApertura()) {
+                    mostrarSelectorSesiones();
+                }
+            };
+
             if (splash) {
                 splash.style.opacity = '0';
                 setTimeout(() => {
                     splash.style.display = 'none';
-                    mostrarSelectorSesiones();
+                    continuar();
                 }, 300);
             } else {
-                mostrarSelectorSesiones();
+                continuar();
             }
         }
 
@@ -1226,13 +1468,23 @@
         }
 
         async function intentarBiometria() {
-            try {
-                mostrarConfirmacion("Biometría", currentLang === 'es' ? "Lector biométrico activado. Acceso concedido." : "Biometric reader activated. Access granted.", () => {});
-                cerrarModalPin();
-                seleccionarSesion(sessionPendingUnlock);
-            } catch(e) {
-                mostrarConfirmacion("Aviso", currentLang === 'es' ? "No se pudo verificar la biometría. Usa el PIN." : "Could not verify biometrics. Use PIN.", () => {});
+            if (window.AndroidBridge && typeof window.AndroidBridge.requestBiometricAuth === 'function') {
+                window.AndroidBridge.requestBiometricAuth();
+                return;
             }
+
+            const perms = JSON.parse(localStorage.getItem('barCraft_perms_v1') || '{}');
+            if (!perms.biometricEnabled && !onboardingState.biometricEnabled) {
+                mostrarConfirmacion(
+                    "Biometría no habilitada",
+                    currentLang === 'es' ? "Habilita los datos biométricos o ingresa tu PIN de 4 dígitos." : "Enable biometrics or enter your 4-digit PIN.",
+                    () => {}
+                );
+                return;
+            }
+
+            cerrarModalPin();
+            seleccionarSesion(sessionPendingUnlock);
         }
 
         function cerrarModalPin() {
