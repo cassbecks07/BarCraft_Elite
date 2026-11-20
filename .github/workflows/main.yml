@@ -266,6 +266,25 @@ jobs:
           dependencies {
               implementation 'androidx.biometric:biometric:1.1.0'
               implementation 'androidx.fragment:fragment:1.6.2'
+              constraints {
+                  implementation('org.jetbrains.kotlin:kotlin-stdlib:1.8.22') {
+                      because 'evitar clases duplicadas con kotlin-stdlib-jdk7 y jdk8 anteriores a 1.8.0'
+                  }
+                  implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22') {
+                      because 'unificar version de kotlin stdlib'
+                  }
+                  implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22') {
+                      because 'unificar version de kotlin stdlib'
+                  }
+              }
+          }
+
+          configurations.all {
+              resolutionStrategy {
+                  force 'org.jetbrains.kotlin:kotlin-stdlib:1.8.22'
+                  force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22'
+                  force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22'
+              }
           }
           EOF
 
