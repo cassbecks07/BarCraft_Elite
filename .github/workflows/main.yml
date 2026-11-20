@@ -83,7 +83,6 @@ jobs:
           package com.gustavosuarez.barcraft;
 
           import android.Manifest;
-          import android.app.Activity;
           import android.content.pm.PackageManager;
           import android.os.Build;
           import android.os.Bundle;
@@ -91,8 +90,14 @@ jobs:
           import android.webkit.WebSettings;
           import android.webkit.WebView;
           import android.webkit.WebViewClient;
+          import androidx.annotation.NonNull;
+          import androidx.biometric.BiometricManager;
+          import androidx.biometric.BiometricPrompt;
+          import androidx.core.content.ContextCompat;
+          import androidx.fragment.app.FragmentActivity;
+          import java.util.concurrent.Executor;
 
-          public class MainActivity extends Activity {
+          public class MainActivity extends FragmentActivity {
               private static final int REQ_STORAGE = 1001;
               private WebView webView;
 
@@ -128,6 +133,51 @@ jobs:
                   }
               }
 
+              private void showBiometricPrompt() {
+                  BiometricManager biometricManager = BiometricManager.from(this);
+                  int authenticators = BiometricManager.Authenticators.BIOMETRIC_STRONG
+                          | BiometricManager.Authenticators.BIOMETRIC_WEAK
+                          | BiometricManager.Authenticators.DEVICE_CREDENTIAL;
+
+                  int canAuth = biometricManager.canAuthenticate(authenticators);
+                  if (canAuth != BiometricManager.BIOMETRIC_SUCCESS) {
+                      sendPermissionResult("biometric", false);
+                      return;
+                  }
+
+                  Executor executor = ContextCompat.getMainExecutor(this);
+                  BiometricPrompt biometricPrompt = new BiometricPrompt(
+                          this,
+                          executor,
+                          new BiometricPrompt.AuthenticationCallback() {
+                              @Override
+                              public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                                  super.onAuthenticationSucceeded(result);
+                                  sendPermissionResult("biometric", true);
+                              }
+
+                              @Override
+                              public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                                  super.onAuthenticationError(errorCode, errString);
+                                  sendPermissionResult("biometric", false);
+                              }
+
+                              @Override
+                              public void onAuthenticationFailed() {
+                                  super.onAuthenticationFailed();
+                              }
+                          }
+                  );
+
+                  BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                          .setTitle("Autenticación Biométrica")
+                          .setSubtitle("Confirma tu huella o desbloqueo para BarCraft Elite")
+                          .setAllowedAuthenticators(authenticators)
+                          .build();
+
+                  biometricPrompt.authenticate(promptInfo);
+              }
+
               public class AndroidBridge {
                   @JavascriptInterface
                   public void requestStoragePermission() {
@@ -152,7 +202,7 @@ jobs:
 
                   @JavascriptInterface
                   public void requestBiometricAuth() {
-                      runOnUiThread(() -> sendPermissionResult("biometric", true));
+                      runOnUiThread(() -> showBiometricPrompt());
                   }
               }
           }
@@ -212,11 +262,16 @@ jobs:
                   targetCompatibility JavaVersion.VERSION_17
               }
           }
+
+          dependencies {
+              implementation 'androidx.biometric:biometric:1.1.0'
+              implementation 'androidx.fragment:fragment:1.6.2'
+          }
           EOF
 
           cat << 'EOF' > gradle.properties
           org.gradle.jvmargs=-Xmx2048m
-          android.useAndroidX=false
+          android.useAndroidX=true
           EOF
 
       - name: Instalar Gradle y compilar APK Debug
