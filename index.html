@@ -3504,11 +3504,12 @@
         msg.style.color = "#fca5a5";
         msg.textContent = (data && data.mensaje) || "No se pudo validar el código.";
       }
-    } catch (err) {
-      if (msg) {
-        msg.style.color = "#fca5a5";
-        msg.textContent = "Sin conexión a internet. Conéctate para activar tu código.";
-      }
+} catch (err) {
+  if (msg) {
+    msg.style.color = "#fca5a5";
+    msg.textContent = "Error al validar código: " + (err && err.message ? err.message : "revisa conexión o permiso del script");
+  }
+}
     } finally {
       if (btn) {
         btn.disabled = false;
