@@ -3457,7 +3457,7 @@
     }
   }
 
-  async function validarCodigoBeta() {
+    async function validarCodigoBeta() {
     const input = document.getElementById("betaCodeInput");
     const msg = document.getElementById("betaStatusMsg");
     const btn = document.getElementById("betaActivateBtn");
@@ -3480,40 +3480,54 @@
       msg.textContent = "Conectando con el servidor...";
     }
 
+    const deviceId = obtenerDeviceIdBeta();
+    let data = null;
+
     try {
       const resp = await fetch(BETA_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
           codigo: codigo,
-          deviceId: obtenerDeviceIdBeta()
+          deviceId: deviceId
         })
       });
-
-      const data = await resp.json();
-
-      if (data && data.ok) {
-        localStorage.setItem("barcraft_beta_unlocked", "true");
-        localStorage.setItem("barcraft_beta_code", codigo);
-        if (data.modo) {
-          localStorage.setItem("barcraft_beta_mode", data.modo);
+      data = await resp.json();
+    } catch (postErr) {
+      try {
+        const sep = BETA_ENDPOINT.includes("?") ? "&" : "?";
+        const urlGet = `${BETA_ENDPOINT}${sep}codigo=${encodeURIComponent(codigo)}&deviceId=${encodeURIComponent(deviceId)}&_t=${Date.now()}`;
+        const respGet = await fetch(urlGet, { method: "GET" });
+        data = await respGet.json();
+      } catch (getErr) {
+        if (msg) {
+          msg.style.color = "#fca5a5";
+          msg.textContent = "Error al validar código: " + (getErr && getErr.message ? getErr.message : (postErr && postErr.message ? postErr.message : "revisa conexión o permiso del script"));
         }
-        const modal = document.getElementById("betaGateModal");
-        if (modal) modal.style.display = "none";
-      } else if (msg) {
-        msg.style.color = "#fca5a5";
-        msg.textContent = (data && data.mensaje) || "No se pudo validar el código.";
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = "Activar Beta";
+        }
+        return;
       }
-} catch (err) {
-  if (msg) {
-    msg.style.color = "#fca5a5";
-    msg.textContent = "Error al validar código: " + (err && err.message ? err.message : "revisa conexión o permiso del script");
-  }
-    } finally {
-      if (btn) {
-        btn.disabled = false;
-        btn.textContent = "Activar Beta";
+    }
+
+    if (data && data.ok) {
+      localStorage.setItem("barcraft_beta_unlocked", "true");
+      localStorage.setItem("barcraft_beta_code", codigo);
+      if (data.modo) {
+        localStorage.setItem("barcraft_beta_mode", data.modo);
       }
+      const modal = document.getElementById("betaGateModal");
+      if (modal) modal.style.display = "none";
+    } else if (msg) {
+      msg.style.color = "#fca5a5";
+      msg.textContent = (data && data.mensaje) || "No se pudo validar el código.";
+    }
+
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "Activar Beta";
     }
   }
 
