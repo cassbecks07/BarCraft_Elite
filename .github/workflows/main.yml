@@ -83,23 +83,78 @@ jobs:
           package com.gustavosuarez.barcraft;
 
           import android.Manifest;
+          import android.content.Intent;
           import android.content.pm.PackageManager;
+          import android.net.Uri;
           import android.os.Build;
           import android.os.Bundle;
+          import android.util.Base64;
           import android.webkit.JavascriptInterface;
+          import android.webkit.ValueCallback;
+          import android.webkit.WebChromeClient;
           import android.webkit.WebSettings;
           import android.webkit.WebView;
           import android.webkit.WebViewClient;
+          import androidx.activity.result.ActivityResultLauncher;
+          import androidx.activity.result.contract.ActivityResultContracts;
           import androidx.annotation.NonNull;
           import androidx.biometric.BiometricManager;
           import androidx.biometric.BiometricPrompt;
           import androidx.core.content.ContextCompat;
           import androidx.fragment.app.FragmentActivity;
+          import java.io.OutputStream;
+          import java.nio.charset.StandardCharsets;
           import java.util.concurrent.Executor;
 
           public class MainActivity extends FragmentActivity {
               private static final int REQ_STORAGE = 1001;
               private WebView webView;
+              private ValueCallback<Uri[]> filePathCallback;
+              private byte[] pendingExportBytes;
+
+              private final ActivityResultLauncher<Intent> fileChooserLauncher =
+                      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                          if (filePathCallback == null) return;
+                          Uri[] results = null;
+                          if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                              Intent data = result.getData();
+                              if (data.getData() != null) {
+                                  results = new Uri[]{data.getData()};
+                              } else if (data.getClipData() != null && data.getClipData().getItemCount() > 0) {
+                                  int count = data.getClipData().getItemCount();
+                                  results = new Uri[count];
+                                  for (int i = 0; i < count; i++) {
+                                      results[i] = data.getClipData().getItemAt(i).getUri();
+                                  }
+                              }
+                          }
+                          filePathCallback.onReceiveValue(results);
+                          filePathCallback = null;
+                      });
+
+              private final ActivityResultLauncher<Intent> createFileLauncher =
+                      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                          byte[] dataToWrite = pendingExportBytes;
+                          pendingExportBytes = null;
+
+                          if (result.getResultCode() == RESULT_OK && result.getData() != null && dataToWrite != null) {
+                              Uri targetUri = result.getData().getData();
+                              if (targetUri != null) {
+                                  try (OutputStream os = getContentResolver().openOutputStream(targetUri)) {
+                                      if (os != null) {
+                                          os.write(dataToWrite);
+                                          os.flush();
+                                          notifyExportResult(true, "Archivo guardado correctamente");
+                                          return;
+                                      }
+                                  } catch (Exception e) {
+                                      notifyExportResult(false, "Error al guardar: " + e.getMessage());
+                                      return;
+                                  }
+                              }
+                          }
+                          notifyExportResult(false, "Exportación cancelada");
+                      });
 
               @Override
               protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +171,57 @@ jobs:
 
                   webView.addJavascriptInterface(new AndroidBridge(), "AndroidBridge");
                   webView.setWebViewClient(new WebViewClient());
+                  webView.setWebChromeClient(new WebChromeClient() {
+                      @Override
+                      public boolean onShowFileChooser(
+                              WebView view,
+                              ValueCallback<Uri[]> callback,
+                              FileChooserParams fileChooserParams) {
+                          if (filePathCallback != null) {
+                              filePathCallback.onReceiveValue(null);
+                              filePathCallback = null;
+                          }
+                          filePathCallback = callback;
+
+                          Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                          intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+                          String[] acceptTypes = fileChooserParams.getAcceptTypes();
+                          if (acceptTypes != null && acceptTypes.length > 0 && acceptTypes[0] != null && !acceptTypes[0].isEmpty()) {
+                              if (acceptTypes.length == 1) {
+                                  intent.setType(acceptTypes[0]);
+                              } else {
+                                  intent.setType("*/*");
+                                  intent.putExtra(Intent.EXTRA_MIME_TYPES, acceptTypes);
+                              }
+                          } else {
+                              intent.setType("*/*");
+                          }
+
+                          if (fileChooserParams.getMode() == FileChooserParams.MODE_OPEN_MULTIPLE) {
+                              intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                          }
+
+                          try {
+                              fileChooserLauncher.launch(intent);
+                              return true;
+                          } catch (Exception e) {
+                              if (filePathCallback != null) {
+                                  filePathCallback.onReceiveValue(null);
+                                  filePathCallback = null;
+                              }
+                              return false;
+                          }
+                      }
+                  });
+
                   webView.loadUrl("file:///android_asset/index.html");
+              }
+
+              private void notifyExportResult(boolean ok, String message) {
+                  String safeMsg = message == null ? "" : message.replace("\\", "\\\\").replace("'", "\\'");
+                  final String js = "if (window.onNativeExportResult) { window.onNativeExportResult(" + ok + ", '" + safeMsg + "'); }";
+                  runOnUiThread(() -> webView.evaluateJavascript(js, null));
               }
 
               private void sendPermissionResult(String type, boolean granted) {
@@ -179,6 +284,38 @@ jobs:
               }
 
               public class AndroidBridge {
+                  @JavascriptInterface
+                  public void exportTextFile(String fileName, String mimeType, String content) {
+                      runOnUiThread(() -> {
+                          pendingExportBytes = (content != null ? content : "").getBytes(StandardCharsets.UTF_8);
+                          Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                          intent.addCategory(Intent.CATEGORY_OPENABLE);
+                          intent.setType(mimeType != null && !mimeType.isEmpty() ? mimeType : "application/json");
+                          intent.putExtra(Intent.EXTRA_TITLE, fileName != null && !fileName.isEmpty() ? fileName : "barcraft-export.json");
+                          createFileLauncher.launch(intent);
+                      });
+                  }
+
+                  @JavascriptInterface
+                  public void exportBase64File(String fileName, String mimeType, String base64Data) {
+                      runOnUiThread(() -> {
+                          try {
+                              String cleanBase64 = base64Data != null && base64Data.contains(",")
+                                      ? base64Data.substring(base64Data.indexOf(",") + 1)
+                                      : (base64Data != null ? base64Data : "");
+                              pendingExportBytes = Base64.decode(cleanBase64, Base64.DEFAULT);
+                              Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                              intent.addCategory(Intent.CATEGORY_OPENABLE);
+                              intent.setType(mimeType != null && !mimeType.isEmpty() ? mimeType : "application/octet-stream");
+                              intent.putExtra(Intent.EXTRA_TITLE, fileName != null && !fileName.isEmpty() ? fileName : "barcraft-backup");
+                              createFileLauncher.launch(intent);
+                          } catch (Exception e) {
+                              pendingExportBytes = null;
+                              notifyExportResult(false, "Error al decodificar archivo: " + e.getMessage());
+                          }
+                      });
+                  }
+
                   @JavascriptInterface
                   public void requestStoragePermission() {
                       runOnUiThread(() -> {
@@ -266,6 +403,7 @@ jobs:
           dependencies {
               implementation 'androidx.biometric:biometric:1.1.0'
               implementation 'androidx.fragment:fragment:1.6.2'
+              implementation 'androidx.activity:activity:1.8.2'
               constraints {
                   implementation('org.jetbrains.kotlin:kotlin-stdlib:1.8.22') {
                       because 'evitar clases duplicadas con kotlin-stdlib-jdk7 y jdk8 anteriores a 1.8.0'
