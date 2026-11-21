@@ -3422,5 +3422,152 @@
 
         window.addEventListener('DOMContentLoaded', initApp);
     </script>
+    <div id="betaGateModal" style="display:none; position:fixed; inset:0; background:rgba(6,6,10,0.96); backdrop-filter:blur(28px); -webkit-backdrop-filter:blur(28px); color:#fff; z-index:99999; flex-direction:column; align-items:center; justify-content:center; padding:24px; text-align:center;">
+  <div style="width:100%; max-width:340px; background:linear-gradient(145deg, rgba(30,30,40,0.75) 0%, rgba(12,12,18,0.9) 100%); border:1px solid rgba(212,175,55,0.35); border-radius:18px; padding:22px 18px; box-shadow:0 20px 50px rgba(0,0,0,0.85);">
+    <h2 style="margin-bottom:8px; color:#fbeeb8; font-size:17px; font-weight:800;">BarCraft Elite — Acceso Beta</h2>
+    <p style="opacity:0.85; margin-bottom:16px; font-size:12.5px; line-height:1.4; color:#cbd5e1;">
+      Ingresa tu código único de invitación para activar la aplicación en este dispositivo.
+    </p>
+    <input id="betaCodeInput" type="text" placeholder="Ej: BAR-BETA-01" autocomplete="off"
+      style="width:100%; padding:12px; border-radius:10px; border:1px solid rgba(212,175,55,0.35); background:rgba(4,4,8,0.85); color:#fff; text-align:center; font-size:15px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; outline:none;" />
+    <button id="betaActivateBtn" type="button" onclick="validarCodigoBeta()"
+      style="width:100%; padding:12px; border-radius:10px; border:none; background:linear-gradient(135deg, #fbeeb8 0%, #d4af37 55%, #aa7c11 100%); color:#050505; font-weight:800; font-size:14px; cursor:pointer;">
+      Activar Beta
+    </button>
+    <p id="betaStatusMsg" style="margin-top:12px; font-size:12.5px; color:#fca5a5; min-height:18px;"></p>
+  </div>
+</div>
+<script>
+  const BETA_ENDPOINT = "https://script.google.com/macros/s/AKfycbyRYGG6AuZXiO0D3K493M2u7LZ2_ujdLkUe0Did0862gNOxos5ADsqaTRrzBpAuP-Aw/exec";
+
+  function obtenerDeviceIdBeta() {
+    let id = localStorage.getItem("barcraft_device_id");
+    if (!id) {
+      id = "DEV-" + Math.random().toString(36).substring(2, 10).toUpperCase() + "-" + Date.now().toString(36).toUpperCase();
+      localStorage.setItem("barcraft_device_id", id);
+    }
+    return id;
+  }
+
+  function verificarEstadoBeta() {
+    const activado = localStorage.getItem("barcraft_beta_unlocked") === "true";
+    const modal = document.getElementById("betaGateModal");
+    if (!activado && modal) {
+      modal.style.display = "flex";
+    }
+  }
+
+  async function validarCodigoBeta() {
+    const input = document.getElementById("betaCodeInput");
+    const msg = document.getElementById("betaStatusMsg");
+    const btn = document.getElementById("betaActivateBtn");
+    const codigo = (input ? input.value : "").trim().toUpperCase();
+
+    if (!codigo) {
+      if (msg) {
+        msg.style.color = "#fca5a5";
+        msg.textContent = "Escribe tu código de invitación.";
+      }
+      return;
+    }
+
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Verificando...";
+    }
+    if (msg) {
+      msg.style.color = "#93c5fd";
+      msg.textContent = "Conectando con el servidor...";
+    }
+
+    try {
+      const resp = await fetch(BETA_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          codigo: codigo,
+          deviceId: obtenerDeviceIdBeta()
+        })
+      });
+
+      const data = await resp.json();
+
+      if (data && data.ok) {
+        localStorage.setItem("barcraft_beta_unlocked", "true");
+        localStorage.setItem("barcraft_beta_code", codigo);
+        if (data.modo) {
+          localStorage.setItem("barcraft_beta_mode", data.modo);
+        }
+        const modal = document.getElementById("betaGateModal");
+        if (modal) modal.style.display = "none";
+      } else if (msg) {
+        msg.style.color = "#fca5a5";
+        msg.textContent = (data && data.mensaje) || "No se pudo validar el código.";
+      }
+    } catch (err) {
+      if (msg) {
+        msg.style.color = "#fca5a5";
+        msg.textContent = "Sin conexión a internet. Conéctate para activar tu código.";
+      }
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Activar Beta";
+      }
+    }
+  }
+
+  function resetearSesionBeta() {
+    localStorage.removeItem("barcraft_beta_unlocked");
+    localStorage.removeItem("barcraft_beta_code");
+    localStorage.removeItem("barcraft_beta_mode");
+
+    const input = document.getElementById("betaCodeInput");
+    const msg = document.getElementById("betaStatusMsg");
+    const modal = document.getElementById("betaGateModal");
+
+    if (input) input.value = "";
+    if (msg) {
+      msg.style.color = "#93c5fd";
+      msg.textContent = "Sesión beta reiniciada. Ingresa un código para activar.";
+    }
+    if (modal) modal.style.display = "flex";
+  }
+
+    let betaTapCount = 0;
+  let betaTapTimer = null;
+
+  function activarDisparadorOcultoBeta(elemento) {
+    if (!elemento) return;
+    elemento.addEventListener("click", () => {
+      betaTapCount++;
+      clearTimeout(betaTapTimer);
+      betaTapTimer = setTimeout(() => { betaTapCount = 0; }, 1200);
+
+      if (betaTapCount >= 5) {
+        betaTapCount = 0;
+        resetearSesionBeta();
+      }
+    });
+  }
+
+  function enlazarNombreEnTituloBeta() {
+    const candidatos = Array.from(document.querySelectorAll("h1, h2, h3, header, span, div, p"));
+    const objetivo = candidatos.find((el) => {
+      if (el.children.length > 2) return false;
+      const texto = (el.textContent || "").trim().toLowerCase();
+      return texto.includes("gustavo") || texto.includes("suárez") || texto.includes("suarez");
+    });
+
+    if (objetivo) {
+      activarDisparadorOcultoBeta(objetivo);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    verificarEstadoBeta();
+    enlazarNombreEnTituloBeta();
+  });
+</script>
 </body>
 </html>
