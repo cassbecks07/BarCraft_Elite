@@ -3483,26 +3483,28 @@
     const deviceId = obtenerDeviceIdBeta();
     let data = null;
 
+       const deviceId = obtenerDeviceIdBeta();
+    let data = null;
+
     try {
-      const resp = await fetch(BETA_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({
-          codigo: codigo,
-          deviceId: deviceId
-        })
-      });
-      data = await resp.json();
-    } catch (postErr) {
+      const sep = BETA_ENDPOINT.includes("?") ? "&" : "?";
+      const urlGet = `${BETA_ENDPOINT}${sep}codigo=${encodeURIComponent(codigo)}&deviceId=${encodeURIComponent(deviceId)}&_t=${Date.now()}`;
+      const respGet = await fetch(urlGet, { method: "GET" });
+      data = await respGet.json();
+    } catch (getErr) {
       try {
-        const sep = BETA_ENDPOINT.includes("?") ? "&" : "?";
-        const urlGet = `${BETA_ENDPOINT}${sep}codigo=${encodeURIComponent(codigo)}&deviceId=${encodeURIComponent(deviceId)}&_t=${Date.now()}`;
-        const respGet = await fetch(urlGet, { method: "GET" });
-        data = await respGet.json();
-      } catch (getErr) {
+        const respPost = await fetch(BETA_ENDPOINT, {
+          method: "POST",
+          body: JSON.stringify({
+            codigo: codigo,
+            deviceId: deviceId
+          })
+        });
+        data = await respPost.json();
+      } catch (postErr) {
         if (msg) {
           msg.style.color = "#fca5a5";
-          msg.textContent = "Error al validar código: " + (getErr && getErr.message ? getErr.message : (postErr && postErr.message ? postErr.message : "revisa conexión o permiso del script"));
+          msg.textContent = "Error al validar código: " + (postErr && postErr.message ? postErr.message : (getErr && getErr.message ? getErr.message : "sin conexión en WebView"));
         }
         if (btn) {
           btn.disabled = false;
