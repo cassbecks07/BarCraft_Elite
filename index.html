@@ -3501,8 +3501,26 @@
         data = await respPost.json();
       } catch (postErr) {
         if (msg) {
+        
+                  try {
+            const sep2 = BETA_ENDPOINT.includes("?") ? "&" : "?";
+            const urlXhr = `${BETA_ENDPOINT}${sep2}codigo=${encodeURIComponent(codigo)}&deviceId=${encodeURIComponent(deviceId)}&_t=${Date.now()}`;
+            data = await new Promise((resolve, reject) => {
+              const xhr = new XMLHttpRequest();
+              xhr.open("GET", urlXhr, true);
+              xhr.onload = () => {
+                try {
+                  resolve(JSON.parse(xhr.responseText));
+                } catch (e) {
+                  reject(new Error("Respuesta no válida del servidor"));
+                }
+              };
+              xhr.onerror = () => reject(new Error("Fallo de red en WebView"));
+              xhr.send();
+            });
+          } catch (xhrErr) {
           msg.style.color = "#fca5a5";
-          msg.textContent = "Error al validar código: " + (postErr && postErr.message ? postErr.message : (getErr && getErr.message ? getErr.message : "sin conexión en WebView"));
+          msg.textContent = "Error al validar código: " + (xhrErr && xhrErr.message ? xhrErr.message : (getErr && getErr.message ? getErr.message : "sin conexión en WebView"));
         }
         if (btn) {
           btn.disabled = false;
