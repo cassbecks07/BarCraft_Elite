@@ -1310,6 +1310,7 @@
                 if(!appSessions[key].stockCriteria) appSessions[key].stockCriteria = { reponerMax: 1, observarMax: 2 };
             }
             actualizarTextosEstaticos();
+            if (typeof verificarEstadoBeta === "function") verificarEstadoBeta();
         }
 
         const FIRST_RUN_KEY = 'barCraft_firstRunCompleted_v1';
