@@ -125,7 +125,6 @@
         }
         .btn-splash-iniciar:active { transform: scale(0.96); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
 
-
         .onboarding-screen {
             position: absolute;
             inset: 0;
@@ -164,7 +163,7 @@
         }
 
         .perm-status {
-            font-size: calc(14.5px * var(--font-scale));
+            font-size: calc(11px * var(--font-scale));
             font-weight: 800;
             padding: 2px 7px;
             border-radius: 999px;
@@ -184,7 +183,7 @@
         }
 
         .perm-card p {
-            font-size: calc(12.5px * var(--font-scale));
+            font-size: calc(12px * var(--font-scale));
             color: #cbd5e1;
             line-height: 1.35;
             margin-bottom: 8px;
@@ -211,8 +210,8 @@
             color: var(--primary-main); font-size: calc(15px * var(--font-scale)); box-shadow: inset 0 1px 2px rgba(255,255,255,0.15);
         }
         .session-square-info h3 { font-size: calc(12.5px * var(--font-scale)); font-weight: 800; color: #fff; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
-        .session-square-info span { font-size: calc(14.5px * var(--font-scale)); color: var(--primary-main); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; display: block; }
-        .session-square-badge { font-size: calc(12.5px * var(--font-scale)); background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border-light); padding: 2px 6px; border-radius: 7px; color: #cbd5e1; }
+        .session-square-info span { font-size: calc(11px * var(--font-scale)); color: var(--primary-main); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; display: block; }
+        .session-square-badge { font-size: calc(11px * var(--font-scale)); background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border-light); padding: 2px 6px; border-radius: 7px; color: #cbd5e1; }
 
         .dashboard-screen { display: none; flex-direction: column; height: 100%; animation: fadeIn 0.35s ease forwards; position: relative; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
@@ -229,7 +228,7 @@
             width: 44px; height: 44px; border-radius: 50%;
             background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-main) 50%, var(--primary-dark) 100%);
             color: #050505; font-size: 22px; font-weight: 800; border: none; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; z-index: 120;
+            display: none; align-items: center; justify-content: center; z-index: 120;
             box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5), inset 0 2px 3px rgba(255,255,255,0.7);
             transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -257,25 +256,25 @@
             white-space: normal !important; overflow: visible !important; word-break: break-word; max-width: 100% !important;
             padding-right: 4px; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.7)); display: block;
         }
-        .hero-role { font-size: calc(14.5px * var(--font-scale)); letter-spacing: 2px; color: var(--primary-main); font-weight: 700; text-transform: uppercase; margin-top: 3px; }
-        .hero-badge-oz { font-size: calc(12.5px * var(--font-scale)); font-weight: 700; color: var(--primary-light); background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border-light); padding: 5px 8px; border-radius: 8px; box-shadow: inset 0 1px 1px rgba(255,255,255,0.15); flex-shrink: 0; }
+        .hero-role { font-size: calc(12px * var(--font-scale)); letter-spacing: 2px; color: var(--primary-main); font-weight: 700; text-transform: uppercase; margin-top: 3px; }
+        .hero-badge-oz { font-size: calc(11px * var(--font-scale)); font-weight: 700; color: var(--primary-light); background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border-light); padding: 5px 8px; border-radius: 8px; box-shadow: inset 0 1px 1px rgba(255,255,255,0.15); flex-shrink: 0; }
 
         .bottom-contact-card {
             background: var(--glass-card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border); border-radius: 14px !important; padding: 10px 12px !important;
             display: flex; align-items: center; justify-content: space-between; box-shadow: var(--glass-shadow), var(--glass-highlight);
         }
-        .bottom-contact-info span { font-size: calc(12px * var(--font-scale)); font-weight: 700; color: var(--primary-light); display: block; text-transform: uppercase; letter-spacing: 0.5px; }
-        .bottom-contact-info small { font-size: calc(12.5px * var(--font-scale)); color: #94a3b8; }
+        .bottom-contact-info span { font-size: calc(11.5px * var(--font-scale)); font-weight: 700; color: var(--primary-light); display: block; text-transform: uppercase; letter-spacing: 0.5px; }
+        .bottom-contact-info small { font-size: calc(11px * var(--font-scale)); color: #94a3b8; }
         .bottom-social-pills { display: flex; gap: 5px; }
         .bottom-social-btn {
             background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border-light); border-radius: 8px;
-            padding: 4px 8px; font-size: calc(12.5px * var(--font-scale)); font-weight: 700; color: var(--primary-light); text-decoration: none;
+            padding: 4px 8px; font-size: calc(11px * var(--font-scale)); font-weight: 700; color: var(--primary-light); text-decoration: none;
             display: flex; align-items: center; gap: 3px; transition: all 0.2s; box-shadow: inset 0 1px 1px rgba(255,255,255,0.15);
         }
         .bottom-social-btn:active { transform: scale(0.95); background: rgba(212, 175, 55, 0.25); border-color: var(--primary-main); }
 
-        .section-label { font-size: calc(12px * var(--font-scale)); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #94a3b8; display: flex; justify-content: space-between; align-items: center; margin-top: 1px; }
+        .section-label { font-size: calc(11.5px * var(--font-scale)); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #94a3b8; display: flex; justify-content: space-between; align-items: center; margin-top: 1px; }
         
         .home-kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px !important; }
         .pulse-card {
@@ -287,8 +286,8 @@
         .pulse-card:active { transform: scale(0.97); border-color: var(--primary-main); background: rgba(212, 175, 55, 0.1); }
         .pulse-card.alert-active { border-color: rgba(239, 68, 68, 0.45); background: rgba(239, 68, 68, 0.08); }
         .pulse-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px; }
-        .pulse-title { font-size: calc(8px * var(--font-scale)) !important; color: #94a3b8; font-weight: 600; }
-        .pulse-val { font-size: calc(13px * var(--font-scale)) !important; font-weight: 700; }
+        .pulse-title { font-size: calc(10.5px * var(--font-scale)) !important; color: #94a3b8; font-weight: 600; }
+        .pulse-val { font-size: calc(14px * var(--font-scale)) !important; font-weight: 700; }
 
         .quick-actions-row { display: flex; gap: 6px !important; }
         .quick-pill {
@@ -298,7 +297,7 @@
             box-shadow: 0 3px 10px rgba(0,0,0,0.3), var(--glass-highlight); transition: all 0.2s; min-height: 38px;
         }
         .quick-pill:active { transform: scale(0.95); background: rgba(255, 255, 255, 0.12); border-color: var(--primary-main); }
-        .quick-pill span { font-size: calc(7.5px * var(--font-scale)) !important; font-weight: 700; color: var(--primary-light); }
+        .quick-pill span { font-size: calc(10.5px * var(--font-scale)) !important; font-weight: 700; color: var(--primary-light); }
 
         .grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 9px !important; }
         .modern-tile {
@@ -316,19 +315,19 @@
             box-shadow: 0 0 16px rgba(212, 175, 55, 0.16), inset 0 1px 2px rgba(255,255,255,0.25);
             font-size: calc(18px * var(--font-scale));
         }
-        .tile-title { font-size: calc(10.5px * var(--font-scale)) !important; font-weight: 800; color: #ffffff; margin: 0 !important; letter-spacing: 0.2px; }
+        .tile-title { font-size: calc(12px * var(--font-scale)) !important; font-weight: 800; color: #ffffff; margin: 0 !important; letter-spacing: 0.2px; }
 
         .gauge-container { width: 100%; margin: 3px 0 2px; }
         .gauge-track { width: 100%; height: 4px; background: rgba(0, 0, 0, 0.6); border-radius: 4px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.9); }
         .gauge-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; box-shadow: 0 0 8px currentColor; }
 
         .module-header-bar { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .module-title-h2 { font-size: calc(14.5px * var(--font-scale)); font-weight: 800; color: var(--primary-main); letter-spacing: 0.5px; text-transform: uppercase; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)); }
+        .module-title-h2 { font-size: calc(14px * var(--font-scale)); font-weight: 800; color: var(--primary-main); letter-spacing: 0.5px; text-transform: uppercase; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)); }
         
         .btn-action-sm {
             background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border); color: var(--primary-light);
-            padding: 3px 6px; border-radius: 6px; font-size: calc(12px * var(--font-scale)); font-weight: 700; cursor: pointer;
+            padding: 4px 7px; border-radius: 6px; font-size: calc(11px * var(--font-scale)); font-weight: 700; cursor: pointer;
             box-shadow: inset 0 1px 1px rgba(255,255,255,0.2); transition: all 0.15s;
         }
         .btn-action-sm:active { transform: scale(0.95); background: rgba(212,175,55,0.25); }
@@ -337,7 +336,7 @@
 
         .search-input {
             width: 100%; background: rgba(10, 10, 16, 0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border); color: #fff; padding: 6px 10px; border-radius: 9px; font-size: calc(12.5px * var(--font-scale)); outline: none;
+            border: 1px solid var(--glass-border); color: #fff; padding: 7px 10px; border-radius: 9px; font-size: calc(12px * var(--font-scale)); outline: none;
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.8), var(--glass-highlight);
         }
         .search-input:focus { border-color: var(--primary-main); }
@@ -347,7 +346,7 @@
             border: 1px solid var(--glass-border); border-radius: 10px; margin-bottom: 4px;
         }
         .native-dropdown-header {
-            padding: 9px 11px; font-size: calc(12.5px * var(--font-scale)); font-weight: 700; color: var(--primary-light);
+            padding: 9px 11px; font-size: calc(12px * var(--font-scale)); font-weight: 700; color: var(--primary-light);
             cursor: pointer; display: flex; justify-content: space-between; align-items: center;
         }
         .native-dropdown-header::after { content: "▾"; font-size: 13px; color: var(--primary-main); transition: transform 0.2s; }
@@ -364,7 +363,7 @@
         @keyframes fadeInDrop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 
         .native-dropdown-item {
-            padding: 10px 12px; font-size: calc(12.5px * var(--font-scale)); font-weight: 600; color: #cbd5e1;
+            padding: 10px 12px; font-size: calc(12px * var(--font-scale)); font-weight: 600; color: #cbd5e1;
             display: flex; justify-content: space-between; align-items: center; cursor: pointer;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05); background: transparent; transition: background 0.15s;
         }
@@ -380,11 +379,11 @@
         .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
         .cal-header h3 { font-size: calc(12px * var(--font-scale)); font-weight: 800; color: var(--primary-light); text-transform: uppercase; }
         .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2.5px; text-align: center; }
-        .cal-day-name { font-size: calc(12.5px * var(--font-scale)); font-weight: 700; color: #94a3b8; padding-bottom: 3px; }
+        .cal-day-name { font-size: calc(11px * var(--font-scale)); font-weight: 700; color: #94a3b8; padding-bottom: 3px; }
         .cal-cell {
             aspect-ratio: 1 / 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
             border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            cursor: pointer; font-size: calc(14.5px * var(--font-scale)); font-weight: 700; color: #e2e8f0; position: relative;
+            cursor: pointer; font-size: calc(11.5px * var(--font-scale)); font-weight: 700; color: #e2e8f0; position: relative;
             transition: all 0.15s;
         }
         .cal-cell:active { transform: scale(0.92); }
@@ -395,8 +394,8 @@
         .cal-cell.today { box-shadow: 0 0 8px var(--primary-main); border-color: #fff; }
         .cal-dot { width: 3.5px; height: 3.5px; border-radius: 50%; background: currentColor; margin-top: 1px; }
 
-        .legend-row { display: flex; justify-content: space-around; margin-top: 7px; font-size: calc(12.5px * var(--font-scale)); color: #94a3b8; }
-        .legend-item { display: flex; align-items: center; gap: 2.5px; }
+        .legend-row { display: flex; justify-content: space-around; margin-top: 7px; font-size: calc(11px * var(--font-scale)); color: #94a3b8; }
+        .legend-item { display: flex; align-items: center; gap: 3px; }
         .legend-box { width: 7px; height: 7px; border-radius: 2.5px; }
 
         .insumo-card {
@@ -405,12 +404,12 @@
             border-radius: 11px; padding: 8px 11px; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center;
             box-shadow: 0 4px 14px rgba(0,0,0,0.4), var(--glass-highlight);
         }
-        .insumo-info h4 { font-size: calc(12.5px * var(--font-scale)); font-weight: 700; color: #f8fafc; margin-bottom: 1px; }
-        .insumo-info span { font-size: calc(14.5px * var(--font-scale)); color: #94a3b8; }
+        .insumo-info h4 { font-size: calc(12px * var(--font-scale)); font-weight: 700; color: #f8fafc; margin-bottom: 1px; }
+        .insumo-info span { font-size: calc(11px * var(--font-scale)); color: #94a3b8; }
         .insumo-actions { display: flex; align-items: center; gap: 7px; }
         .insumo-price input {
             width: 64px; background: rgba(6, 6, 10, 0.85); border: 1px solid var(--glass-border);
-            color: var(--primary-light); text-align: center; font-size: calc(12.5px * var(--font-scale)); font-weight: 700; border-radius: 6px; padding: 4px 5px; outline: none;
+            color: var(--primary-light); text-align: center; font-size: calc(12px * var(--font-scale)); font-weight: 700; border-radius: 6px; padding: 4px 5px; outline: none;
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.8); transition: border-color 0.2s;
         }
         .insumo-price input:focus { border-color: var(--primary-main); }
@@ -435,8 +434,8 @@
             display: flex; align-items: center; justify-content: center; font-size: 18px; overflow: hidden;
         }
         .receta-list-main { flex-grow: 1; min-width: 0; }
-        .receta-list-main h4 { font-size: calc(12.5px * var(--font-scale)); font-weight: 800; color: var(--primary-light); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .receta-list-main p { font-size: calc(12px * var(--font-scale)); color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .receta-list-main h4 { font-size: calc(12px * var(--font-scale)); font-weight: 800; color: var(--primary-light); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .receta-list-main p { font-size: calc(11px * var(--font-scale)); color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .receta-list-right { text-align: right; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
         .receta-photo-box {
             margin-top: 8px; background: rgba(0, 0, 0, 0.45); border: 1px solid var(--glass-border);
@@ -447,34 +446,34 @@
             border: 1px solid var(--glass-border-light); display: block; margin-bottom: 8px;
         }
         .escandallo-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
-        .escandallo-header h3 { font-size: calc(14.5px * var(--font-scale)); font-weight: 800; color: var(--primary-light); filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)); }
+        .escandallo-header h3 { font-size: calc(13.5px * var(--font-scale)); font-weight: 800; color: var(--primary-light); filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)); }
         .escandallo-meta { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 6px; }
-        .meta-chip { font-size: calc(12.5px * var(--font-scale)); color: #cbd5e1; background: rgba(255, 255, 255, 0.06); border: 1px solid var(--glass-border-light); padding: 2px 5px; border-radius: 4px; }
+        .meta-chip { font-size: calc(11px * var(--font-scale)); color: #cbd5e1; background: rgba(255, 255, 255, 0.06); border: 1px solid var(--glass-border-light); padding: 2px 5px; border-radius: 4px; }
 
         .ing-list { background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 9px; padding: 5px 7px; margin: 4px 0 6px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.8); }
-        .ing-item { display: flex; justify-content: space-between; align-items: center; font-size: calc(12.5px * var(--font-scale)); color: #e2e8f0; padding: 3px 0; border-bottom: 1px dashed rgba(255, 255, 255, 0.06); }
+        .ing-item { display: flex; justify-content: space-between; align-items: center; font-size: calc(11.5px * var(--font-scale)); color: #e2e8f0; padding: 3px 0; border-bottom: 1px dashed rgba(255, 255, 255, 0.06); }
         .ing-item:last-child { border-bottom: none; }
         .ing-item input {
-            width: 40px; background: rgba(10, 10, 14, 0.9); border: 1px solid var(--glass-border);
-            color: var(--primary-main); text-align: center; font-size: calc(14.5px * var(--font-scale)); font-weight: 700; border-radius: 4px; padding: 2px; outline: none;
+            width: 44px; background: rgba(10, 10, 14, 0.9); border: 1px solid var(--glass-border);
+            color: var(--primary-main); text-align: center; font-size: calc(11.5px * var(--font-scale)); font-weight: 700; border-radius: 4px; padding: 2px; outline: none;
         }
 
-        .calc-row { display: flex; justify-content: space-between; align-items: center; font-size: calc(14.5px * var(--font-scale)); margin-bottom: 2.5px; color: #cbd5e1; }
+        .calc-row { display: flex; justify-content: space-between; align-items: center; font-size: calc(11.5px * var(--font-scale)); margin-bottom: 2.5px; color: #cbd5e1; }
         .calc-row input {
-            width: 56px; background: rgba(0, 0, 0, 0.85); border: 1px solid var(--primary-main);
-            color: var(--primary-light); text-align: right; font-size: calc(12.5px * var(--font-scale)); font-weight: 800; border-radius: 5px; padding: 2px 4px; outline: none;
+            width: 60px; background: rgba(0, 0, 0, 0.85); border: 1px solid var(--primary-main);
+            color: var(--primary-light); text-align: right; font-size: calc(11.5px * var(--font-scale)); font-weight: 800; border-radius: 5px; padding: 2px 4px; outline: none;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
         }
-        .calc-row.total { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 3.5px; margin-top: 3.5px; font-weight: 800; color: #fff; font-size: calc(14.5px * var(--font-scale)); }
+        .calc-row.total { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 3.5px; margin-top: 3.5px; font-weight: 800; color: #fff; font-size: calc(12.5px * var(--font-scale)); }
 
         .event-param-box { 
             background: var(--glass-card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border); border-radius: 11px; padding: 8px; box-shadow: var(--glass-shadow); 
         }
-        .event-param-row { display: flex; justify-content: space-between; align-items: center; font-size: calc(12.5px * var(--font-scale)); margin-bottom: 3px; color: #e2e8f0; }
+        .event-param-row { display: flex; justify-content: space-between; align-items: center; font-size: calc(11.5px * var(--font-scale)); margin-bottom: 3px; color: #e2e8f0; }
         .event-param-row input {
-            width: 60px; background: rgba(0, 0, 0, 0.9); border: 1px solid var(--glass-border);
-            color: var(--primary-light); text-align: center; font-size: calc(12px * var(--font-scale)); font-weight: 700; border-radius: 5px; padding: 3px; outline: none;
+            width: 64px; background: rgba(0, 0, 0, 0.9); border: 1px solid var(--glass-border);
+            color: var(--primary-light); text-align: center; font-size: calc(11.5px * var(--font-scale)); font-weight: 700; border-radius: 5px; padding: 3px; outline: none;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
         }
         .event-recipe-row {
@@ -483,46 +482,46 @@
             border-radius: 7px; padding: 4px 6px; margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between; gap: 4px; position: relative;
         }
         .event-recipe-row input {
-            width: 36px; background: rgba(0, 0, 0, 0.9); border: 1px solid var(--primary-main); color: var(--primary-light); text-align: center; font-size: calc(12px * var(--font-scale)); font-weight: 700; border-radius: 4px; padding: 2.5px;
+            width: 42px; background: rgba(0, 0, 0, 0.9); border: 1px solid var(--primary-main); color: var(--primary-light); text-align: center; font-size: calc(11.5px * var(--font-scale)); font-weight: 700; border-radius: 4px; padding: 2.5px;
         }
         .btn-icon-del {
-            background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; font-weight: 700; font-size: calc(12.5px * var(--font-scale)); width: 18px; height: 18px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; font-weight: 700; font-size: calc(11px * var(--font-scale)); width: 20px; height: 20px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
         }
 
         .btn-gold {
             background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-main) 50%, var(--primary-dark) 100%);
-            color: #050505; font-weight: 800; border: none; padding: 7px 10px; border-radius: 8px; cursor: pointer; font-size: calc(12px * var(--font-scale)); text-align: center; display: block; width: 100%; 
+            color: #050505; font-weight: 800; border: none; padding: 8px 10px; border-radius: 8px; cursor: pointer; font-size: calc(11.5px * var(--font-scale)); text-align: center; display: block; width: 100%; 
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.25), inset 0 1px 2px rgba(255,255,255,0.5);
             transition: transform 0.1s;
         }
         .btn-gold:active { transform: scale(0.98); }
 
-        .resumen-kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4.5px; }
+        .resumen-kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; }
         .kpi-box { 
             background: var(--glass-card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border); border-radius: 9px; padding: 5px 6px; text-align: center; box-shadow: 0 3px 8px rgba(0,0,0,0.4), var(--glass-highlight); 
+            border: 1px solid var(--glass-border); border-radius: 9px; padding: 6px 7px; text-align: center; box-shadow: 0 3px 8px rgba(0,0,0,0.4), var(--glass-highlight); 
         }
-        .kpi-box span { display: block; font-size: calc(12px * var(--font-scale)); color: #94a3b8; margin-bottom: 1px; text-transform: uppercase; }
-        .kpi-box strong { font-size: calc(12px * var(--font-scale)); color: var(--primary-light); filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)); }
+        .kpi-box span { display: block; font-size: calc(10.5px * var(--font-scale)); color: #94a3b8; margin-bottom: 1px; text-transform: uppercase; }
+        .kpi-box strong { font-size: calc(13px * var(--font-scale)); color: var(--primary-light); filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)); }
 
         .inv-card { 
             background: var(--glass-card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border-light); 
-            border-radius: 10px; padding: 7px 9px; margin-bottom: 4.5px; 
+            border-radius: 10px; padding: 7px 9px; margin-bottom: 5px; 
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), var(--glass-highlight);
         }
         .inv-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
-        .inv-header h4 { font-size: calc(12.5px * var(--font-scale)); color: #fff; font-weight: 700; }
+        .inv-header h4 { font-size: calc(12px * var(--font-scale)); color: #fff; font-weight: 700; }
         
-        .status-pill { font-size: calc(12px * var(--font-scale)); font-weight: 800; padding: 2px 5px; border-radius: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .status-pill { font-size: calc(10.5px * var(--font-scale)); font-weight: 800; padding: 2px 6px; border-radius: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
         .status-pill.optimo { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.45); }
         .status-pill.observar { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.45); }
         .status-pill.reponer { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.45); }
 
-        .inv-grid-inputs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.5px; margin-top: 3.5px; }
-        .inv-field { background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 5px; padding: 2.5px 2px; text-align: center; box-shadow: inset 0 2px 4px rgba(0,0,0,0.8); transition: background 0.2s, border-color 0.2s; }
-        .inv-field label { display: block; font-size: calc(14.5px * var(--font-scale)); color: #94a3b8; margin-bottom: 1px; text-transform: uppercase; }
-        .inv-field input { width: 100%; background: transparent; border: none; color: var(--primary-light); font-size: calc(12px * var(--font-scale)); font-weight: 700; text-align: center; outline: none; }
+        .inv-grid-inputs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 4px; }
+        .inv-field { background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 5px; padding: 3px 2px; text-align: center; box-shadow: inset 0 2px 4px rgba(0,0,0,0.8); transition: background 0.2s, border-color 0.2s; }
+        .inv-field label { display: block; font-size: calc(10px * var(--font-scale)); color: #94a3b8; margin-bottom: 1px; text-transform: uppercase; }
+        .inv-field input { width: 100%; background: transparent; border: none; color: var(--primary-light); font-size: calc(11.5px * var(--font-scale)); font-weight: 700; text-align: center; outline: none; }
         .inv-field.stock-box { transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
         .inv-field.stock-box.optimo { background: rgba(16, 185, 129, 0.24); border-color: rgba(16, 185, 129, 0.65); box-shadow: inset 0 1px 2px rgba(255,255,255,0.18), 0 0 10px rgba(16, 185, 129, 0.16); }
         .inv-field.stock-box.optimo label { color: #a7f3d0; }
@@ -535,22 +534,23 @@
         .inv-field.stock-box.reponer input { color: #fef2f2; }
         .inv-summary-bar { 
             background: var(--glass-card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border); border-radius: 9px; padding: 5px 9px; font-size: calc(14.5px * var(--font-scale)); box-shadow: var(--glass-shadow); 
+            border: 1px solid var(--glass-border); border-radius: 9px; padding: 6px 10px; font-size: calc(11.5px * var(--font-scale)); box-shadow: var(--glass-shadow);
+            display: flex; justify-content: space-between; align-items: center;
         }
         .resumen-card { 
             background: var(--glass-card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border-light); border-radius: 10px; padding: 7px 9px; margin-bottom: 4.5px; box-shadow: 0 4px 12px rgba(0,0,0,0.3), var(--glass-highlight); 
+            border: 1px solid var(--glass-border-light); border-radius: 10px; padding: 7px 9px; margin-bottom: 5px; box-shadow: 0 4px 12px rgba(0,0,0,0.3), var(--glass-highlight); 
         }
         .resumen-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
-        .resumen-header h4 { font-size: calc(12.5px * var(--font-scale)); color: #fff; font-weight: 700; }
+        .resumen-header h4 { font-size: calc(12px * var(--font-scale)); color: #fff; font-weight: 700; }
 
         .config-card { 
             background: var(--glass-card-bg); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--glass-border); border-radius: 13px; padding: 11px; display: flex; flex-direction: column; gap: 6px; box-shadow: var(--glass-shadow); 
+            border: 1px solid var(--glass-border); border-radius: 13px; padding: 11px; display: flex; flex-direction: column; gap: 7px; box-shadow: var(--glass-shadow); 
         }
         .config-group { display: flex; flex-direction: column; gap: 3px; }
-        .config-label { font-size: calc(12px * var(--font-scale)); font-weight: 700; color: #94a3b8; text-transform: uppercase; }
-        .config-input { background: rgba(0, 0, 0, 0.65); border: 1px solid var(--glass-border); color: #fff; padding: 6px; border-radius: 7px; font-size: calc(12.5px * var(--font-scale)); outline: none; box-shadow: inset 0 2px 5px rgba(0,0,0,0.8); }
+        .config-label { font-size: calc(11px * var(--font-scale)); font-weight: 700; color: #94a3b8; text-transform: uppercase; }
+        .config-input { background: rgba(0, 0, 0, 0.65); border: 1px solid var(--glass-border); color: #fff; padding: 7px 8px; border-radius: 7px; font-size: calc(12px * var(--font-scale)); outline: none; box-shadow: inset 0 2px 5px rgba(0,0,0,0.8); }
         .config-input:focus { border-color: var(--primary-main); }
 
         .pin-pad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 7px auto; width: 100%; max-width: 220px; }
@@ -565,7 +565,7 @@
         .pin-dot.filled { background: var(--primary-main); box-shadow: 0 0 8px var(--primary-main); }
 
         .bottom-nav {
-            position: absolute; bottom: 4px; left: 4px; right: 4px; height: 46px;
+            position: absolute; bottom: 4px; left: 4px; right: 4px; height: 48px;
             background: rgba(12, 12, 18, 0.78); 
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
@@ -575,10 +575,10 @@
         }
         .nav-item {
             flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 1px; color: #64748b; cursor: pointer; padding: 2px 1px; border-radius: 8px; transition: all 0.2s;
+            gap: 2px; color: #64748b; cursor: pointer; padding: 2px 1px; border-radius: 8px; transition: all 0.2s;
         }
-        .nav-item svg { width: 12px; height: 12px; }
-        .nav-item span { font-size: calc(12.5px * var(--font-scale)); font-weight: 700; letter-spacing: 0.1px; text-align: center; white-space: nowrap; }
+        .nav-item svg { width: 13px; height: 13px; }
+        .nav-item span { font-size: calc(10px * var(--font-scale)); font-weight: 700; letter-spacing: 0.1px; text-align: center; white-space: nowrap; }
         .nav-item.active { color: var(--primary-light); background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 1px 1px rgba(255,255,255,0.2); }
         .nav-item.active svg { stroke: var(--primary-main); filter: drop-shadow(0 0 5px rgba(212,175,55,0.7)); }
 
@@ -597,20 +597,20 @@
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; border-bottom: 1px solid var(--glass-border); padding-bottom: 4px; }
         .modal-header h3 { font-size: calc(12.5px * var(--font-scale)) !important; color: var(--primary-light); font-weight: 800; }
         .modal-close { background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border-light); color: #cbd5e1; width: 26px !important; height: 26px !important; border-radius: 50%; font-size: 12px !important; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .modal-textarea { width: 100%; flex-grow: 1; min-height: 105px !important; background: rgba(4, 4, 7, 0.85); border: 1px solid rgba(255, 255, 255, 0.1); color: #e2e8f0; font-size: calc(10.5px * var(--font-scale)) !important; line-height: 1.4; padding: 10px !important; border-radius: 10px !important; outline: none; resize: none; font-family: monospace; margin-bottom: 7px; box-shadow: inset 0 2px 6px rgba(0,0,0,0.9); }
+        .modal-textarea { width: 100%; flex-grow: 1; min-height: 105px !important; background: rgba(4, 4, 7, 0.85); border: 1px solid rgba(255, 255, 255, 0.1); color: #e2e8f0; font-size: calc(11px * var(--font-scale)) !important; line-height: 1.4; padding: 10px !important; border-radius: 10px !important; outline: none; resize: none; font-family: monospace; margin-bottom: 7px; box-shadow: inset 0 2px 6px rgba(0,0,0,0.9); }
 
         .modal-box .event-param-row {
             flex-direction: column !important; align-items: stretch !important; gap: 4px !important; margin-bottom: 9px !important; position: relative;
         }
         .modal-box .event-param-row span {
-            font-size: calc(8.5px * var(--font-scale)) !important; font-weight: 700 !important; color: var(--primary-light) !important; text-transform: uppercase; letter-spacing: 0.4px;
+            font-size: calc(10.5px * var(--font-scale)) !important; font-weight: 700 !important; color: var(--primary-light) !important; text-transform: uppercase; letter-spacing: 0.4px;
         }
         .modal-box .event-param-row input {
-            width: 100% !important; text-align: left !important; padding: 10px 12px !important; font-size: calc(11px * var(--font-scale)) !important; border-radius: 10px !important; background: rgba(0, 0, 0, 0.85) !important;
+            width: 100% !important; text-align: left !important; padding: 10px 12px !important; font-size: calc(11.5px * var(--font-scale)) !important; border-radius: 10px !important; background: rgba(0, 0, 0, 0.85) !important;
         }
         .modal-box .event-recipe-row { padding: 6px 7px !important; gap: 5px !important; margin-bottom: 5px !important; overflow: visible !important; }
-        .modal-box .event-recipe-row input { padding: 7px 5px !important; font-size: calc(10px * var(--font-scale)) !important; height: 34px !important; }
-        .modal-box .btn-gold { padding: 11px 12px !important; font-size: calc(10px * var(--font-scale)) !important; border-radius: 11px !important; }
+        .modal-box .event-recipe-row input { padding: 7px 5px !important; font-size: calc(11px * var(--font-scale)) !important; height: 34px !important; }
+        .modal-box .btn-gold { padding: 11px 12px !important; font-size: calc(11.5px * var(--font-scale)) !important; border-radius: 11px !important; }
     </style>
 </head>
 <body>
@@ -619,10 +619,10 @@
         
         <div class="notification-banner" id="notificationBanner">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
-                <strong style="font-size:10.5px;" id="notifTitle">📅 Evento para Hoy</strong>
-                <button onclick="document.getElementById('notificationBanner').style.display='none'" style="background:transparent; border:none; color:#fff; font-size:11px; cursor:pointer;">✕</button>
+                <strong style="font-size:11px;" id="notifTitle">📅 Evento para Hoy</strong>
+                <button onclick="document.getElementById('notificationBanner').style.display='none'" style="background:transparent; border:none; color:#fff; font-size:12px; cursor:pointer;">✕</button>
             </div>
-            <p style="font-size:11px; color:#e2e8f0;" id="notifText">Nota del evento...</p>
+            <p style="font-size:11.5px; color:#e2e8f0;" id="notifText">Nota del evento...</p>
         </div>
 
         <div class="splash-screen" id="splash">
@@ -734,7 +734,7 @@
                     <span id="navRentSpan">Rentabilidad</span>
                 </div>
                 <div class="nav-item" id="nav-brand" onclick="renderBranding()">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0l2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1 z"></path></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 .33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                     <span id="navBrandSpan">Brand</span>
                 </div>
             </nav>
@@ -742,7 +742,6 @@
 
     </div>
 
-    <!-- MODAL DE CONFIRMACIÓN ESTILIZADO -->
     <div class="modal-overlay" id="modalCriteriosStock" onclick="cerrarModalIfOutside(event, 'modalCriteriosStock')" style="display:none;">
         <div class="modal-box" style="max-width: 330px;">
             <div class="modal-header">
@@ -773,15 +772,14 @@
         <div class="modal-box" style="max-width: 300px; text-align: center; padding: 20px !important;">
             <div style="font-size: 28px; margin-bottom: 8px;">⚠️</div>
             <h3 id="confirmTitulo" style="color: var(--primary-light); font-size: 13px; margin-bottom: 8px;">¿Estás seguro?</h3>
-            <p id="confirmMensaje" style="font-size: 9px; color: #cbd5e1; margin-bottom: 16px; line-height: 1.4;">Mensaje de confirmación aquí...</p>
+            <p id="confirmMensaje" style="font-size: 11px; color: #cbd5e1; margin-bottom: 16px; line-height: 1.4;">Mensaje de confirmación aquí...</p>
             <div style="display: flex; gap: 8px;">
-                <button class="btn-action-sm" style="flex: 1; padding: 10px; font-size: 9px;" onclick="cerrarModal('modalConfirmacion')">Cancelar</button>
-                <button class="btn-gold" style="flex: 1; padding: 10px; font-size: 9px;" id="btnConfirmarAccion">Aceptar</button>
+                <button class="btn-action-sm" style="flex: 1; padding: 10px; font-size: 11px;" onclick="cerrarModal('modalConfirmacion')">Cancelar</button>
+                <button class="btn-gold" style="flex: 1; padding: 10px; font-size: 11px;" id="btnConfirmarAccion">Aceptar</button>
             </div>
         </div>
     </div>
 
-    <!-- INPUT FILE PARA IMPORTAR ARCHIVOS CSV COMPATIBLES CON GOOGLE SHEETS -->
     <input type="file" id="fileSelectorInput" style="display:none;" accept=".csv, .txt, .json" onchange="procesarArchivoSeleccionado(event)">
     <input type="file" id="recetaFotoInput" style="display:none;" accept="image/*" onchange="procesarFotoCoctelSeleccionada(event)">
 
@@ -795,14 +793,14 @@
                 <input type="hidden" id="calFechaKeySelected" value="">
                 <div class="event-param-row">
                     <span id="txtCalStatusLbl">Estado:</span>
-                    <div class="native-dropdown-container" id="dropCalEstado" data-global-items="work:🍸 Día de Trabajo|off:🌴 Día Libre|event:⭐ Cita / Evento|: (Sin asignar)">
+                    <div class="native-dropdown-container" id="dropCalEstado" data-val="work" data-global-items="work:🍸 Día de Trabajo|off:🌴 Día Libre|event:⭐ Cita / Evento|: (Sin asignar)">
                         <div class="native-dropdown-header" onclick="toggleNativeDropdown('dropCalEstado', seleccionarCalEstado)">
                             <span id="labelCalEstado">🍸 Día de Trabajo</span>
                         </div>
                     </div>
                 </div>
-                <div class="event-param-column">
-                    <span style="font-size:11px; color:#94a3b8; display:block; margin-bottom:2px; text-transform:uppercase;" id="txtCalNoteLbl">Nota / Explicación:</span>
+                <div>
+                    <span style="font-size:11px; color:#94a3b8; display:block; margin-bottom:3px; text-transform:uppercase;" id="txtCalNoteLbl">Nota / Explicación:</span>
                     <textarea class="modal-textarea" id="calInputNota" style="height:85px;" placeholder="Ej. Inventario general con proveedores a las 4 PM..."></textarea>
                 </div>
             </div>
@@ -815,7 +813,7 @@
             <div class="modal-header" style="justify-content:center; border:none; margin-bottom:0;">
                 <h3 id="pinModalTitle">🔒 Negocio Protegido</h3>
             </div>
-            <p style="font-size:10px; color:#94a3b8; margin-bottom:4px;" id="txtPinSub">Ingresa el PIN de 4 dígitos o usa tu huella</p>
+            <p style="font-size:11px; color:#94a3b8; margin-bottom:4px;" id="txtPinSub">Ingresa el PIN de 4 dígitos o usa tu huella</p>
             <div class="pin-dots" id="pinDotsContainer">
                 <div class="pin-dot" id="dot-0"></div>
                 <div class="pin-dot" id="dot-1"></div>
@@ -840,7 +838,7 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="modalPresupuesto">
+    <div class="modal-overlay" id="modalPresupuesto" onclick="cerrarModalIfOutside(event, 'modalPresupuesto')">
         <div class="modal-box">
             <div class="modal-header">
                 <h3 id="modalTitle">Propuesta Comercial</h3>
@@ -936,7 +934,7 @@
                 </div>
 
                 <div style="display:flex; justify-content:space-between; align-items:center; margin:6px 0 3px;">
-                    <span style="font-size:10.5px; color:var(--primary-light); font-weight:700; text-transform:uppercase;" id="lblCoctelIngs">Ingredientes:</span>
+                    <span style="font-size:11px; color:var(--primary-light); font-weight:700; text-transform:uppercase;" id="lblCoctelIngs">Ingredientes:</span>
                     <button class="btn-action-sm" onclick="agregarFilaIngredienteModal()" id="btnAddIngModal">+ Agregar</button>
                 </div>
                 <div id="contenedorIngredientesModal" style="display:flex; flex-direction:column; gap:5px;"></div>
@@ -966,7 +964,7 @@
                 <div class="event-param-row"><span id="lblLabUnit">Unidad de Medida:</span> <input type="text" id="labUnidadMedida" value="ml"></div>
                 <div class="event-param-row"><span id="lblLabLife">Vida Útil:</span> <input type="text" id="labShelfLife" value="30 días"></div>
                 <div style="display:flex; justify-content:space-between; align-items:center; margin:6px 0 2px;">
-                    <span style="font-size:10.5px; color:var(--primary-light); font-weight:700; text-transform:uppercase;" id="lblLabBatchIngs">Ingredientes del Batch:</span>
+                    <span style="font-size:11px; color:var(--primary-light); font-weight:700; text-transform:uppercase;" id="lblLabBatchIngs">Ingredientes del Batch:</span>
                     <button class="btn-action-sm" onclick="agregarFilaIngredienteLab()" id="btnAddLabIng">+ Ingrediente</button>
                 </div>
                 <div id="contenedorIngredientesLab" style="display:flex; flex-direction:column; gap:4px;"></div>
@@ -995,6 +993,39 @@
         </div>
     </div>
 
+    <div id="betaGateModal" style="display:flex; position:fixed; inset:0; background:rgba(6,6,10,0.96); backdrop-filter:blur(28px); -webkit-backdrop-filter:blur(28px); color:#fff; z-index:999999; flex-direction:column; align-items:center; justify-content:center; padding:24px; text-align:center;">
+        <div style="width:100%; max-width:340px; background:linear-gradient(145deg, rgba(30,30,40,0.75) 0%, rgba(12,12,18,0.9) 100%); border:1px solid rgba(212,175,55,0.35); border-radius:18px; padding:22px 18px; box-shadow:0 20px 50px rgba(0,0,0,0.85);">
+            <h2 style="margin-bottom:8px; color:#fbeeb8; font-size:17px; font-weight:800;">BarCraft Elite — Acceso Beta</h2>
+            <p style="opacity:0.85; margin-bottom:16px; font-size:12.5px; line-height:1.4; color:#cbd5e1;">
+                Ingresa tu código único de invitación para activar la aplicación en este dispositivo.
+            </p>
+            <input id="betaCodeInput" type="text" placeholder="Ej: BAR-BETA-01" autocomplete="off"
+                style="width:100%; padding:12px; border-radius:10px; border:1px solid rgba(212,175,55,0.35); background:rgba(4,4,8,0.85); color:#fff; text-align:center; font-size:15px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; outline:none;" />
+            <button id="betaActivateBtn" type="button" onclick="validarCodigoBeta()"
+                style="width:100%; padding:12px; border-radius:10px; border:none; background:linear-gradient(135deg, #fbeeb8 0%, #d4af37 55%, #aa7c11 100%); color:#050505; font-weight:800; font-size:14px; cursor:pointer;">
+                Activar Beta
+            </button>
+            <p id="betaStatusMsg" style="margin-top:12px; font-size:12.5px; color:#fca5a5; min-height:18px;"></p>
+        </div>
+    </div>
+
+    <script>
+        (function aplicarVisibilidadBetaInmediata() {
+            try {
+                const desbloqueado = localStorage.getItem("barcraft_beta_unlocked") === "true";
+                const modal = document.getElementById("betaGateModal");
+                if (modal) {
+                    if (desbloqueado) {
+                        modal.style.display = "none";
+                    } else {
+                        modal.style.display = "flex";
+                        modal.style.zIndex = "999999";
+                    }
+                }
+            } catch (e) {}
+        })();
+    </script>
+
     <script>
         let currentLang = 'es';
         let currentSessionId = 'barcraft_elite';
@@ -1017,6 +1048,7 @@
                 bgTheme: "obsidian",
                 fontScale: 0.85,
                 pin: "1234",
+                stockCriteria: { reponerMax: 1, observarMax: 2 },
                 calendario: {},
                 insumos: [
                     { id: "INS-001", nombre: { es: "Ron Cacique Añejo", en: "Cacique Añejo Rum" }, cat: { es: "Destilados", en: "Spirits" }, unidad: { es: "Botella", en: "Bottle" }, contenido: 750, costo: 8.50, stockIni: 6, ent: 4, sal: 5 },
@@ -1060,6 +1092,7 @@
                 bgTheme: "mokalounge",
                 fontScale: 0.85,
                 pin: "1234",
+                stockCriteria: { reponerMax: 1, observarMax: 2 },
                 calendario: {},
                 insumos: [
                     { id: "INS-101", nombre: { es: "Gin Canaima", en: "Canaima Gin" }, cat: { es: "Destilados", en: "Spirits" }, unidad: { es: "Botella", en: "Bottle" }, contenido: 750, costo: 22.00, stockIni: 4, ent: 2, sal: 3 }
@@ -1180,6 +1213,31 @@
             document.getElementById('modalConfirmacion').style.display = 'flex';
         }
 
+        function copiarPresupuesto() {
+            const txtArea = document.getElementById('txtPresupuesto');
+            const btn = document.getElementById('btnCopiar');
+            if (!txtArea) return;
+            const contenido = txtArea.value;
+            const marcarCopiado = () => {
+                if (btn) {
+                    const orig = btn.innerText;
+                    btn.innerText = currentLang === 'es' ? "✅ ¡Copiado!" : "✅ Copied!";
+                    setTimeout(() => { btn.innerText = orig; }, 1400);
+                }
+            };
+            if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+                navigator.clipboard.writeText(contenido).then(marcarCopiado).catch(() => {
+                    txtArea.select();
+                    document.execCommand('copy');
+                    marcarCopiado();
+                });
+            } else {
+                txtArea.select();
+                document.execCommand('copy');
+                marcarCopiado();
+            }
+        }
+
         function actualizarTextosEstaticos() {
             document.getElementById('txtSelectBiz').innerHTML = `${currentLang === 'es' ? 'Selecciona un' : 'Select a'} <span>${currentLang === 'es' ? 'Negocio' : 'Business'}</span>`;
             document.getElementById('txtSelectBizSub').innerText = t('selectBizSub');
@@ -1195,6 +1253,7 @@
 
         function setActiveNav(navId) {
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            if (!navId) return;
             const target = document.getElementById(navId);
             if (target) target.classList.add('active');
         }
@@ -1221,14 +1280,13 @@
                 container.classList.add('open');
                 const rect = container.getBoundingClientRect();
                 
-                let itemsRaw = container.getAttribute('data-global-items') || '';
-                let itemsList = [];
-                if (itemsRaw) {
-                    itemsList = itemsRaw.split('|').map(pair => {
-                        let parts = pair.split(':');
-                        return { val: parts[0], text: parts[1] || parts[0] };
-                    });
-                }
+                const itemsRaw = container.getAttribute('data-global-items') || '';
+                const itemsList = itemsRaw
+                    ? itemsRaw.split('|').map(pair => {
+                        const parts = pair.split(':');
+                        return { val: parts[0], text: parts.slice(1).join(':') || parts[0] };
+                    })
+                    : [];
 
                 if (itemsList.length === 0) return;
 
@@ -1237,11 +1295,19 @@
                 bodyGlobal.style.width = rect.width + 'px';
                 bodyGlobal.style.left = rect.left + 'px';
 
-                let itemsHtml = '';
                 itemsList.forEach(item => {
-                    itemsHtml += `<div class="native-dropdown-item" onclick="e => e.stopPropagation()">${item.text}</div>`;
+                    const opDom = document.createElement('div');
+                    opDom.className = 'native-dropdown-item';
+                    opDom.textContent = item.text;
+                    opDom.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        cerrarTodosLosDropdownsGlobales();
+                        if (typeof onSelectCallback === 'function') {
+                            onSelectCallback(item.val, item.text);
+                        }
+                    });
+                    bodyGlobal.appendChild(opDom);
                 });
-                bodyGlobal.innerHTML = itemsHtml;
 
                 const espacioAbajo = window.innerHeight - rect.bottom;
                 if (espacioAbajo < 210 && rect.top > 210) {
@@ -1251,20 +1317,6 @@
                     bodyGlobal.style.top = (rect.bottom + 4) + 'px';
                     bodyGlobal.style.bottom = 'auto';
                 }
-
-                setTimeout(() => {
-                    const opcionesDom = bodyGlobal.querySelectorAll('.native-dropdown-item');
-                    opcionesDom.forEach((opDom, idx) => {
-                        let dataItem = itemsList[idx];
-                        opDom.onclick = (e) => {
-                            e.stopPropagation();
-                            cerrarTodosLosDropdownsGlobales();
-                            if (typeof onSelectCallback === 'function') {
-                                onSelectCallback(dataItem.val, dataItem.text);
-                            }
-                        };
-                    });
-                }, 10);
 
                 document.body.appendChild(bodyGlobal);
             }
@@ -1296,18 +1348,21 @@
             try {
                 const savedSessions = localStorage.getItem('barCraftAllSessions_v19');
                 if (savedSessions) {
-                    let parsed = JSON.parse(savedSessions);
-                    if (parsed && Object.keys(parsed).length > 0) {
+                    const parsed = JSON.parse(savedSessions);
+                    if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
                         appSessions = parsed;
                     }
                 }
             } catch(e) {}
 
-            for(let key in appSessions) {
-                if(!appSessions[key].labPrep) appSessions[key].labPrep = [];
-                if(!appSessions[key].fontScale) appSessions[key].fontScale = 0.85;
-                if(!appSessions[key].calendario) appSessions[key].calendario = {};
-                if(!appSessions[key].stockCriteria) appSessions[key].stockCriteria = { reponerMax: 1, observarMax: 2 };
+            for (const key in appSessions) {
+                if (!appSessions[key].labPrep) appSessions[key].labPrep = [];
+                if (!appSessions[key].fontScale) appSessions[key].fontScale = 0.85;
+                if (!appSessions[key].calendario) appSessions[key].calendario = {};
+                if (!appSessions[key].stockCriteria) appSessions[key].stockCriteria = { reponerMax: 1, observarMax: 2 };
+            }
+            if (!appSessions[currentSessionId]) {
+                currentSessionId = Object.keys(appSessions)[0];
             }
             actualizarTextosEstaticos();
             if (typeof verificarEstadoBeta === "function") verificarEstadoBeta();
@@ -1469,15 +1524,15 @@
         function mostrarSelectorSesiones() {
             const selectorScreen = document.getElementById('sessionSelectorScreen');
             const dashboard = document.getElementById('dashboard');
-            if(dashboard) dashboard.style.display = 'none';
-            if(selectorScreen) selectorScreen.style.display = 'flex';
+            if (dashboard) dashboard.style.display = 'none';
+            if (selectorScreen) selectorScreen.style.display = 'flex';
 
             const container = document.getElementById('sessionCardsContainer');
-            if(!container) return;
+            if (!container) return;
 
             let html = '';
-            for (let key in appSessions) {
-                let ses = appSessions[key];
+            for (const key in appSessions) {
+                const ses = appSessions[key];
                 html += `
                     <div class="session-card-square" onclick="intentarAccesoSesion('${key}')">
                         <div class="session-square-icon">🍸</div>
@@ -1526,11 +1581,12 @@
         }
 
         function verificarPinIngresado() {
-            let ses = appSessions[sessionPendingUnlock];
-            let pinValido = ses.pin || "1234";
+            const ses = appSessions[sessionPendingUnlock];
+            const pinValido = ses.pin || "1234";
             if (pinIngresado === pinValido) {
+                const sid = sessionPendingUnlock;
                 cerrarModalPin();
-                seleccionarSesion(sessionPendingUnlock);
+                seleccionarSesion(sid);
             } else {
                 mostrarConfirmacion("PIN Incorrecto", currentLang === 'es' ? "PIN incorrecto (Prueba con 1234)." : "Incorrect PIN (Try 1234).", () => {});
                 pinIngresado = "";
@@ -1554,8 +1610,9 @@
                 return;
             }
 
+            const sid = sessionPendingUnlock;
             cerrarModalPin();
-            seleccionarSesion(sessionPendingUnlock);
+            if (sid) seleccionarSesion(sid);
         }
 
         function cerrarModalPin() {
@@ -1565,6 +1622,9 @@
 
         function seleccionarSesion(sessionId) {
             currentSessionId = sessionId;
+            coctelSeleccionadoIdx = 0;
+            vistaDetalleReceta = false;
+            eventCarta = [{ coctelIdx: 0, servicios: 40 }];
             document.getElementById('sessionSelectorScreen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'flex';
             applyBranding();
@@ -1582,11 +1642,11 @@
         }
 
         function getActiveSession() {
-            return appSessions[currentSessionId] || appSessions['barcraft_elite'];
+            return appSessions[currentSessionId] || appSessions[Object.keys(appSessions)[0]];
         }
 
         function applyBranding() {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             document.getElementById('splashName').innerText = ses.brandName;
             document.getElementById('splashRole').innerText = ses.brandRole;
 
@@ -1604,20 +1664,20 @@
         }
 
         function verificarNotificacionHoy() {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             if (!ses.calendario) return;
 
-            let hoy = new Date();
-            let yyyy = hoy.getFullYear();
-            let mm = String(hoy.getMonth() + 1).padStart(2, '0');
-            let dd = String(hoy.getDate()).padStart(2, '0');
-            let hoyKey = `${yyyy}-${mm}-${dd}`;
+            const hoy = new Date();
+            const yyyy = hoy.getFullYear();
+            const mm = String(hoy.getMonth() + 1).padStart(2, '0');
+            const dd = String(hoy.getDate()).padStart(2, '0');
+            const hoyKey = `${yyyy}-${mm}-${dd}`;
 
-            let eventoHoy = ses.calendario[hoyKey];
+            const eventoHoy = ses.calendario[hoyKey];
             if (eventoHoy && eventoHoy.nota) {
-                let banner = document.getElementById('notificationBanner');
-                let titulo = document.getElementById('notifTitle');
-                let texto = document.getElementById('notifText');
+                const banner = document.getElementById('notificationBanner');
+                const titulo = document.getElementById('notifTitle');
+                const texto = document.getElementById('notifText');
 
                 if (banner && texto) {
                     titulo.innerText = eventoHoy.tipo === 'event' ? (currentLang === 'es' ? "⭐ ¡Cita o Evento para Hoy!" : "⭐ Appointment or Event Today!") : (currentLang === 'es' ? "🔔 Recordatorio de Hoy" : "🔔 Today's Reminder");
@@ -1629,7 +1689,7 @@
 
         function calcularDatosCoctel(c, insumosDB) {
             let subtotal = 0;
-            c.ingredientes.forEach(ing => {
+            (c.ingredientes || []).forEach(ing => {
                 const ins = insumosDB.find(x => x.id === ing.id);
                 if (ins && ins.contenido > 0) {
                     subtotal += (ins.costo / ins.contenido) * ing.cant;
@@ -1645,7 +1705,7 @@
 
         function calcularDatosLab(lab, insumosDB) {
             let costoTotalBatch = 0;
-            lab.ingredientes.forEach(ing => {
+            (lab.ingredientes || []).forEach(ing => {
                 const ins = insumosDB.find(x => x.id === ing.id);
                 if (ins && ins.contenido > 0) {
                     costoTotalBatch += (ins.costo / ins.contenido) * ing.cant;
@@ -1676,18 +1736,18 @@
             activeModule = 'menu';
             setActiveNav('nav-home');
             actualizarBotonFlotante();
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
 
             let totalValorInv = 0, alertasStock = 0;
             const critHome = getStockCriteria(ses);
             ses.insumos.forEach(item => {
-                let stockActual = (item.stockIni || 0) + (item.ent || 0) - (item.sal || 0);
+                const stockActual = (item.stockIni || 0) + (item.ent || 0) - (item.sal || 0);
                 totalValorInv += (stockActual * item.costo);
                 if (stockActual <= critHome.reponerMax) alertasStock++;
             });
 
-            let sumaDc = 0, mejorCoctel = ses.cocteles[0], mejorMargen = -1;
+            let sumaDc = 0, mejorCoctel = ses.cocteles[0], mejorMargen = -Infinity;
             ses.cocteles.forEach(c => {
                 const calc = calcularDatosCoctel(c, ses.insumos);
                 sumaDc += calc.drinkCost;
@@ -1696,8 +1756,8 @@
             const avgDc = ses.cocteles.length > 0 ? (sumaDc / ses.cocteles.length) : 0;
             const dcColor = avgDc <= 25 ? '#10b981' : (avgDc <= 30 ? '#f59e0b' : '#ef4444');
 
-            let whatsappLink = ses.whatsapp ? `https://wa.me/${ses.whatsapp}` : '#';
-            let instagramLink = ses.instagram ? `https://instagram.com/${ses.instagram.replace('@','')}` : '#';
+            const whatsappLink = ses.whatsapp ? `https://wa.me/${ses.whatsapp}` : '#';
+            const instagramLink = ses.instagram ? `https://instagram.com/${ses.instagram.replace('@','')}` : '#';
 
             container.innerHTML = `
                 <div class="hero-luxe-card">
@@ -1713,7 +1773,7 @@
                     <div class="hero-badge-oz">4K GLASS</div>
                 </div>
 
-                <div class="section-label"><span>${t('pulseSection')}</span><span style="color:var(--primary-main); font-size:11px;">● 4K ACTIVE</span></div>
+                <div class="section-label"><span>${t('pulseSection')}</span><span style="color:var(--primary-main); font-size:10.5px;">● 4K ACTIVE</span></div>
 
                 <div class="home-kpi-grid">
                     <div class="pulse-card" onclick="abrirInventario()">
@@ -1730,7 +1790,7 @@
                     </div>
                     <div class="pulse-card" onclick="abrirEscandallo()">
                         <div class="pulse-top"><span class="pulse-title">${t('kpiStar')}</span></div>
-                        <div class="pulse-val" style="font-size:11px; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${mejorCoctel ? (mejorCoctel.nombre[currentLang] || mejorCoctel.nombre.es) : '-'}</div>
+                        <div class="pulse-val" style="font-size:12px; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${mejorCoctel ? (mejorCoctel.nombre[currentLang] || mejorCoctel.nombre.es) : '-'}</div>
                     </div>
                 </div>
 
@@ -1739,7 +1799,7 @@
                     <div class="quick-pill" onclick="abrirCalendario()"><span>📅 ${currentLang === 'es' ? 'Agenda' : 'Agenda'}</span></div>
                     <div class="quick-pill" onclick="abrirModalCoctel()"><span>+ ${currentLang === 'es' ? 'Receta' : 'Recipe'}</span></div>
                     <div class="quick-pill" onclick="abrirModalLab()"><span>+ Lab / Prep</span></div>
-                    <div class="quick-pill" onclick="exportarBackup()"><span style="color:#34d399;">Backup</span></div>
+                    <div class="quick-pill" onclick="exportarBackupArchivo()"><span style="color:#34d399;">Backup</span></div>
                 </div>
 
                 <div class="section-label"><span>${t('modulesSection')}</span></div>
@@ -1768,8 +1828,8 @@
                         <small>${t('reserveEvents')}</small>
                     </div>
                     <div class="bottom-social-pills">
-                        <a href="${whatsappLink}" target="_blank" class="bottom-social-btn">💬 WhatsApp</a>
-                        <a href="${instagramLink}" target="_blank" class="bottom-social-btn">📸 Instagram</a>
+                        <a href="${whatsappLink}" target="_blank" rel="noopener noreferrer" class="bottom-social-btn">💬 WhatsApp</a>
+                        <a href="${instagramLink}" target="_blank" rel="noopener noreferrer" class="bottom-social-btn">📸 Instagram</a>
                     </div>
                 </div>
             `;
@@ -1779,7 +1839,7 @@
             activeModule = 'calendar';
             setActiveNav('');
             actualizarBotonFlotante();
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
 
             if (!ses.calendario) ses.calendario = {};
@@ -1787,8 +1847,8 @@
             const mesesNombres = currentLang === 'es' ? ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"] : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             const diasSemana = currentLang === 'es' ? ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"] : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-            let primerDiaIndex = new Date(calAnioActual, calMesActual, 1).getDay();
-            let totalDiasMes = new Date(calAnioActual, calMesActual + 1, 0).getDate();
+            const primerDiaIndex = new Date(calAnioActual, calMesActual, 1).getDay();
+            const totalDiasMes = new Date(calAnioActual, calMesActual + 1, 0).getDate();
 
             let celdasHTML = '';
             diasSemana.forEach(d => { celdasHTML += `<div class="cal-day-name">${d}</div>`; });
@@ -1797,16 +1857,16 @@
                 celdasHTML += `<div class="cal-cell empty"></div>`;
             }
 
-            let hoy = new Date();
-            let esMesActual = (hoy.getFullYear() === calAnioActual && hoy.getMonth() === calMesActual);
+            const hoy = new Date();
+            const esMesActual = (hoy.getFullYear() === calAnioActual && hoy.getMonth() === calMesActual);
             let listaEventosHtml = '';
 
             for (let dia = 1; dia <= totalDiasMes; dia++) {
-                let mesStr = String(calMesActual + 1).padStart(2, '0');
-                let diaStr = String(dia).padStart(2, '0');
-                let fechaKey = `${calAnioActual}-${mesStr}-${diaStr}`;
+                const mesStr = String(calMesActual + 1).padStart(2, '0');
+                const diaStr = String(dia).padStart(2, '0');
+                const fechaKey = `${calAnioActual}-${mesStr}-${diaStr}`;
                 
-                let dataDia = ses.calendario[fechaKey];
+                const dataDia = ses.calendario[fechaKey];
                 let tipoEstado = '';
                 let notaDia = '';
 
@@ -1817,9 +1877,9 @@
                     notaDia = dataDia.nota || '';
                 }
 
-                let claseExtra = tipoEstado ? tipoEstado : '';
-                let esHoy = (esMesActual && hoy.getDate() === dia) ? 'today' : '';
-                let tieneNotaIcon = notaDia ? '📝' : '';
+                const claseExtra = tipoEstado ? tipoEstado : '';
+                const esHoy = (esMesActual && hoy.getDate() === dia) ? 'today' : '';
+                const tieneNotaIcon = notaDia ? '📝' : '';
 
                 celdasHTML += `
                     <div class="cal-cell ${claseExtra} ${esHoy}" onclick="abrirModalNotaDia('${fechaKey}', ${dia})">
@@ -1837,7 +1897,7 @@
                                 <h4 style="color:var(--primary-light);">📅 ${dia} ${currentLang === 'es' ? 'de' : 'of'} ${mesesNombres[calMesActual]}</h4>
                                 <span class="status-pill ${tipoEstado === 'event' ? 'observar' : 'optimo'}">${tipoEstado || 'Nota'}</span>
                             </div>
-                            <p style="font-size:10.5px; color:#cbd5e1; margin-top:2px;">${notaDia}</p>
+                            <p style="font-size:11px; color:#cbd5e1; margin-top:2px;">${notaDia}</p>
                         </div>
                     `;
                 }
@@ -1856,7 +1916,7 @@
                 <div class="cal-container">
                     <div class="cal-header">
                         <h3>${mesesNombres[calMesActual]} ${calAnioActual}</h3>
-                        <span style="font-size:11px; color:#94a3b8;">${t('agendaSub')}</span>
+                        <span style="font-size:10.5px; color:#94a3b8;">${t('agendaSub')}</span>
                     </div>
                     <div class="cal-grid">${celdasHTML}</div>
                     <div class="legend-row">
@@ -1881,7 +1941,7 @@
         }
 
         function abrirModalNotaDia(fechaKey, numDia) {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             if (!ses.calendario) ses.calendario = {};
             let dataDia = ses.calendario[fechaKey] || { tipo: 'work', nota: '' };
             if (typeof dataDia === 'string') dataDia = { tipo: dataDia, nota: '' };
@@ -1889,8 +1949,8 @@
             document.getElementById('calFechaKeySelected').value = fechaKey;
             document.getElementById('modalCalFechaTitulo').innerText = `📅 ${currentLang === 'es' ? 'Día' : 'Day'} ${numDia}`;
             
-            let tipoVal = dataDia.tipo || 'work';
-            let tipoTextMap = { 
+            const tipoVal = dataDia.tipo || 'work';
+            const tipoTextMap = { 
                 'work': currentLang === 'es' ? '🍸 Día de Trabajo' : '🍸 Work Day', 
                 'off': currentLang === 'es' ? '🌴 Día Libre' : '🌴 Day Off', 
                 'event': currentLang === 'es' ? '⭐ Cita / Evento' : '⭐ Event / Appt', 
@@ -1912,10 +1972,10 @@
         }
 
         function guardarDiaCalendario() {
-            let ses = getActiveSession();
-            let fechaKey = document.getElementById('calFechaKeySelected').value;
-            let tipo = document.getElementById('dropCalEstado').getAttribute('data-val') || 'work';
-            let nota = document.getElementById('calInputNota').value.trim();
+            const ses = getActiveSession();
+            const fechaKey = document.getElementById('calFechaKeySelected').value;
+            const tipo = document.getElementById('dropCalEstado').getAttribute('data-val') || 'work';
+            const nota = document.getElementById('calInputNota').value.trim();
 
             if (!ses.calendario) ses.calendario = {};
             if (!tipo && !nota) delete ses.calendario[fechaKey];
@@ -1931,11 +1991,11 @@
             activeModule = 'insumos';
             setActiveNav('nav-insumos');
             actualizarBotonFlotante();
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
 
-            let categoriasDisponibles = ["TODOS", "Destilados", "Licores & Cremas", "Frutas/Frescos", "Sirope/Insumos", "Consumibles", "General"];
-            let nombresCategorias = {
+            const categoriasDisponibles = ["TODOS", "Destilados", "Licores & Cremas", "Frutas/Frescos", "Sirope/Insumos", "Consumibles", "General"];
+            const nombresCategorias = {
                 "TODOS": currentLang === 'es' ? "📂 Todas las Categorías" : "📂 All Categories", 
                 "Destilados": "🥃 Destilados",
                 "Licores & Cremas": "🧊 Licores & Cremas", 
@@ -1945,7 +2005,7 @@
                 "General": "📦 General"
             };
 
-            let filtroPairs = categoriasDisponibles.map(cat => `${cat}:${nombresCategorias[cat] || cat}`).join('|');
+            const filtroPairs = categoriasDisponibles.map(cat => `${cat}:${nombresCategorias[cat] || cat}`).join('|');
 
             let html = `
                 <div class="module-header-bar">
@@ -1965,21 +2025,21 @@
                 <div id="listaInsumos" style="flex-grow:1; overflow-y:auto;">
             `;
 
-            let filtrados = ses.insumos.filter(item => {
+            const filtrados = ses.insumos.filter(item => {
                 if (insumoFiltroCategoria === 'TODOS') return true;
-                let catItem = item.cat[currentLang] || item.cat.es || item.cat || "";
+                const catItem = item.cat[currentLang] || item.cat.es || item.cat || "";
                 return catItem.trim().toLowerCase() === insumoFiltroCategoria.trim().toLowerCase();
             });
 
             if (filtrados.length === 0) {
-                html += `<p style="text-align:center; color:#94a3b8; margin-top:20px; font-size:10px;">${currentLang === 'es' ? 'Sin insumos en esta categoría.' : 'No ingredients in this category.'}</p>`;
+                html += `<p style="text-align:center; color:#94a3b8; margin-top:20px; font-size:11px;">${currentLang === 'es' ? 'Sin insumos en esta categoría.' : 'No ingredients in this category.'}</p>`;
             } else {
                 filtrados.forEach((item) => {
-                    let idx = ses.insumos.indexOf(item);
-                    let costoOz30ml = item.contenido > 0 ? ((item.costo / item.contenido) * 30 * 1.03).toFixed(3) : '0.000';
-                    let nombreItem = item.nombre[currentLang] || item.nombre.es || item.nombre;
-                    let catItem = item.cat[currentLang] || item.cat.es || item.cat;
-                    let unidadItem = item.unidad[currentLang] || item.unidad.es || item.unidad;
+                    const idx = ses.insumos.indexOf(item);
+                    const costoOz30ml = item.contenido > 0 ? ((item.costo / item.contenido) * 30 * 1.03).toFixed(3) : '0.000';
+                    const nombreItem = item.nombre[currentLang] || item.nombre.es || item.nombre;
+                    const catItem = item.cat[currentLang] || item.cat.es || item.cat;
+                    const unidadItem = item.unidad[currentLang] || item.unidad.es || item.unidad;
                     html += `
                         <div class="insumo-card">
                             <div class="insumo-info">
@@ -1987,9 +2047,9 @@
                                 <span>${catItem} &bull; ${unidadItem} (${item.contenido}${unidadItem === 'Kg' || unidadItem === 'Gramo' ? 'gr' : 'ml'})</span>
                             </div>
                             <div class="insumo-actions">
-                                <div><small style="font-size:10.5px; color:#94a3b8; display:block; text-align:right;">30ml/gr: $${costoOz30ml}</small></div>
+                                <div><small style="font-size:10px; color:#94a3b8; display:block; text-align:right;">30ml/gr: $${costoOz30ml}</small></div>
                                 <div class="insumo-price">
-                                    <input type="number" step="0.5" value="${item.costo.toFixed(2)}" onchange="actualizarCostoInsumo(${idx}, this.value)">
+                                    <input type="number" step="0.5" value="${Number(item.costo || 0).toFixed(2)}" onchange="actualizarCostoInsumo(${idx}, this.value)">
                                 </div>
                                 <button class="btn-action-sm" onclick="abrirModalEditarInsumo(${idx})" title="Editar">✏️</button>
                                 <button class="btn-icon-del" onclick="eliminarInsumoItem(${idx})" title="Eliminar">✕</button>
@@ -2005,18 +2065,18 @@
         function seleccionarFiltroInsumo(catVal) { insumoFiltroCategoria = catVal; abrirInsumos(); }
 
         function exportarInsumosASheet() {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             let csvContent = "Nombre,Categoria,Unidad,Contenido,CostoCompra\n";
             ses.insumos.forEach(item => {
-                let nom = item.nombre[currentLang] || item.nombre.es || "";
-                let cat = item.cat[currentLang] || item.cat.es || "";
-                let und = item.unidad[currentLang] || item.unidad.es || "";
+                const nom = (item.nombre[currentLang] || item.nombre.es || "").replace(/"/g, '""');
+                const cat = (item.cat[currentLang] || item.cat.es || "").replace(/"/g, '""');
+                const und = (item.unidad[currentLang] || item.unidad.es || "").replace(/"/g, '""');
                 csvContent += `"${nom}","${cat}","${und}",${item.contenido},${item.costo}\n`;
             });
 
-            let blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            let url = URL.createObjectURL(blob);
-            let a = document.createElement('a');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
             a.href = url;
             a.download = `Insumos_${ses.brandName.replace(/\s+/g, '_')}.csv`;
             document.body.appendChild(a);
@@ -2026,9 +2086,9 @@
         }
 
         function eliminarInsumoItem(idx) {
-            let ses = getActiveSession();
-            let item = ses.insumos[idx];
-            let nombre = item ? (item.nombre[currentLang] || item.nombre.es || item.nombre) : '';
+            const ses = getActiveSession();
+            const item = ses.insumos[idx];
+            const nombre = item ? (item.nombre[currentLang] || item.nombre.es || item.nombre) : '';
             mostrarConfirmacion("Eliminar Insumo", currentLang === 'es' ? `¿Estás seguro de eliminar el insumo "${nombre}"?` : `Are you sure you want to delete "${nombre}"?`, () => {
                 ses.insumos.splice(idx, 1);
                 guardarDatosSesionActual();
@@ -2042,30 +2102,30 @@
         }
 
         function filtrarInsumos(filtro) {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const lista = document.getElementById('listaInsumos');
             if (!lista) return;
             let html = '';
             
-            let filtrados = ses.insumos.filter(item => {
+            const filtrados = ses.insumos.filter(item => {
                 if (insumoFiltroCategoria !== 'TODOS') {
-                    let catItem = item.cat[currentLang] || item.cat.es || item.cat || "";
+                    const catItem = item.cat[currentLang] || item.cat.es || item.cat || "";
                     if (catItem.trim().toLowerCase() !== insumoFiltroCategoria.trim().toLowerCase()) return false;
                 }
-                let nom = (item.nombre[currentLang] || item.nombre.es || '').toLowerCase();
-                let cat = (item.cat[currentLang] || item.cat.es || '').toLowerCase();
+                const nom = (item.nombre[currentLang] || item.nombre.es || '').toLowerCase();
+                const cat = (item.cat[currentLang] || item.cat.es || '').toLowerCase();
                 return nom.includes(filtro.toLowerCase()) || cat.includes(filtro.toLowerCase());
             });
 
             if (filtrados.length === 0) {
-                html += `<p style="text-align:center; color:#94a3b8; margin-top:20px; font-size:10px;">${currentLang === 'es' ? 'No se encontraron insumos.' : 'No ingredients found.'}</p>`;
+                html += `<p style="text-align:center; color:#94a3b8; margin-top:20px; font-size:11px;">${currentLang === 'es' ? 'No se encontraron insumos.' : 'No ingredients found.'}</p>`;
             } else {
                 filtrados.forEach((item) => {
-                    let idx = ses.insumos.indexOf(item);
-                    let costoOz30ml = item.contenido > 0 ? ((item.costo / item.contenido) * 30 * 1.03).toFixed(3) : '0.000';
-                    let nombreItem = item.nombre[currentLang] || item.nombre.es || item.nombre;
-                    let catItem = item.cat[currentLang] || item.cat.es || item.cat;
-                    let unidadItem = item.unidad[currentLang] || item.unidad.es || item.unidad;
+                    const idx = ses.insumos.indexOf(item);
+                    const costoOz30ml = item.contenido > 0 ? ((item.costo / item.contenido) * 30 * 1.03).toFixed(3) : '0.000';
+                    const nombreItem = item.nombre[currentLang] || item.nombre.es || item.nombre;
+                    const catItem = item.cat[currentLang] || item.cat.es || item.cat;
+                    const unidadItem = item.unidad[currentLang] || item.unidad.es || item.unidad;
                     html += `
                         <div class="insumo-card">
                             <div class="insumo-info">
@@ -2073,9 +2133,9 @@
                                 <span>${catItem} &bull; ${unidadItem} (${item.contenido}${unidadItem === 'Kg' || unidadItem === 'Gramo' ? 'gr' : 'ml'})</span>
                             </div>
                             <div class="insumo-actions">
-                                <div><small style="font-size:10.5px; color:#94a3b8; display:block; text-align:right;">30ml/gr: $${costoOz30ml}</small></div>
+                                <div><small style="font-size:10px; color:#94a3b8; display:block; text-align:right;">30ml/gr: $${costoOz30ml}</small></div>
                                 <div class="insumo-price">
-                                    <input type="number" step="0.5" value="${item.costo.toFixed(2)}" onchange="actualizarCostoInsumo(${idx}, this.value)">
+                                    <input type="number" step="0.5" value="${Number(item.costo || 0).toFixed(2)}" onchange="actualizarCostoInsumo(${idx}, this.value)">
                                 </div>
                                 <button class="btn-action-sm" onclick="abrirModalEditarInsumo(${idx})" title="Editar">✏️</button>
                                 <button class="btn-icon-del" onclick="eliminarInsumoItem(${idx})" title="Eliminar">✕</button>
@@ -2108,7 +2168,7 @@
             document.getElementById('labelCatInsumo').innerText = "Destilados";
             document.getElementById('labelUnidInsumo').innerText = "Botella";
             document.getElementById('nuevoInsumoContenido').value = "750";
-            document.getElementById('nuevoInsumoCosto').value = "";
+            document.getElementById('nuevoInsumoCosto').value = "0.00";
             actualizarLabelContenidoSegunUnidad("Botella");
         }
 
@@ -2118,12 +2178,12 @@
         }
 
         function abrirModalEditarInsumo(idx) {
-            let ses = getActiveSession();
-            let item = ses.insumos[idx];
+            const ses = getActiveSession();
+            const item = ses.insumos[idx];
             if (!item) return;
 
-            let catStr = item.cat[currentLang] || item.cat.es || item.cat || "Destilados";
-            let unidStr = item.unidad[currentLang] || item.unidad.es || item.unidad || "Botella";
+            const catStr = item.cat[currentLang] || item.cat.es || item.cat || "Destilados";
+            const unidStr = item.unidad[currentLang] || item.unidad.es || item.unidad || "Botella";
 
             document.getElementById('editInsumoIndex').value = idx;
             document.getElementById('modalInsumoTitle').innerText = currentLang === 'es' ? "✏️ Editar Insumo" : "✏️ Edit Ingredient";
@@ -2138,7 +2198,7 @@
         }
 
         function guardarInsumoModal() {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const editIdx = parseInt(document.getElementById('editInsumoIndex').value);
             const nombre = document.getElementById('nuevoInsumoNombre').value.trim();
             const cat = document.getElementById('labelCatInsumo').innerText;
@@ -2168,7 +2228,7 @@
             activeModule = 'escandallo';
             setActiveNav('nav-escandallo');
             actualizarBotonFlotante();
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
             if (ses.cocteles.length === 0) {
                 vistaDetalleReceta = false;
@@ -2180,7 +2240,7 @@
                             <button class="btn-action-sm cyan" onclick="dispararSelectorArchivo('recetas')">${t('importBtn')}</button>
                         </div>
                     </div>
-                    <p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:10px;">${currentLang === 'es' ? 'Sin recetas en este negocio. Toca el botón <b>+</b> abajo para agregar.' : 'No recipes in this business. Tap the <b>+</b> button below to add.'}</p>
+                    <p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:11px;">${currentLang === 'es' ? 'Sin recetas en este negocio. Toca el botón <b>+</b> abajo para agregar.' : 'No recipes in this business. Tap the <b>+</b> button below to add.'}</p>
                 `;
                 return;
             }
@@ -2197,7 +2257,7 @@
                         </div>
                     </div>
                     <input type="search" id="buscadorRecetasInput" class="search-input" placeholder="${t('searchRecipes')}" autocomplete="off" oninput="filtrarRecetas(this.value)">
-                    <p style="font-size:11px; color:#94a3b8; margin-bottom:2px;">${currentLang === 'es' ? 'Toca un cóctel para abrir su ficha y gestionar su foto.' : 'Tap a cocktail to open its sheet and manage its photo.'}</p>
+                    <p style="font-size:10.5px; color:#94a3b8; margin-bottom:2px;">${currentLang === 'es' ? 'Toca un cóctel para abrir su ficha y gestionar su foto.' : 'Tap a cocktail to open its sheet and manage its photo.'}</p>
                     <div id="listaRecetasFiltradas" style="flex-grow:1; overflow-y:auto;"></div>
                 `;
                 filtrarRecetas("");
@@ -2217,29 +2277,29 @@
                 if (ins) {
                     const costoUnit = ins.contenido > 0 ? (ins.costo / ins.contenido) : 0;
                     const costoLinea = costoUnit * ing.cant;
-                    let nombreIns = ins.nombre[currentLang] || ins.nombre.es || ins.nombre;
+                    const nombreIns = ins.nombre[currentLang] || ins.nombre.es || ins.nombre;
                     listaIngHTML += `
                         <div class="ing-item">
                             <span>${nombreIns}</span>
                             <div style="display:flex; align-items:center; gap:4px;">
                                 <input type="number" value="${ing.cant}" onchange="actualizarCantIng(${coctelSeleccionadoIdx}, ${ingIdx}, this.value)">
-                                <span style="font-size:10px; color:#94a3b8; width:13px;">${ing.unid}</span>
-                                <strong style="color:var(--primary-light); width:34px; text-align:right;">$${costoLinea.toFixed(2)}</strong>
+                                <span style="font-size:10px; color:#94a3b8; width:16px;">${ing.unid}</span>
+                                <strong style="color:var(--primary-light); width:38px; text-align:right;">$${costoLinea.toFixed(2)}</strong>
                             </div>
                         </div>
                     `;
                 }
             });
 
-            let nombreCoctel = c.nombre[currentLang] || c.nombre.es || c.nombre;
-            let cristCoctel = c.cristaleria[currentLang] || c.cristaleria.es || c.cristaleria;
-            let metodoCoctel = c.metodo[currentLang] || c.metodo.es || c.metodo;
-            let lblFotoTitulo = currentLang === 'es' ? '📷 Foto del Cóctel' : '📷 Cocktail Photo';
-            let lblAgregarFoto = currentLang === 'es'
+            const nombreCoctel = c.nombre[currentLang] || c.nombre.es || c.nombre;
+            const cristCoctel = c.cristaleria[currentLang] || c.cristaleria.es || c.cristaleria;
+            const metodoCoctel = c.metodo[currentLang] || c.metodo.es || c.metodo;
+            const lblFotoTitulo = currentLang === 'es' ? '📷 Foto del Cóctel' : '📷 Cocktail Photo';
+            const lblAgregarFoto = currentLang === 'es'
                 ? (c.fotoData ? '🔄 Cambiar Foto' : '📸 Agregar Foto')
                 : (c.fotoData ? '🔄 Change Photo' : '📸 Add Photo');
-            let lblQuitarFoto = currentLang === 'es' ? '🗑️ Quitar' : '🗑️ Remove';
-            let txtSinFoto = currentLang === 'es' ? 'Sin foto asignada aún. Toca "Agregar Foto" para cargar una desde tu galería o cámara.' : 'No photo assigned yet. Tap "Add Photo" to load one from your gallery or camera.';
+            const lblQuitarFoto = currentLang === 'es' ? '🗑️ Quitar' : '🗑️ Remove';
+            const txtSinFoto = currentLang === 'es' ? 'Sin foto asignada aún. Toca "Agregar Foto" para cargar una desde tu galería o cámara.' : 'No photo assigned yet. Tap "Add Photo" to load one from your gallery or camera.';
 
             container.innerHTML = `
                 <div class="module-header-bar">
@@ -2273,7 +2333,7 @@
                     <div class="calc-row total"><span>${t('costoProd')}</span> <span style="color:var(--primary-light);">$${calc.costoTotal.toFixed(2)}</span></div>
                     <div class="calc-row" style="margin-top:4px; background:rgba(255,255,255,0.06); padding:3.5px 6px; border-radius:6px; border:1px solid var(--glass-border-light);">
                         <span style="font-weight:700; color:#fff;">${t('pvpCarta')}</span> 
-                        <input type="number" step="0.50" value="${c.pvp.toFixed(2)}" onchange="actualizarPVP(${coctelSeleccionadoIdx}, this.value)">
+                        <input type="number" step="0.50" value="${Number(c.pvp || 0).toFixed(2)}" onchange="actualizarPVP(${coctelSeleccionadoIdx}, this.value)">
                     </div>
                     <div class="calc-row" style="margin-top:2.5px;">
                         <span>${t('brutoMargen')}</span><strong style="color:#34d399;">+$${calc.margen.toFixed(2)} (${calc.margenPct.toFixed(0)}%)</strong>
@@ -2296,13 +2356,12 @@
             `;
         }
 
-        
         function normalizarTextoBusqueda(str) {
             return (str || "")
                 .toString()
                 .toLowerCase()
                 .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[̀-ͯ]/g, "")
                 .trim();
         }
 
@@ -2327,7 +2386,7 @@
             });
 
             if (coincidencias.length === 0) {
-                listaEl.innerHTML = `<p style="text-align:center; color:#94a3b8; margin-top:20px; font-size:10.5px;">${t('noRecipesMatch')}</p>`;
+                listaEl.innerHTML = `<p style="text-align:center; color:#94a3b8; margin-top:20px; font-size:11px;">${t('noRecipesMatch')}</p>`;
                 return;
             }
 
@@ -2351,7 +2410,7 @@
                             <p>🥂 ${cristItem} &bull; DC: <strong style="color:${colorEst};">${calcItem.drinkCost.toFixed(1)}%</strong></p>
                         </div>
                         <div class="receta-list-right">
-                            <strong style="color:var(--primary-light); font-size:12px;">$${item.pvp.toFixed(2)}</strong>
+                            <strong style="color:var(--primary-light); font-size:12px;">$${Number(item.pvp || 0).toFixed(2)}</strong>
                             <span class="status-pill" style="background:${colorEst}22; color:${colorEst}; border:1px solid ${colorEst}55;">${textoEst}</span>
                         </div>
                     </div>
@@ -2407,7 +2466,7 @@
                     ctx.drawImage(img, 0, 0, w, h);
                     const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
 
-                    let ses = getActiveSession();
+                    const ses = getActiveSession();
                     if (ses.cocteles[coctelSeleccionadoIdx]) {
                         ses.cocteles[coctelSeleccionadoIdx].fotoData = dataUrl;
                         guardarDatosSesionActual();
@@ -2421,7 +2480,7 @@
         }
 
         function quitarFotoCoctel(idx) {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             if (!ses.cocteles[idx]) return;
             mostrarConfirmacion(
                 currentLang === 'es' ? "Quitar Foto" : "Remove Photo",
@@ -2435,24 +2494,20 @@
         }
 
         function eliminarRecetaActual(idx) {
-            let ses = getActiveSession();
-            let c = ses.cocteles[idx];
-            let nombre = c ? (c.nombre[currentLang] || c.nombre.es || c.nombre) : '';
+            const ses = getActiveSession();
+            const c = ses.cocteles[idx];
+            const nombre = c ? (c.nombre[currentLang] || c.nombre.es || c.nombre) : '';
             mostrarConfirmacion("Eliminar Receta", currentLang === 'es' ? `¿Estás seguro de eliminar la receta "${nombre}"?` : `Are you sure you want to delete "${nombre}"?`, () => {
                 ses.cocteles.splice(idx, 1);
                 coctelSeleccionadoIdx = 0;
+                vistaDetalleReceta = false;
                 guardarDatosSesionActual();
                 abrirEscandallo();
             });
         }
 
-        function seleccionarCoctelIdx(idxVal) {
-            coctelSeleccionadoIdx = parseInt(idxVal);
-            abrirEscandallo();
-        }
-
-        function actualizarPVP(idx, val) { getActiveSession().cocteles[idx].pvp = parseFloat(val) || 0; guardarDatosSesionActual(); abrirEscandallo(); }
-        function actualizarCantIng(cIdx, iIdx, val) { getActiveSession().cocteles[cIdx].ingredientes[iIdx].cant = parseFloat(val) || 0; guardarDatosSesionActual(); abrirEscandallo(); }
+        function actualizarPVP(idx, val) { getActiveSession().cocteles[idx].pvp = parseFloat(val) || 0; guardarDatosSesionActual(); abrirEscandallo(true); }
+        function actualizarCantIng(cIdx, iIdx, val) { getActiveSession().cocteles[cIdx].ingredientes[iIdx].cant = parseFloat(val) || 0; guardarDatosSesionActual(); abrirEscandallo(true); }
         function seleccionarMetodoCoctel(metodoVal) { document.getElementById('labelMetodoCoctel').innerText = metodoVal; }
 
         function dispararSelectorArchivo(tipo) {
@@ -2464,7 +2519,7 @@
             const archivo = event.target.files[0];
             if (!archivo) return;
 
-            let nombreArchivo = archivo.name.toLowerCase();
+            const nombreArchivo = archivo.name.toLowerCase();
             if (nombreArchivo.endsWith('.xlsx') || nombreArchivo.endsWith('.xls')) {
                 mostrarConfirmacion(
                     "Formato no compatible", 
@@ -2479,7 +2534,7 @@
 
             const lector = new FileReader();
             lector.onload = function(e) {
-                let contenido = e.target.result;
+                const contenido = e.target.result;
                 ejecutarImportacionDatos(contenido);
             };
             lector.readAsText(archivo);
@@ -2487,14 +2542,14 @@
         }
 
         function ejecutarImportacionDatos(text) {
-            let ses = getActiveSession();
-            let lineas = text.trim().split('\n');
+            const ses = getActiveSession();
+            const lineas = text.trim().split(/\r?\n/);
             let importados = 0;
 
             if (tipoImportacionActual === 'insumos') {
                 lineas.forEach((linea, index) => {
-                    if (index === 0 && linea.toLowerCase().includes('nombre')) return; // Omitir cabecera
-                    let partes = linea.split(/[,\t]+/).map(p => p.replace(/^["']|["']$/g, '').trim());
+                    if (index === 0 && linea.toLowerCase().includes('nombre')) return;
+                    const partes = linea.split(/[,	]+/).map(p => p.replace(/^["']|["']$/g, '').trim());
                     if (partes.length >= 5) {
                         ses.insumos.push({
                             id: "INS-" + Math.random().toString(36).substring(2,7),
@@ -2514,13 +2569,13 @@
             } else if (tipoImportacionActual === 'recetas') {
                 lineas.forEach((linea, index) => {
                     if (index === 0 && linea.toLowerCase().includes('nombre')) return;
-                    let partes = linea.split(/[,\t]+/).map(p => p.replace(/^["']|["']$/g, '').trim());
+                    const partes = linea.split(/[,	]+/).map(p => p.replace(/^["']|["']$/g, '').trim());
                     if (partes.length >= 6) {
-                        let ingBrutos = partes[5].split('|');
-                        let ingredientes = [];
+                        const ingBrutos = partes[5].split('|');
+                        const ingredientes = [];
                         ingBrutos.forEach(ib => {
-                            let sub = ib.split(':');
-                            if(sub.length >= 3) ingredientes.push({ id: sub[0], cant: parseFloat(sub[1])||30, unid: sub[2] });
+                            const sub = ib.split(':');
+                            if (sub.length >= 3) ingredientes.push({ id: sub[0], cant: parseFloat(sub[1])||30, unid: sub[2] });
                         });
                         ses.cocteles.push({
                             nombre: { es: partes[0], en: partes[0] },
@@ -2538,7 +2593,7 @@
                 abrirEscandallo();
             } else if (tipoImportacionActual === 'backup') {
                 try {
-                    let parsed = JSON.parse(text);
+                    const parsed = JSON.parse(text);
                     if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
                         appSessions = parsed;
                         guardarDatosSesionActual();
@@ -2553,10 +2608,10 @@
         }
 
         function exportarBackupArchivo() {
-            let backupJson = JSON.stringify(appSessions, null, 2);
-            let blob = new Blob([backupJson], { type: 'application/json' });
-            let url = URL.createObjectURL(blob);
-            let a = document.createElement('a');
+            const backupJson = JSON.stringify(appSessions, null, 2);
+            const blob = new Blob([backupJson], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
             a.href = url;
             a.download = `BarCraft_Backup_${currentSessionId}_${new Date().toISOString().slice(0,10)}.json`;
             document.body.appendChild(a);
@@ -2571,7 +2626,7 @@
         }
 
         function abrirModalCoctel() {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             if (ses.insumos.length === 0) {
                 mostrarConfirmacion("Aviso", currentLang === 'es' ? "Primero debes crear al menos un insumo." : "You must create at least one ingredient first.", () => { abrirInsumos(); });
                 return;
@@ -2586,21 +2641,21 @@
 
             const container = document.getElementById('contenedorIngredientesModal');
             container.innerHTML = '';
-            let defId = ses.insumos[0] ? ses.insumos[0].id : '';
+            const defId = ses.insumos[0] ? ses.insumos[0].id : '';
             agregarFilaIngredienteModal(defId, 30, 'ml');
             document.getElementById('modalNuevoCoctel').style.display = 'flex';
         }
 
         function abrirModalEditarCoctel(idx) {
-            let ses = getActiveSession();
-            let c = ses.cocteles[idx];
+            const ses = getActiveSession();
+            const c = ses.cocteles[idx];
             if (!c) return;
 
             document.getElementById('modalCoctelTitle').innerText = currentLang === 'es' ? "Editar Receta" : "Edit Recipe";
             document.getElementById('editCoctelIndex').value = idx;
             document.getElementById('nuevoCoctelNombre').value = c.nombre[currentLang] || c.nombre.es || "";
             document.getElementById('nuevoCoctelGlass').value = c.cristaleria[currentLang] || c.cristaleria.es || "";
-            let mStr = c.metodo[currentLang] || c.metodo.es || c.metodo || "Cocteleado (Shaken)";
+            const mStr = c.metodo[currentLang] || c.metodo.es || c.metodo || "Cocteleado (Shaken)";
             document.getElementById('labelMetodoCoctel').innerText = mStr;
             document.getElementById('nuevoCoctelDesc').value = c.descripcion || "";
             document.getElementById('nuevoCoctelPvp').value = c.pvp;
@@ -2612,7 +2667,7 @@
         }
 
         function agregarFilaIngredienteModal(defId = '', defCant = 30, defUnid = 'ml') {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const container = document.getElementById('contenedorIngredientesModal');
             const rowId = 'ing-' + Math.random().toString(36).substring(2,7);
             const dropId = 'drop-ing-' + rowId;
@@ -2620,21 +2675,21 @@
             
             const insObj = ses.insumos.find(i => i.id === defId) || ses.insumos[0];
             const insName = insObj ? (insObj.nombre[currentLang] || insObj.nombre.es) : (currentLang === 'es' ? 'Seleccionar insumo...' : 'Select ingredient...');
-            let insPairs = ses.insumos.map(i => `${i.id}:${i.nombre[currentLang] || i.nombre.es}`).join('|');
+            const insPairs = ses.insumos.map(i => `${i.id}:${i.nombre[currentLang] || i.nombre.es}`).join('|');
 
             const div = document.createElement('div');
             div.className = 'event-recipe-row';
             div.id = rowId;
             div.innerHTML = `
                 <div style="flex-grow:2; position:relative;">
-                    <div class="native-dropdown-container" id="${dropId}" data-global-items="${insPairs}" data-inshid="${insObj ? insObj.id : ''}">
+                    <div class="native-dropdown-container" id="${dropId}" data-global-items="${insPairs}" data-inshid="${insObj ? insObj.id : ''}" style="margin-bottom:0;">
                         <div class="native-dropdown-header" onclick="toggleNativeDropdown('${dropId}', (val, text) => seleccionarInsumoFila('${dropId}', val, text))" style="padding:5px 7px; font-size:11px;">
                             <span id="lbl-${dropId}">🍸 ${insName}</span>
                         </div>
                     </div>
                 </div>
-                <input type="number" class="inp-cant" value="${defCant}" style="width:38px;">
-                <div style="width:44px; position:relative;">
+                <input type="number" class="inp-cant" value="${defCant}" style="width:42px;">
+                <div style="width:46px; position:relative;">
                     <div class="native-dropdown-container" id="${dropUnidId}" data-global-items="ml:ml|gr:gr|ud:ud" data-unidval="${defUnid}" style="margin-bottom:0;">
                         <div class="native-dropdown-header" onclick="toggleNativeDropdown('${dropUnidId}', (val, text) => seleccionarUnidFila('${dropUnidId}', val))" style="padding:5px 4px; font-size:11px; justify-content:center;">
                             <span id="lbl-${dropUnidId}">${defUnid}</span>
@@ -2661,7 +2716,7 @@
         }
 
         function guardarCoctelModal() {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const editIdx = parseInt(document.getElementById('editCoctelIndex').value);
             const nombre = document.getElementById('nuevoCoctelNombre').value.trim();
             const glass = document.getElementById('nuevoCoctelGlass').value.trim() || (currentLang === 'es' ? "Vaso Highball" : "Highball Glass");
@@ -2671,13 +2726,13 @@
             if (!nombre) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ingresa un nombre." : "Enter a name.", () => {}); return; }
             
             const filas = document.querySelectorAll('#contenedorIngredientesModal .event-recipe-row');
-            let ingredientes = [];
+            const ingredientes = [];
             filas.forEach(f => {
-                let dropContainer = f.querySelector('.native-dropdown-container');
-                let id = dropContainer ? dropContainer.getAttribute('data-inshid') : '';
-                let cant = parseFloat(f.querySelector('.inp-cant').value) || 0;
-                let dropUnid = f.querySelectorAll('.native-dropdown-container')[1];
-                let unid = dropUnid ? dropUnid.getAttribute('data-unidval') : 'ml';
+                const dropContainer = f.querySelector('.native-dropdown-container');
+                const id = dropContainer ? dropContainer.getAttribute('data-inshid') : '';
+                const cant = parseFloat(f.querySelector('.inp-cant').value) || 0;
+                const dropUnid = f.querySelectorAll('.native-dropdown-container')[1];
+                const unid = dropUnid ? dropUnid.getAttribute('data-unidval') : 'ml';
                 if (id && cant > 0) ingredientes.push({ id, cant, unid });
             });
             if (ingredientes.length === 0) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Agrega al menos 1 ingrediente." : "Add at least 1 ingredient.", () => {}); return; }
@@ -2702,12 +2757,12 @@
             activeModule = 'lab';
             setActiveNav('nav-lab');
             actualizarBotonFlotante();
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
             if (!ses.labPrep) ses.labPrep = [];
 
-            let categoriasDisponibles = ["TODOS", "Sirope Artesanal", "Bitter", "Premade", "Shrub", "Cordial", "Infusión"];
-            let nombresCategorias = {
+            const categoriasDisponibles = ["TODOS", "Sirope Artesanal", "Bitter", "Premade", "Shrub", "Cordial", "Infusión"];
+            const nombresCategorias = {
                 "TODOS": currentLang === 'es' ? "📂 Todas las Categorías" : "📂 All Categories", 
                 "Sirope Artesanal": currentLang === 'es' ? "🍯 Sirope Artesanal" : "🍯 Craft Syrup",
                 "Bitter": currentLang === 'es' ? "💧 Bitter" : "💧 Bitter", 
@@ -2717,7 +2772,7 @@
                 "Infusión": currentLang === 'es' ? "☕ Infusión" : "☕ Infusion"
             };
 
-            let filtroPairs = categoriasDisponibles.map(cat => `${cat}:${nombresCategorias[cat] || cat}`).join('|');
+            const filtroPairs = categoriasDisponibles.map(cat => `${cat}:${nombresCategorias[cat] || cat}`).join('|');
 
             let html = `
                 <div class="module-header-bar">
@@ -2732,26 +2787,26 @@
                 <div style="flex-grow:1; overflow-y:auto; display:flex; flex-direction:column; gap:5px; padding-top:2px;" id="listaLabCards">
             `;
 
-            let filtrados = ses.labPrep.filter(item => {
+            const filtrados = ses.labPrep.filter(item => {
                 if (labFiltroCategoria === 'TODOS') return true;
                 return (item.cat || "").trim().toLowerCase() === labFiltroCategoria.trim().toLowerCase();
             });
 
             if (filtrados.length === 0) {
-                html += `<p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:10px;">${t('noLabPreps')}</p>`;
+                html += `<p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:11px;">${t('noLabPreps')}</p>`;
             } else {
                 filtrados.forEach((lab) => {
-                    let realIdx = ses.labPrep.indexOf(lab);
+                    const realIdx = ses.labPrep.indexOf(lab);
                     const calcLab = calcularDatosLab(lab, ses.insumos);
                     let listaIngHTML = '';
                     if (lab.ingredientes && Array.isArray(lab.ingredientes)) {
                         lab.ingredientes.forEach(ing => {
                             const ins = ses.insumos.find(x => x.id === ing.id);
                             if (ins) {
-                                let costoUnit = ins.contenido > 0 ? (ins.costo / ins.contenido) : 0;
-                                let costoLin = costoUnit * ing.cant;
-                                let nombreIns = ins.nombre[currentLang] || ins.nombre.es || ins.nombre;
-                                listaIngHTML += `<div class="ing-item"><span>${nombreIns}</span><div style="display:flex; align-items:center; gap:5px;"><span style="font-size:10.5px; color:var(--primary-light);">${ing.cant} ${ing.unid}</span><strong style="color:#cbd5e1; width:34px; text-align:right;">$${costoLin.toFixed(2)}</strong></div></div>`;
+                                const costoUnit = ins.contenido > 0 ? (ins.costo / ins.contenido) : 0;
+                                const costoLin = costoUnit * ing.cant;
+                                const nombreIns = ins.nombre[currentLang] || ins.nombre.es || ins.nombre;
+                                listaIngHTML += `<div class="ing-item"><span>${nombreIns}</span><div style="display:flex; align-items:center; gap:5px;"><span style="font-size:10.5px; color:var(--primary-light);">${ing.cant} ${ing.unid}</span><strong style="color:#cbd5e1; width:38px; text-align:right;">$${costoLin.toFixed(2)}</strong></div></div>`;
                             }
                         });
                     }
@@ -2787,7 +2842,7 @@
         function seleccionarLabCatModal(catVal) { document.getElementById('labelLabCatModal').innerText = catVal; }
 
         function abrirModalLab() {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             if (ses.insumos.length === 0) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Crea insumos primero." : "Create ingredients first.", () => { abrirInsumos(); }); return; }
             document.getElementById('modalLabTitle').innerText = currentLang === 'es' ? "🔬 Nueva Preparación" : "🔬 New Preparation";
             document.getElementById('editLabIndex').value = "-1";
@@ -2800,14 +2855,14 @@
             
             const container = document.getElementById('contenedorIngredientesLab');
             container.innerHTML = '';
-            let defId = ses.insumos[0] ? ses.insumos[0].id : '';
+            const defId = ses.insumos[0] ? ses.insumos[0].id : '';
             agregarFilaIngredienteLab(defId, 100, 'ml');
             document.getElementById('modalLabPrep').style.display = 'flex';
         }
 
         function abrirModalEditarLab(idx) {
-            let ses = getActiveSession();
-            let lab = ses.labPrep[idx];
+            const ses = getActiveSession();
+            const lab = ses.labPrep[idx];
             if (!lab) return;
             document.getElementById('modalLabTitle').innerText = currentLang === 'es' ? "✏️ Editar Preparación" : "✏️ Edit Preparation";
             document.getElementById('editLabIndex').value = idx;
@@ -2825,7 +2880,7 @@
         }
 
         function agregarFilaIngredienteLab(defId = '', defCant = 100, defUnid = 'ml') {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const container = document.getElementById('contenedorIngredientesLab');
             const rowId = 'lab-ing-' + Math.random().toString(36).substring(2,7);
             const dropId = 'drop-lab-' + rowId;
@@ -2833,21 +2888,21 @@
 
             const insObj = ses.insumos.find(i => i.id === defId) || ses.insumos[0];
             const insName = insObj ? (insObj.nombre[currentLang] || insObj.nombre.es) : (currentLang === 'es' ? 'Seleccionar...' : 'Select...');
-            let insPairs = ses.insumos.map(i => `${i.id}:${i.nombre[currentLang] || i.nombre.es}`).join('|');
+            const insPairs = ses.insumos.map(i => `${i.id}:${i.nombre[currentLang] || i.nombre.es}`).join('|');
 
             const div = document.createElement('div');
             div.className = 'event-recipe-row';
             div.id = rowId;
             div.innerHTML = `
                 <div style="flex-grow:2; position:relative;">
-                    <div class="native-dropdown-container" id="${dropId}" data-global-items="${insPairs}" data-inshid="${insObj ? insObj.id : ''}">
+                    <div class="native-dropdown-container" id="${dropId}" data-global-items="${insPairs}" data-inshid="${insObj ? insObj.id : ''}" style="margin-bottom:0;">
                         <div class="native-dropdown-header" onclick="toggleNativeDropdown('${dropId}', (val, text) => seleccionarInsumoLabFila('${dropId}', val, text))" style="padding:5px 7px; font-size:11px;">
                             <span id="lbl-${dropId}">🍸 ${insName}</span>
                         </div>
                     </div>
                 </div>
-                <input type="number" class="inp-cant-lab" value="${defCant}" style="width:38px;">
-                <div style="width:44px; position:relative;">
+                <input type="number" class="inp-cant-lab" value="${defCant}" style="width:42px;">
+                <div style="width:46px; position:relative;">
                     <div class="native-dropdown-container" id="${dropUnidId}" data-global-items="ml:ml|gr:gr|ud:ud" data-unidval="${defUnid}" style="margin-bottom:0;">
                         <div class="native-dropdown-header" onclick="toggleNativeDropdown('${dropUnidId}', (val, text) => seleccionarUnidLabFila('${dropUnidId}', val))" style="padding:5px 4px; font-size:11px; justify-content:center;">
                             <span id="lbl-${dropUnidId}">${defUnid}</span>
@@ -2870,7 +2925,7 @@
         }
 
         function guardarLabModal() {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const editIdx = parseInt(document.getElementById('editLabIndex').value);
             const nombre = document.getElementById('labNombre').value.trim();
             const cat = document.getElementById('labelLabCatModal').innerText.trim();
@@ -2885,13 +2940,13 @@
             }
 
             const filas = document.querySelectorAll('#contenedorIngredientesLab .event-recipe-row');
-            let ingredientes = [];
+            const ingredientes = [];
             filas.forEach(f => {
-                let dropContainer = f.querySelector('.native-dropdown-container');
-                let id = dropContainer ? dropContainer.getAttribute('data-inshid') : '';
-                let cant = parseFloat(f.querySelector('.inp-cant-lab').value) || 0;
-                let dropUnid = f.querySelectorAll('.native-dropdown-container')[1];
-                let unid = dropUnid ? dropUnid.getAttribute('data-unidval') : 'ml';
+                const dropContainer = f.querySelector('.native-dropdown-container');
+                const id = dropContainer ? dropContainer.getAttribute('data-inshid') : '';
+                const cant = parseFloat(f.querySelector('.inp-cant-lab').value) || 0;
+                const dropUnid = f.querySelectorAll('.native-dropdown-container')[1];
+                const unid = dropUnid ? dropUnid.getAttribute('data-unidval') : 'ml';
                 if (id && cant > 0) ingredientes.push({ id, cant, unid });
             });
 
@@ -2902,7 +2957,7 @@
 
             if (!ses.labPrep) ses.labPrep = [];
 
-            let objetoLab = { nombre, cat, rendimiento, unidadMedida, shelfLife, procedimiento, ingredientes };
+            const objetoLab = { nombre, cat, rendimiento, unidadMedida, shelfLife, procedimiento, ingredientes };
 
             if (editIdx >= 0) {
                 ses.labPrep[editIdx] = objetoLab;
@@ -2916,7 +2971,7 @@
         }
 
         function eliminarLabItem(idx) {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             mostrarConfirmacion("Eliminar Preparación", currentLang === 'es' ? "¿Estás seguro de eliminar esta preparación?" : "Are you sure you want to delete this preparation?", () => {
                 ses.labPrep.splice(idx, 1);
                 guardarDatosSesionActual();
@@ -2928,10 +2983,10 @@
             activeModule = 'resumen';
             setActiveNav('nav-resumen');
             actualizarBotonFlotante();
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
             if (ses.cocteles.length === 0) {
-                container.innerHTML = `<div class="module-header-bar"><h2 class="module-title-h2">${t('titleResumen')}</h2><button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button></div><p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:10px;">${currentLang === 'es' ? 'Sin recetas.' : 'No recipes.'}</p>`;
+                container.innerHTML = `<div class="module-header-bar"><h2 class="module-title-h2">${t('titleResumen')}</h2><button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button></div><p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:11px;">${currentLang === 'es' ? 'Sin recetas.' : 'No recipes.'}</p>`;
                 return;
             }
             let sumaDc = 0, sumaMargen = 0, tarjetasHTML = '';
@@ -2940,12 +2995,12 @@
                 sumaDc += calc.drinkCost; sumaMargen += calc.margen;
                 const colorEstado = calc.drinkCost <= 25 ? '#10b981' : (calc.drinkCost <= 30 ? '#f59e0b' : '#ef4444');
                 const barWidth = Math.min(calc.drinkCost * 2, 100);
-                let nombreCoctel = c.nombre[currentLang] || c.nombre.es || c.nombre;
+                const nombreCoctel = c.nombre[currentLang] || c.nombre.es || c.nombre;
                 tarjetasHTML += `
-                    <div class="resumen-card" onclick="coctelSeleccionadoIdx=${idx}; abrirEscandallo();" style="cursor:pointer;">
-                        <div class="resumen-header"><h4>${nombreCoctel}</h4><strong style="color:var(--primary-light);">$${c.pvp.toFixed(2)}</strong></div>
+                    <div class="resumen-card" onclick="coctelSeleccionadoIdx=${idx}; abrirEscandallo(true);" style="cursor:pointer;">
+                        <div class="resumen-header"><h4>${nombreCoctel}</h4><strong style="color:var(--primary-light);">$${Number(c.pvp || 0).toFixed(2)}</strong></div>
                         <div class="gauge-track" style="height:3px; margin-bottom:2px;"><div class="gauge-fill" style="width:${barWidth}%; background:${colorEstado};"></div></div>
-                        <div style="display:flex; justify-content:space-between; font-size:10px; color:#94a3b8;">
+                        <div style="display:flex; justify-content:space-between; font-size:10.5px; color:#94a3b8;">
                             <span>${currentLang === 'es' ? 'Costo' : 'Cost'}: $${calc.costoTotal.toFixed(2)}</span>
                             <span>DC: <strong style="color:${colorEstado};">${calc.drinkCost.toFixed(1)}%</strong></span>
                             <span>${currentLang === 'es' ? 'Margen' : 'Margin'}: <strong style="color:#34d399;">+$${calc.margen.toFixed(2)}</strong></span>
@@ -2967,8 +3022,8 @@
         }
 
         function getStockCriteria(ses) {
-            let activeSes = ses || getActiveSession();
-            let crit = (activeSes && activeSes.stockCriteria) ? activeSes.stockCriteria : { reponerMax: 1, observarMax: 2 };
+            const activeSes = ses || getActiveSession();
+            const crit = (activeSes && activeSes.stockCriteria) ? activeSes.stockCriteria : { reponerMax: 1, observarMax: 2 };
             let rep = parseFloat(crit.reponerMax);
             let obs = parseFloat(crit.observarMax);
             if (isNaN(rep)) rep = 1;
@@ -3028,18 +3083,18 @@
             activeModule = 'inventario';
             setActiveNav('');
             actualizarBotonFlotante();
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
             const critInv = getStockCriteria(ses);
             let totalValor = 0, totalAlertas = 0;
             
             ses.insumos.forEach(i => {
-                let stockActual = (i.stockIni || 0) + (i.ent || 0) - (i.sal || 0);
+                const stockActual = (i.stockIni || 0) + (i.ent || 0) - (i.sal || 0);
                 totalValor += (stockActual * i.costo);
                 if (stockActual <= critInv.reponerMax) totalAlertas++;
             });
 
-            let critBtnLabel = currentLang === 'es' ? '🎯 Criterios' : '🎯 Criteria';
+            const critBtnLabel = currentLang === 'es' ? '🎯 Criterios' : '🎯 Criteria';
             let html = `
                 <div class="module-header-bar">
                     <h2 class="module-title-h2">${t('titleInventario')}</h2>
@@ -3057,21 +3112,22 @@
             `;
 
             if (ses.insumos.length === 0) {
-                html += `<p style="text-align:center; color:#94a3b8; margin-top:20px; font-size:10px;">${currentLang === 'es' ? 'Sin insumos.' : 'No ingredients.'}</p>`;
+                html += `<p style="text-align:center; color:#94a3b8; margin-top:20px; font-size:11px;">${currentLang === 'es' ? 'Sin insumos.' : 'No ingredients.'}</p>`;
             } else {
                 ses.insumos.forEach((item, idx) => {
-                    let stockCalculado = (item.stockIni || 0) + (item.ent || 0) - (item.sal || 0);
-                    let val = stockCalculado * item.costo;
-                    let semaforo = obtenerEstadoSemaforo(stockCalculado);
-                    let nombreItem = item.nombre[currentLang] || item.nombre.es || item.nombre;
-                    let costText = currentLang === 'es' ? 'Costo' : 'Cost';
-                    let valText = currentLang === 'es' ? 'Valor' : 'Value';
+                    const stockCalculado = (item.stockIni || 0) + (item.ent || 0) - (item.sal || 0);
+                    const val = stockCalculado * item.costo;
+                    const semaforo = obtenerEstadoSemaforo(stockCalculado, ses);
+                    const nombreItem = item.nombre[currentLang] || item.nombre.es || item.nombre;
+                    const costText = currentLang === 'es' ? 'Costo' : 'Cost';
+                    const valText = currentLang === 'es' ? 'Valor' : 'Value';
                     html += `
                         <div class="inv-card" id="card-inv-${idx}">
                             <div class="inv-header">
                                 <h4>${nombreItem}</h4>
+                                <span class="status-pill ${semaforo.clase}" id="pill-inv-${idx}">${semaforo.texto}</span>
                             </div>
-                            <div style="font-size:11px; color:#94a3b8;">${costText}: $${item.costo.toFixed(2)} &bull; ${valText}: <strong style="color:var(--primary-light);" id="val-item-${idx}">$${val.toFixed(2)}</strong></div>
+                            <div style="font-size:10.5px; color:#94a3b8;">${costText}: $${Number(item.costo || 0).toFixed(2)} &bull; ${valText}: <strong style="color:var(--primary-light);" id="val-item-${idx}">$${val.toFixed(2)}</strong></div>
                             <div class="inv-grid-inputs">
                                 <div class="inv-field"><label>${t('initStock')}</label><input type="number" value="${item.stockIni || 0}" onchange="actualizarInventarioItem(${idx}, 'stockIni', this.value)"></div>
                                 <div class="inv-field"><label>${t('entries')}</label><input type="number" value="${item.ent || 0}" onchange="actualizarInventarioItem(${idx}, 'ent', this.value)"></div>
@@ -3087,11 +3143,12 @@
         }
 
         function actualizarInventarioItem(idx, campo, valor) {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             ses.insumos[idx][campo] = parseFloat(valor) || 0;
-            let item = ses.insumos[idx];
-            let nuevoStock = (item.stockIni || 0) + (item.ent || 0) - (item.sal || 0);
-            let nuevoValor = nuevoStock * item.costo;
+            const item = ses.insumos[idx];
+            const nuevoStock = (item.stockIni || 0) + (item.ent || 0) - (item.sal || 0);
+            const nuevoValor = nuevoStock * item.costo;
+            const semaforo = obtenerEstadoSemaforo(nuevoStock, ses);
             
             const campoRes = document.getElementById(`stock-res-${idx}`);
             if (campoRes) campoRes.value = nuevoStock;
@@ -3099,13 +3156,17 @@
             if (campoValor) campoValor.innerText = `$${nuevoValor.toFixed(2)}`;
             const stockBox = document.getElementById(`stock-box-${idx}`);
             if (stockBox) {
-                let semaforo = obtenerEstadoSemaforo(nuevoStock, ses);
                 stockBox.className = `inv-field stock-box ${semaforo.clase}`;
+            }
+            const pillInv = document.getElementById(`pill-inv-${idx}`);
+            if (pillInv) {
+                pillInv.className = `status-pill ${semaforo.clase}`;
+                pillInv.innerText = semaforo.texto;
             }
             const critUpd = getStockCriteria(ses);
             let recalcTotal = 0, recalcAlertas = 0;
             ses.insumos.forEach(i => {
-                let st = (i.stockIni || 0) + (i.ent || 0) - (i.sal || 0);
+                const st = (i.stockIni || 0) + (i.ent || 0) - (i.sal || 0);
                 recalcTotal += (st * i.costo);
                 if (st <= critUpd.reponerMax) recalcAlertas++;
             });
@@ -3120,9 +3181,9 @@
         }
 
         function filtrarInv(val) {
-            let container = document.getElementById('listaInventario');
-            if(!container) return;
-            for(let c of container.getElementsByClassName('inv-card')) {
+            const container = document.getElementById('listaInventario');
+            if (!container) return;
+            for (const c of container.getElementsByClassName('inv-card')) {
                 c.style.display = c.textContent.toLowerCase().includes(val.toLowerCase()) ? 'block' : 'none';
             }
         }
@@ -3131,12 +3192,15 @@
             activeModule = 'eventos';
             setActiveNav('');
             actualizarBotonFlotante();
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
             if (ses.cocteles.length === 0) {
-                container.innerHTML = `<div class="module-header-bar"><h2 class="module-title-h2">${t('titleEventos')}</h2><button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button></div><p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:10px;">${currentLang === 'es' ? 'Crea recetas primero.' : 'Create recipes first.'}</p>`;
+                container.innerHTML = `<div class="module-header-bar"><h2 class="module-title-h2">${t('titleEventos')}</h2><button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button></div><p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:11px;">${currentLang === 'es' ? 'Crea recetas primero.' : 'Create recipes first.'}</p>`;
                 return;
             }
+            eventCarta = eventCarta.filter(item => item.coctelIdx >= 0 && item.coctelIdx < ses.cocteles.length);
+            if (eventCarta.length === 0) eventCarta = [{ coctelIdx: 0, servicios: 40 }];
+
             let totalServicios = 0, costoMat = 0, reqMap = {};
             eventCarta.forEach(item => {
                 totalServicios += item.servicios;
@@ -3151,27 +3215,27 @@
                 }
             });
             const costoTot = costoMat + costoOperativoEvento + honorariosEvento;
-            const precioSug = costoMat / 0.28 + costoOperativoEvento + honorariosEvento;
+            const precioSug = (costoMat / 0.28) + costoOperativoEvento + honorariosEvento;
             const utilidad = precioSug - costoTot;
 
             let listaComprasHTML = '';
-            for (let id in reqMap) {
+            for (const id in reqMap) {
                 const ins = ses.insumos.find(x => x.id === id);
                 if (ins) {
-                    let totalConMerma = reqMap[id] * 1.03;
-                    let cantComprar = ins.contenido > 0 ? Math.ceil(totalConMerma / ins.contenido) : Math.ceil(totalConMerma);
-                    let valC = cantComprar * ins.costo;
-                    let nombreIns = ins.nombre[currentLang] || ins.nombre.es || ins.nombre;
-                    let unidadIns = ins.unidad[currentLang] || ins.unidad.es || ins.unidad;
+                    const totalConMerma = reqMap[id] * 1.03;
+                    const cantComprar = ins.contenido > 0 ? Math.ceil(totalConMerma / ins.contenido) : Math.ceil(totalConMerma);
+                    const valC = cantComprar * ins.costo;
+                    const nombreIns = ins.nombre[currentLang] || ins.nombre.es || ins.nombre;
+                    const unidadIns = ins.unidad[currentLang] || ins.unidad.es || ins.unidad;
                     listaComprasHTML += `<div class="ing-item"><span>${nombreIns}</span><strong style="color:var(--primary-light);">${cantComprar} ${unidadIns} ($${valC.toFixed(2)})</strong></div>`;
                 }
             }
 
-            let coctelPairs = ses.cocteles.map((c, cIdx) => `${cIdx}:🍸 ${c.nombre[currentLang] || c.nombre.es}`).join('|');
+            const coctelPairs = ses.cocteles.map((c, cIdx) => `${cIdx}:🍸 ${c.nombre[currentLang] || c.nombre.es}`).join('|');
 
-            let cartaRowsHTML = eventCarta.map((item, idx) => {
-                let cObj = ses.cocteles[item.coctelIdx];
-                let cName = cObj ? (cObj.nombre[currentLang] || cObj.nombre.es || cObj.nombre) : (currentLang === 'es' ? 'Seleccionar...' : 'Select...');
+            const cartaRowsHTML = eventCarta.map((item, idx) => {
+                const cObj = ses.cocteles[item.coctelIdx];
+                const cName = cObj ? (cObj.nombre[currentLang] || cObj.nombre.es || cObj.nombre) : (currentLang === 'es' ? 'Seleccionar...' : 'Select...');
 
                 return `
                     <div class="event-recipe-row">
@@ -3188,7 +3252,7 @@
                 `;
             }).join('');
 
-            let copasLabel = currentLang === 'es' ? 'Copas' : 'Drinks';
+            const copasLabel = currentLang === 'es' ? 'Copas' : 'Drinks';
 
             container.innerHTML = `
                 <div class="module-header-bar"><h2 class="module-title-h2">${t('titleEventos')}</h2><button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button></div>
@@ -3220,31 +3284,41 @@
         function seleccionarCoctelEvento(idx, cIdxVal, cName) {
             eventCarta[idx].coctelIdx = parseInt(cIdxVal);
             document.getElementById(`lbl-evento-${idx}`).innerText = `🍸 ${cName}`;
+            abrirEventos();
         }
 
         function generarPropuesta() {
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             document.getElementById('modalTitle').innerText = t('modalTitle');
             document.getElementById('btnCopiar').innerText = t('btnCopiar');
-            let headerTitle = currentLang === 'es' ? 'PROPUESTA COMERCIAL' : 'COMMERCIAL PROPOSAL';
-            let respLabel = currentLang === 'es' ? 'Responsable' : 'Responsible';
-            let dateLabel = currentLang === 'es' ? 'Fecha' : 'Date';
-            let cartaLabel = currentLang === 'es' ? 'CARTA SELECCIONADA' : 'SELECTED MENU';
-            let serviceFooter = currentLang === 'es' ? '¡Servicio profesional garantizado!' : 'Professional service guaranteed!';
+            const headerTitle = currentLang === 'es' ? 'PROPUESTA COMERCIAL' : 'COMMERCIAL PROPOSAL';
+            const respLabel = currentLang === 'es' ? 'Responsable' : 'Responsible';
+            const dateLabel = currentLang === 'es' ? 'Fecha' : 'Date';
+            const cartaLabel = currentLang === 'es' ? 'CARTA SELECCIONADA' : 'SELECTED MENU';
+            const serviceFooter = currentLang === 'es' ? '¡Servicio profesional garantizado!' : 'Professional service guaranteed!';
 
-            let texto = `🍸 ${headerTitle} - ${ses.brandName.toUpperCase()}\n`;
-            texto += `=====================================\n`;
-            texto += `${respLabel}: ${ses.brandRole}\n${dateLabel}: ${new Date().toLocaleDateString()}\n\n`;
-            texto += `📋 ${cartaLabel}:\n`;
+            let texto = `🍸 ${headerTitle} - ${ses.brandName.toUpperCase()}
+`;
+            texto += `=====================================
+`;
+            texto += `${respLabel}: ${ses.brandRole}
+${dateLabel}: ${new Date().toLocaleDateString()}
+
+`;
+            texto += `📋 ${cartaLabel}:
+`;
             eventCarta.forEach(i => {
-                let c = ses.cocteles[i.coctelIdx];
-                if(c) {
-                    let cName = c.nombre[currentLang] || c.nombre.es || c.nombre;
-                    let servText = currentLang === 'es' ? 'servicios' : 'services';
-                    texto += `- ${cName}: ${i.servicios} ${servText}\n`;
+                const c = ses.cocteles[i.coctelIdx];
+                if (c) {
+                    const cName = c.nombre[currentLang] || c.nombre.es || c.nombre;
+                    const servText = currentLang === 'es' ? 'servicios' : 'services';
+                    texto += `- ${cName}: ${i.servicios} ${servText}
+`;
                 }
             });
-            texto += `\n=====================================\n${serviceFooter}`;
+            texto += `
+=====================================
+${serviceFooter}`;
             document.getElementById('txtPresupuesto').value = texto;
             document.getElementById('modalPresupuesto').style.display = 'flex';
         }
@@ -3253,20 +3327,20 @@
             activeModule = 'branding';
             setActiveNav('nav-brand');
             actualizarBotonFlotante();
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
             
             let themePairs = '';
-            for (let k in themesMap) themePairs += `${k}:${themesMap[k].name}|`;
+            for (const k in themesMap) themePairs += `${k}:${themesMap[k].name}|`;
             themePairs = themePairs.slice(0, -1);
 
-            let currentScale = ses.fontScale || 0.85;
-            let langLabelText = currentLang === 'es' ? '🇪🇸 Español (ES)' : '🇬🇧 English (EN)';
+            const currentScale = ses.fontScale || 0.85;
+            const langLabelText = currentLang === 'es' ? '🇪🇸 Español (ES)' : '🇬🇧 English (EN)';
 
             container.innerHTML = `
                 <div class="config-card">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <h3 style="color:var(--primary-light); font-size:10px;">${t('configTitle')} (${ses.brandName})</h3>
+                        <h3 style="color:var(--primary-light); font-size:12px;">${t('configTitle')} (${ses.brandName})</h3>
                         <button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button>
                     </div>
                     
@@ -3344,11 +3418,11 @@
 
         function guardarAjustesConfig() {
             let ses = getActiveSession();
-            let nuevoId = document.getElementById('cfgIdKey').value.trim().toLowerCase().replace(/\s+/g, '_');
-            let nombre = document.getElementById('cfgName').value.trim();
-            let rol = document.getElementById('cfgRole').value.trim();
-            let wpp = document.getElementById('cfgWhatsapp').value.trim();
-            let pinVal = document.getElementById('cfgPin').value.trim();
+            const nuevoId = document.getElementById('cfgIdKey').value.trim().toLowerCase().replace(/\s+/g, '_');
+            const nombre = document.getElementById('cfgName').value.trim();
+            const rol = document.getElementById('cfgRole').value.trim();
+            const wpp = document.getElementById('cfgWhatsapp').value.trim();
+            const pinVal = document.getElementById('cfgPin').value.trim();
 
             if (!nuevoId || !nombre) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "El ID y Nombre son obligatorios." : "ID and Name are required.", () => {}); return; }
             if (pinVal.length > 0 && pinVal.length !== 4) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "⚠️ El PIN debe ser de 4 dígitos." : "⚠️ PIN must be 4 digits.", () => {}); return; }
@@ -3390,16 +3464,17 @@
         }
 
         function crearNuevaSesionNegocio() {
-            let key = document.getElementById('sesionIdKey').value.trim().toLowerCase().replace(/\s+/g, '_');
-            let nombre = document.getElementById('sesionNombreNegocio').value.trim();
-            let rol = document.getElementById('sesionRolNegocio').value.trim() || "GUSTAVO SUÁREZ • BARTENDER";
-            let pin = document.getElementById('sesionPinNegocio').value.trim() || "1234";
+            const key = document.getElementById('sesionIdKey').value.trim().toLowerCase().replace(/\s+/g, '_');
+            const nombre = document.getElementById('sesionNombreNegocio').value.trim();
+            const rol = document.getElementById('sesionRolNegocio').value.trim() || "GUSTAVO SUÁREZ • BARTENDER";
+            const pin = document.getElementById('sesionPinNegocio').value.trim() || "1234";
             if (!key || !nombre) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ingresa ID y nombre." : "Enter ID and name.", () => {}); return; }
             if (appSessions[key]) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ese ID ya existe." : "ID exists.", () => {}); return; }
 
             appSessions[key] = {
                 brandName: nombre, brandRole: rol, whatsapp: "", instagram: "", logoData: "",
-                bgTheme: "mokalounge", fontScale: 0.85, pin: pin, calendario: {}, insumos: [], cocteles: [], labPrep: []
+                bgTheme: "mokalounge", fontScale: 0.85, pin: pin, stockCriteria: { reponerMax: 1, observarMax: 2 },
+                calendario: {}, insumos: [], cocteles: [], labPrep: []
             };
             guardarDatosSesionActual();
             cerrarModal('modalNuevoNegocio');
@@ -3407,12 +3482,12 @@
         }
 
         function eliminarSesionActual() {
-            let keys = Object.keys(appSessions);
+            const keys = Object.keys(appSessions);
             if (keys.length <= 1) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "⚠️ Debes tener al menos un negocio." : "⚠️ At least one business required.", () => {}); return; }
-            let ses = getActiveSession();
+            const ses = getActiveSession();
             mostrarConfirmacion("Eliminar Empresa", currentLang === 'es' ? `¿Eliminar "${ses.brandName}"?` : `Delete "${ses.brandName}"?`, () => {
                 delete appSessions[currentSessionId];
-                    guardarDatosSesionActual();
+                guardarDatosSesionActual();
                 currentSessionId = Object.keys(appSessions)[0];
                 document.getElementById('dashboard').style.display = 'none';
                 mostrarSelectorSesiones();
@@ -3422,188 +3497,94 @@
         function cerrarModal(id) { document.getElementById(id).style.display = 'none'; }
 
         window.addEventListener('DOMContentLoaded', initApp);
-        window.addEventListener('DOMContentLoaded', function () {
-  if (typeof verificarEstadoBeta === "function") verificarEstadoBeta();
-});
     </script>
-    <div id="betaGateModal" style="display:none; position:fixed; inset:0; background:rgba(6,6,10,0.96); backdrop-filter:blur(28px); -webkit-backdrop-filter:blur(28px); color:#fff; z-index:99999; flex-direction:column; align-items:center; justify-content:center; padding:24px; text-align:center;">
-  <div style="width:100%; max-width:340px; background:linear-gradient(145deg, rgba(30,30,40,0.75) 0%, rgba(12,12,18,0.9) 100%); border:1px solid rgba(212,175,55,0.35); border-radius:18px; padding:22px 18px; box-shadow:0 20px 50px rgba(0,0,0,0.85);">
-    <h2 style="margin-bottom:8px; color:#fbeeb8; font-size:17px; font-weight:800;">BarCraft Elite — Acceso Beta</h2>
-    <p style="opacity:0.85; margin-bottom:16px; font-size:12.5px; line-height:1.4; color:#cbd5e1;">
-      Ingresa tu código único de invitación para activar la aplicación en este dispositivo.
-    </p>
-    <input id="betaCodeInput" type="text" placeholder="Ej: BAR-BETA-01" autocomplete="off"
-      style="width:100%; padding:12px; border-radius:10px; border:1px solid rgba(212,175,55,0.35); background:rgba(4,4,8,0.85); color:#fff; text-align:center; font-size:15px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; outline:none;" />
-    <button id="betaActivateBtn" type="button" onclick="validarCodigoBeta()"
-      style="width:100%; padding:12px; border-radius:10px; border:none; background:linear-gradient(135deg, #fbeeb8 0%, #d4af37 55%, #aa7c11 100%); color:#050505; font-weight:800; font-size:14px; cursor:pointer;">
-      Activar Beta
-    </button>
-    <p id="betaStatusMsg" style="margin-top:12px; font-size:12.5px; color:#fca5a5; min-height:18px;"></p>
-  </div>
-</div>
-<script>
-  const BETA_ENDPOINT = "https://script.google.com/macros/s/AKfycbyRYGG6AuZXiO0D3K493M2u7LZ2_ujdLkUe0Did0862gNOxos5ADsqaTRrzBpAuP-Aw/exec";
 
-  function obtenerDeviceIdBeta() {
-    let id = localStorage.getItem("barcraft_device_id");
-    if (!id) {
-      id = "DEV-" + Math.random().toString(36).substring(2, 10).toUpperCase() + "-" + Date.now().toString(36).toUpperCase();
-      localStorage.setItem("barcraft_device_id", id);
-    }
-    return id;
-  }
+    <script>
+        const BETA_ENDPOINT = "https://script.google.com/macros/s/AKfycbyRYGG6AuZXiO0D3K493M2u7LZ2_ujdLkUe0Did0862gNOxos2W1k351k2V0c3Q8rO-RA/exec";
+        const BETA_STORAGE_KEY = "barcraft_beta_unlocked";
+        const BETA_DEVICE_KEY = "barcraft_device_id";
+        const MASTER_BETA_CODE = "0101-1987-GUGA";
 
-  function verificarEstadoBeta() {
-    const activado = localStorage.getItem("barcraft_beta_unlocked") === "true";
-    const modal = document.getElementById("betaGateModal");
-    if (!activado && modal) {
-      modal.style.display = "flex";
-    }
-  }
+        function getDeviceId() {
+            let id = localStorage.getItem(BETA_DEVICE_KEY);
+            if (!id) {
+                id = "DEV-" + (crypto?.randomUUID ? crypto.randomUUID() : (Date.now() + "-" + Math.random().toString(36).slice(2, 10)));
+                localStorage.setItem(BETA_DEVICE_KEY, id);
+            }
+            return id;
+        }
 
-    async function validarCodigoBeta() {
-    const input = document.getElementById("betaCodeInput");
-    const msg = document.getElementById("betaStatusMsg");
-    const btn = document.getElementById("betaActivateBtn");
-    const codigo = (input ? input.value : "").trim().toUpperCase();
+        function verificarEstadoBeta() {
+            const modal = document.getElementById("betaGateModal");
+            if (!modal) return;
+            const desbloqueado = localStorage.getItem(BETA_STORAGE_KEY) === "true";
+            if (desbloqueado) {
+                modal.style.display = "none";
+            } else {
+                modal.style.display = "flex";
+                modal.style.zIndex = "999999";
+            }
+        }
 
-    if (!codigo) {
-      if (msg) {
-        msg.style.color = "#fca5a5";
-        msg.textContent = "Escribe tu código de invitación.";
-      }
-      return;
-    }
+        async function validarCodigoBeta() {
+            const input = document.getElementById("betaCodeInput");
+            const btn = document.getElementById("betaActivateBtn");
+            const msg = document.getElementById("betaStatusMsg");
+            const code = (input.value || "").trim().toUpperCase();
 
-    if (btn) {
-      btn.disabled = true;
-      btn.textContent = "Verificando...";
-    }
-    if (msg) {
-      msg.style.color = "#93c5fd";
-      msg.textContent = "Conectando con el servidor...";
-    }
+            if (!code) {
+                msg.style.color = "#fca5a5";
+                msg.textContent = "Por favor ingresa un código de invitación.";
+                return;
+            }
 
-    const deviceId = obtenerDeviceIdBeta();
-    let data = null;
+            if (code === MASTER_BETA_CODE) {
+                localStorage.setItem(BETA_STORAGE_KEY, "true");
+                msg.style.color = "#34d399";
+                msg.textContent = "¡Código maestro activado!";
+                setTimeout(() => {
+                    document.getElementById("betaGateModal").style.display = "none";
+                }, 400);
+                return;
+            }
 
+            btn.disabled = true;
+            btn.textContent = "Validando...";
+            msg.style.color = "#fbeeb8";
+            msg.textContent = "Verificando código...";
 
-    try {
-      const sep = BETA_ENDPOINT.includes("?") ? "&" : "?";
-      const urlGet = `${BETA_ENDPOINT}${sep}codigo=${encodeURIComponent(codigo)}&deviceId=${encodeURIComponent(deviceId)}&_t=${Date.now()}`;
-      const respGet = await fetch(urlGet, { method: "GET" });
-      data = await respGet.json();
-    } catch (getErr) {
-      try {
-        const respPost = await fetch(BETA_ENDPOINT, {
-          method: "POST",
-          body: JSON.stringify({
-            codigo: codigo,
-            deviceId: deviceId
-          })
-        });
-        data = await respPost.json();
-      } catch (postErr) {
-        if (msg) {
-        
-                  try {
-            const sep2 = BETA_ENDPOINT.includes("?") ? "&" : "?";
-            const urlXhr = `${BETA_ENDPOINT}${sep2}codigo=${encodeURIComponent(codigo)}&deviceId=${encodeURIComponent(deviceId)}&_t=${Date.now()}`;
-            data = await new Promise((resolve, reject) => {
-              const xhr = new XMLHttpRequest();
-              xhr.open("GET", urlXhr, true);
-              xhr.onload = () => {
-                try {
-                  resolve(JSON.parse(xhr.responseText));
-                } catch (e) {
-                  reject(new Error("Respuesta no válida del servidor"));
+            try {
+                const deviceId = getDeviceId();
+                const url = `${BETA_ENDPOINT}?code=${encodeURIComponent(code)}&deviceId=${encodeURIComponent(deviceId)}`;
+                const res = await fetch(url, { method: "GET", cache: "no-store" });
+                const data = await res.json();
+
+                if (data.ok) {
+                    localStorage.setItem(BETA_STORAGE_KEY, "true");
+                    msg.style.color = "#34d399";
+                    msg.textContent = data.message || "¡Acceso concedido!";
+                    setTimeout(() => {
+                        document.getElementById("betaGateModal").style.display = "none";
+                    }, 500);
+                } else {
+                    msg.style.color = "#fca5a5";
+                    msg.textContent = data.message || "Código no válido.";
                 }
-              };
-              xhr.onerror = () => reject(new Error("Fallo de red en WebView"));
-              xhr.send();
-            });
-          } catch (xhrErr) {
-          msg.style.color = "#fca5a5";
-          msg.textContent = "Error al validar código: " + (xhrErr && xhrErr.message ? xhrErr.message : (getErr && getErr.message ? getErr.message : "sin conexión en WebView"));
+            } catch (err) {
+                msg.style.color = "#fca5a5";
+                msg.textContent = "Error de conexión al validar el código.";
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Activar Beta";
+            }
         }
-        if (btn) {
-          btn.disabled = false;
-          btn.textContent = "Activar Beta";
-        }
-        return;
-      }
-    }
 
-    if (data && data.ok) {
-      localStorage.setItem("barcraft_beta_unlocked", "true");
-      localStorage.setItem("barcraft_beta_code", codigo);
-      if (data.modo) {
-        localStorage.setItem("barcraft_beta_mode", data.modo);
-      }
-      const modal = document.getElementById("betaGateModal");
-      if (modal) modal.style.display = "none";
-    } else if (msg) {
-      msg.style.color = "#fca5a5";
-      msg.textContent = (data && data.mensaje) || "No se pudo validar el código.";
-    }
-
-    if (btn) {
-      btn.disabled = false;
-      btn.textContent = "Activar Beta";
-    }
-  }
-
-  function resetearSesionBeta() {
-    localStorage.removeItem("barcraft_beta_unlocked");
-    localStorage.removeItem("barcraft_beta_code");
-    localStorage.removeItem("barcraft_beta_mode");
-
-    const input = document.getElementById("betaCodeInput");
-    const msg = document.getElementById("betaStatusMsg");
-    const modal = document.getElementById("betaGateModal");
-
-    if (input) input.value = "";
-    if (msg) {
-      msg.style.color = "#93c5fd";
-      msg.textContent = "Sesión beta reiniciada. Ingresa un código para activar.";
-    }
-    if (modal) modal.style.display = "flex";
-  }
-
-    let betaTapCount = 0;
-  let betaTapTimer = null;
-
-  function activarDisparadorOcultoBeta(elemento) {
-    if (!elemento) return;
-    elemento.addEventListener("click", () => {
-      betaTapCount++;
-      clearTimeout(betaTapTimer);
-      betaTapTimer = setTimeout(() => { betaTapCount = 0; }, 1200);
-
-      if (betaTapCount >= 5) {
-        betaTapCount = 0;
-        resetearSesionBeta();
-      }
-    });
-  }
-
-  function enlazarNombreEnTituloBeta() {
-    const candidatos = Array.from(document.querySelectorAll("h1, h2, h3, header, span, div, p"));
-    const objetivo = candidatos.find((el) => {
-      if (el.children.length > 2) return false;
-      const texto = (el.textContent || "").trim().toLowerCase();
-      return texto.includes("gustavo") || texto.includes("suárez") || texto.includes("suarez");
-    });
-
-    if (objetivo) {
-      activarDisparadorOcultoBeta(objetivo);
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    verificarEstadoBeta();
-    enlazarNombreEnTituloBeta();
-  });
-</script>
+        document.getElementById("betaCodeInput")?.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                validarCodigoBeta();
+            }
+        });
+    </script>
 </body>
 </html>
