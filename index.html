@@ -1833,6 +1833,9 @@
                     </div>
                 </div>
             `;
+            if (typeof enlazarGestosCincoToquesNombre === "function") {
+                enlazarGestosCincoToquesNombre();
+            }
         }
 
         function abrirCalendario() {
@@ -3496,7 +3499,7 @@ ${serviceFooter}`;
 
         function cerrarModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        window.addEventListener('DOMContentLoaded', initApp);
+        window.addEventListener('DOMContentLoaded', function() { initApp(); enlazarGestosCincoToquesNombre(); });
     </script>
 
     <script>
@@ -3577,6 +3580,70 @@ ${serviceFooter}`;
                 btn.disabled = false;
                 btn.textContent = "Activar Beta";
             }
+        }
+
+        
+        let betaTapCount = 0;
+        let betaTapTimer = null;
+
+        function reabrirModalBetaDesdeGesto() {
+            try {
+                localStorage.removeItem(BETA_STORAGE_KEY);
+            } catch (e) {}
+            const input = document.getElementById("betaCodeInput");
+            const msg = document.getElementById("betaStatusMsg");
+            const btn = document.getElementById("betaActivateBtn");
+            if (input) input.value = "";
+            if (msg) {
+                msg.style.color = "#fbeeb8";
+                msg.textContent = "Modo beta reactivado por gesto. Ingresa un código.";
+            }
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = "Activar Beta";
+            }
+            const modal = document.getElementById("betaGateModal");
+            if (modal) {
+                modal.style.display = "flex";
+                modal.style.zIndex = "999999";
+            }
+        }
+
+        function registrarToqueNombreBeta(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            betaTapCount += 1;
+            if (betaTapTimer) {
+                clearTimeout(betaTapTimer);
+            }
+            if (betaTapCount >= 5) {
+                betaTapCount = 0;
+                betaTapTimer = null;
+                reabrirModalBetaDesdeGesto();
+                return;
+            }
+            betaTapTimer = setTimeout(() => {
+                betaTapCount = 0;
+                betaTapTimer = null;
+            }, 1800);
+        }
+
+        function enlazarGestosCincoToquesNombre() {
+            const splashNameEl = document.getElementById("splashName");
+            if (splashNameEl && !splashNameEl.dataset.betaTapBound) {
+                splashNameEl.dataset.betaTapBound = "true";
+                splashNameEl.style.cursor = "pointer";
+                splashNameEl.addEventListener("click", registrarToqueNombreBeta);
+            }
+
+            document.querySelectorAll(".hero-signature").forEach((el) => {
+                if (!el.dataset.betaTapBound) {
+                    el.dataset.betaTapBound = "true";
+                    el.style.cursor = "pointer";
+                    el.addEventListener("click", registrarToqueNombreBeta);
+                }
+            });
         }
 
         document.getElementById("betaCodeInput")?.addEventListener("keydown", function (e) {
