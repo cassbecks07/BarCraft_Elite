@@ -426,44 +426,19 @@ jobs:
           }
           EOF
 
-          cat << 'EOF' > gradle.properties
-          org.gradle.jvmargs=-Xmx2048m
-          android.useAndroidX=true
-          EOF
-
-      - name: Compilar APK Debug con Gradle 8.5 y Android SDK
+      - name: Configurar Gradle Wrapper
         run: |
           set -e
-          export ANDROID_HOME=${ANDROID_SDK_ROOT:-${ANDROID_HOME:-/usr/local/lib/android/sdk}}
-          echo "Using ANDROID_HOME=$ANDROID_HOME"
-          mkdir -p "$ANDROID_HOME"
-
-          if [ ! -d "$ANDROID_HOME/platforms/android-34" ] || [ ! -d "$ANDROID_HOME/build-tools/34.0.0" ]; then
-            echo "Instalando Android SDK 34..."
-            CMDLINE_ZIP="commandlinetools-linux-11076708_latest.zip"
-            curl -fsSL "https://dl.google.com/android/repository/${CMDLINE_ZIP}" -o /tmp/cmdline.zip
-            rm -rf /tmp/cmdline-tools "$ANDROID_HOME/cmdline-tools/latest"
-            mkdir -p /tmp/cmdline-tools "$ANDROID_HOME/cmdline-tools/latest"
-            unzip -q /tmp/cmdline.zip -d /tmp/cmdline-tools
-            mv /tmp/cmdline-tools/cmdline-tools/* "$ANDROID_HOME/cmdline-tools/latest/"
-            yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" "platforms;android-34" "build-tools;34.0.0" "platform-tools"
-          fi
-
-          echo "sdk.dir=$ANDROID_HOME" > local.properties
-
           if [ ! -f "./gradlew" ]; then
-            echo "Descargando Gradle 8.5..."
-            curl -fsSL "https://services.gradle.org/distributions/gradle-8.5-bin.zip" -o /tmp/gradle-8.5.zip
-            mkdir -p /tmp/gradle-dist
-            unzip -q /tmp/gradle-8.5.zip -d /tmp/gradle-dist
-            /tmp/gradle-dist/gradle-8.5/bin/gradle wrapper --gradle-version 8.5 --no-daemon
+            gradle wrapper --gradle-version 8.5 --distribution-type all
           fi
-
           chmod +x ./gradlew
-          ./gradlew assembleDebug --no-daemon --stacktrace
 
-      - name: Subir APK compilado
+      - name: Compilar APK debug
+        run: ./gradlew assembleDebug
+
+      - name: Subir APK compilado como artefacto
         uses: actions/upload-artifact@v4
         with:
-          name: BarCraft-Elite-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: barcraft-elite-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
