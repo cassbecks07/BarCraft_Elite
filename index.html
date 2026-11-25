@@ -662,8 +662,8 @@
             </div>
 
             <div class="signature-container">
-                <div class="signature-name" id="splashName">BarCraft Elite</div>
-                <div class="signature-role" id="splashRole">MIXOLOGY SUITE</div>
+                <div class="signature-name" id="splashName">Gustavo Suárez</div>
+                <div class="signature-role" id="splashRole">BARTENDER</div>
             </div>
 
             <div class="app-title">BarCraft <span>Elite</span></div>
@@ -948,7 +948,7 @@
 
                 <div class="event-param-row">
                     <span id="lblCoctelDesc">Descripción / Perfil de Sabor:</span>
-                    <textarea class="modal-textarea" id="nuevoCoctelDesc" style="height:60px;" placeholder="Notas de sabor, perfil o preparación..."></textarea>
+                    <textarea class="modal-textarea" id="nuevoCoctelDesc" style="height:60px;" placeholder="Ej. Cóctel vibrante, refrescante con notas cítricas..."></textarea>
                 </div>
 
                 <div class="event-param-row">
@@ -1007,9 +1007,9 @@
                 <button class="modal-close" onclick="cerrarModal('modalNuevoNegocio')">✕</button>
             </div>
             <div style="flex-grow:1; overflow-y:auto; display:flex; flex-direction:column; gap:5px;">
-                <div class="event-param-row"><span id="txtNewBizIdLbl">ID Único (Key):</span> <input type="text" id="sesionIdKey" placeholder="ej. mi_barra"></div>
-                <div class="event-param-row"><span id="txtNewBizNameLbl">Nombre del Negocio:</span> <input type="text" id="sesionNombreNegocio" placeholder="Nombre del local o barra"></div>
-                <div class="event-param-row"><span id="txtNewBizRoleLbl">Propietario / Rol:</span> <input type="text" id="sesionRolNegocio" placeholder="ROL / CARGO"></div>
+                <div class="event-param-row"><span id="txtNewBizIdLbl">ID Único (Key):</span> <input type="text" id="sesionIdKey" placeholder="ej. local_dos"></div>
+                <div class="event-param-row"><span id="txtNewBizNameLbl">Nombre del Negocio:</span> <input type="text" id="sesionNombreNegocio" placeholder="EcoBoutique Bar"></div>
+                <div class="event-param-row"><span id="txtNewBizRoleLbl">Propietario / Rol:</span> <input type="text" id="sesionRolNegocio" placeholder="GUSTAVO SUÁREZ • BARTENDER"></div>
                 <div class="event-param-row"><span id="txtNewBizPinLbl">PIN (4 dígitos):</span> <input type="password" maxlength="4" id="sesionPinNegocio" placeholder="1234" value="1234"></div>
             </div>
             <button class="btn-gold" style="margin-top:6px;" onclick="crearNuevaSesionNegocio()" id="txtNewBizActionBtn">🚀 Crear y Abrir Sesión</button>
@@ -1051,7 +1051,7 @@
 
     <script>
         let currentLang = 'es';
-        let currentSessionId = '';
+        let currentSessionId = 'barcraft_elite';
         let draftFontScale = null;
         let draftBgTheme = null;
         let sessionPendingUnlock = null;
@@ -1063,14 +1063,84 @@
         let calAnioActual = new Date().getFullYear();
         let calMesActual = new Date().getMonth();
 
-        // Estado virgen: sin empresas, sin insumos, sin recetas ni preparaciones (premade) precargadas
-        let appSessions = {};
+        let appSessions = {
+            barcraft_elite: {
+                brandName: "Gustavo Suárez",
+                brandRole: "BARTENDER",
+                whatsapp: "584121234567",
+                instagram: "gustavosuarez_bar",
+                logoData: "",
+                bgTheme: "obsidian",
+                fontScale: 0.85,
+                pin: "1234",
+                stockCriteria: { reponerMax: 1, observarMax: 2 },
+                calendario: {},
+                insumos: [
+                    { id: "INS-001", nombre: { es: "Ron Cacique Añejo", en: "Cacique Añejo Rum" }, cat: { es: "Destilados", en: "Spirits" }, unidad: { es: "Botella", en: "Bottle" }, contenido: 750, costo: 8.50, stockIni: 6, ent: 4, sal: 5 },
+                    { id: "INS-002", nombre: { es: "Ron Carúpano 6 Años", en: "Carúpano 6 Yo Rum" }, cat: { es: "Destilados", en: "Spirits" }, unidad: { es: "Botella", en: "Bottle" }, contenido: 750, costo: 9.99, stockIni: 5, ent: 1, sal: 4 },
+                    { id: "INS-012", nombre: { es: "Zumo de Limón Fresco", en: "Fresh Lime Juice" }, cat: { es: "Frutas/Frescos", en: "Fresh/Juices" }, unidad: { es: "Litro", en: "Liter" }, contenido: 1000, costo: 3.50, stockIni: 8, ent: 10, sal: 12 },
+                    { id: "INS-013", nombre: { es: "Sirope Simple", en: "Simple Syrup" }, cat: { es: "Sirope/Insumos", en: "Syrups" }, unidad: { es: "Litro", en: "Liter" }, contenido: 1000, costo: 2.50, stockIni: 6, ent: 8, sal: 9 },
+                    { id: "INS-017", nombre: { es: "Hielo Purificado", en: "Purified Ice" }, cat: { es: "Consumibles", en: "Consumables" }, unidad: { es: "Kg", en: "Kg" }, contenido: 1000, costo: 0.80, stockIni: 40, ent: 60, sal: 70 }
+                ],
+                cocteles: [
+                    {
+                        nombre: { es: "Caipibull", en: "Caipibull" },
+                        cristaleria: { es: "Copa Balón 12 Oz", en: "Balloon Glass 12 Oz" },
+                        metodo: { es: "Cocteleado (Shaken)", en: "Shaken" },
+                        descripcion: "Bebida enérgica y refrescante con notas cítricas ideales para el fin de semana.",
+                        pvp: 5.00,
+                        ingredientes: [
+                            { id: "INS-012", cant: 30, unid: "ml" },
+                            { id: "INS-013", cant: 30, unid: "ml" },
+                            { id: "INS-017", cant: 150, unid: "gr" }
+                        ]
+                    }
+                ],
+                labPrep: [
+                    {
+                        nombre: "Sirope Simple",
+                        cat: "Sirope Artesanal",
+                        rendimiento: 1000,
+                        unidadMedida: "ml",
+                        shelfLife: "30 días",
+                        procedimiento: "Mezclar partes iguales de azúcar y agua caliente hasta disolver por completo. Enfriar y embotellar.",
+                        ingredientes: [{ id: "INS-001", cant: 100, unid: "ml" }]
+                    }
+                ]
+            },
+            ecoboutique_bar: {
+                brandName: "EcoBoutique Plaza",
+                brandRole: "HOTEL BAR",
+                whatsapp: "584129876543",
+                instagram: "ecoboutique_bar",
+                logoData: "",
+                bgTheme: "mokalounge",
+                fontScale: 0.85,
+                pin: "1234",
+                stockCriteria: { reponerMax: 1, observarMax: 2 },
+                calendario: {},
+                insumos: [
+                    { id: "INS-101", nombre: { es: "Gin Canaima", en: "Canaima Gin" }, cat: { es: "Destilados", en: "Spirits" }, unidad: { es: "Botella", en: "Bottle" }, contenido: 750, costo: 22.00, stockIni: 4, ent: 2, sal: 3 }
+                ],
+                cocteles: [
+                    {
+                        nombre: { es: "Canaima Tonic", en: "Canaima Tonic" },
+                        cristaleria: { es: "Vaso Highball", en: "Highball Glass" },
+                        metodo: { es: "Construido (Built)", en: "Build" },
+                        descripcion: "Clásico botánico amazónico realzado con toques cítricos y tónica premium.",
+                        pvp: 8.00,
+                        ingredientes: [{ id: "INS-101", cant: 50, unid: "ml" }]
+                    }
+                ],
+                labPrep: []
+            }
+        };
 
         let coctelSeleccionadoIdx = 0;
         let activeModule = 'menu';
-        let eventCarta = [];
-        let costoOperativoEvento = 0;
-        let honorariosEvento = 0;
+        let eventCarta = [{ coctelIdx: 0, servicios: 40 }];
+        let costoOperativoEvento = 150.00;
+        let honorariosEvento = 200.00;
 
         const themesMap = {
             obsidian: { name: "Obsidiana Clásica", deep: "#020204", gradient: "radial-gradient(circle at 15% 10%, rgba(212, 175, 55, 0.22) 0%, transparent 45%), radial-gradient(circle at 85% 90%, rgba(170, 124, 17, 0.16) 0%, transparent 50%), radial-gradient(circle at 50% 50%, rgba(10, 10, 15, 0.85) 0%, #010102 100%)", light: "#fbeeb8", main: "#d4af37", dark: "#aa7c11", border: "rgba(212, 175, 55, 0.35)" },
@@ -1304,23 +1374,21 @@
                 const savedSessions = localStorage.getItem('barCraftAllSessions_v19');
                 if (savedSessions) {
                     const parsed = JSON.parse(savedSessions);
-                    if (parsed && typeof parsed === 'object') {
+                    if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
                         appSessions = parsed;
                     }
                 }
             } catch(e) {}
 
             for (const key in appSessions) {
-                if (!appSessions[key].insumos) appSessions[key].insumos = [];
-                if (!appSessions[key].cocteles) appSessions[key].cocteles = [];
                 if (!appSessions[key].labPrep) appSessions[key].labPrep = [];
                 if (!appSessions[key].fontScale) appSessions[key].fontScale = 0.85;
                 if (!appSessions[key].calendario) appSessions[key].calendario = {};
                 if (!appSessions[key].stockCriteria) appSessions[key].stockCriteria = { reponerMax: 1, observarMax: 2 };
             }
-
-            const sessionKeys = Object.keys(appSessions);
-            currentSessionId = sessionKeys.length > 0 ? sessionKeys[0] : '';
+            if (!appSessions[currentSessionId]) {
+                currentSessionId = Object.keys(appSessions)[0];
+            }
             actualizarTextosEstaticos();
             if (typeof verificarEstadoBeta === "function") verificarEstadoBeta();
         }
@@ -1487,31 +1555,8 @@
             const container = document.getElementById('sessionCardsContainer');
             if (!container) return;
 
-            const keys = Object.keys(appSessions);
-            if (keys.length === 0) {
-                container.style.display = 'block';
-                container.innerHTML = `
-                    <div class="perm-card" style="text-align:center; padding:18px 14px; margin-bottom:4px;">
-                        <div style="font-size:28px; margin-bottom:8px;">🍸</div>
-                        <h4 style="color:var(--primary-light); font-size:13px; margin-bottom:6px;">
-                            ${currentLang === 'es' ? 'Aplicación lista desde 0' : 'App ready from scratch'}
-                        </h4>
-                        <p style="margin-bottom:10px; font-size:11.5px; color:#94a3b8;">
-                            ${currentLang === 'es'
-                                ? 'No hay empresas, insumos, recetas ni preparaciones cargadas. Crea tu primer negocio para comenzar.'
-                                : 'No businesses, ingredients, recipes, or preps loaded. Create your first business to start.'}
-                        </p>
-                        <button class="btn-action-sm cyan" style="padding:7px 10px;" onclick="dispararRestaurarBackup()">
-                            ${t('restoreBtn')} JSON
-                        </button>
-                    </div>
-                `;
-                return;
-            }
-
-            container.style.display = 'grid';
             let html = '';
-            for (const key of keys) {
+            for (const key in appSessions) {
                 const ses = appSessions[key];
                 html += `
                     <div class="session-card-square" onclick="intentarAccesoSesion('${key}')">
@@ -1568,7 +1613,7 @@
                 cerrarModalPin();
                 seleccionarSesion(sid);
             } else {
-                mostrarConfirmacion("PIN Incorrecto", currentLang === 'es' ? "PIN incorrecto." : "Incorrect PIN.", () => {});
+                mostrarConfirmacion("PIN Incorrecto", currentLang === 'es' ? "PIN incorrecto (Prueba con 1234)." : "Incorrect PIN (Try 1234).", () => {});
                 pinIngresado = "";
                 actualizarPuntosPin();
             }
@@ -1606,7 +1651,7 @@
             draftBgTheme = null;
             coctelSeleccionadoIdx = 0;
             vistaDetalleReceta = false;
-            eventCarta = [];
+            eventCarta = [{ coctelIdx: 0, servicios: 40 }];
             document.getElementById('sessionSelectorScreen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'flex';
             applyBranding();
@@ -1624,35 +1669,13 @@
         }
 
         function getActiveSession() {
-            if (currentSessionId && appSessions[currentSessionId]) {
-                return appSessions[currentSessionId];
-            }
-            const keys = Object.keys(appSessions);
-            if (keys.length > 0) {
-                currentSessionId = keys[0];
-                return appSessions[currentSessionId];
-            }
-            return {
-                brandName: "BarCraft Elite",
-                brandRole: "",
-                whatsapp: "",
-                instagram: "",
-                logoData: "",
-                bgTheme: "obsidian",
-                fontScale: 0.85,
-                pin: "1234",
-                stockCriteria: { reponerMax: 1, observarMax: 2 },
-                calendario: {},
-                insumos: [],
-                cocteles: [],
-                labPrep: []
-            };
+            return appSessions[currentSessionId] || appSessions[Object.keys(appSessions)[0]];
         }
 
         function applyBranding() {
             const ses = getActiveSession();
-            document.getElementById('splashName').innerText = ses.brandName || "BarCraft Elite";
-            document.getElementById('splashRole').innerText = ses.brandRole || "";
+            document.getElementById('splashName').innerText = ses.brandName;
+            document.getElementById('splashRole').innerText = ses.brandRole;
 
             const themeKey = draftBgTheme || ses.bgTheme || 'obsidian';
             const theme = themesMap[themeKey] || themesMap['obsidian'];
@@ -1745,19 +1768,19 @@
 
             let totalValorInv = 0, alertasStock = 0;
             const critHome = getStockCriteria(ses);
-            (ses.insumos || []).forEach(item => {
+            ses.insumos.forEach(item => {
                 const stockActual = (item.stockIni || 0) + (item.ent || 0) - (item.sal || 0);
                 totalValorInv += (stockActual * item.costo);
                 if (stockActual <= critHome.reponerMax) alertasStock++;
             });
 
-            let sumaDc = 0, mejorCoctel = null, mejorMargen = -Infinity;
-            (ses.cocteles || []).forEach(c => {
-                const calc = calcularDatosCoctel(c, ses.insumos || []);
+            let sumaDc = 0, mejorCoctel = ses.cocteles[0], mejorMargen = -Infinity;
+            ses.cocteles.forEach(c => {
+                const calc = calcularDatosCoctel(c, ses.insumos);
                 sumaDc += calc.drinkCost;
                 if (calc.margen > mejorMargen) { mejorMargen = calc.margen; mejorCoctel = c; }
             });
-            const avgDc = (ses.cocteles || []).length > 0 ? (sumaDc / ses.cocteles.length) : 0;
+            const avgDc = ses.cocteles.length > 0 ? (sumaDc / ses.cocteles.length) : 0;
             const dcColor = avgDc <= 25 ? '#10b981' : (avgDc <= 30 ? '#f59e0b' : '#ef4444');
 
             const whatsappLink = ses.whatsapp ? `https://wa.me/${ses.whatsapp}` : '#';
@@ -1772,8 +1795,8 @@
                             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M22 22 L78 22 L53 53 L53 80 L68 80 L68 85 L32 85 L32 80 L47 80 L47 53 Z" fill="none" stroke="var(--primary-main)" stroke-width="3.5" stroke-linejoin="round"/><path d="M31 32 Q40 28 50 33 T69 32 L50 54 Z" fill="var(--primary-main)"/></svg>
                         </div>
                         <div style="min-width:0; flex-grow:1;">
-                            <div class="hero-signature">${ses.brandName || ''}</div>
-                            <div class="hero-role">${ses.brandRole || ''}</div>
+                            <div class="hero-signature">${ses.brandName}</div>
+                            <div class="hero-role">${ses.brandRole}</div>
                         </div>
                     </div>
                 </div>
@@ -2054,7 +2077,7 @@
 
             let html = `
                 <div class="module-header-bar">
-                    <h2 class="module-title-h2">${t('titleInsumos')} (${(ses.insumos || []).length})</h2>
+                    <h2 class="module-title-h2">${t('titleInsumos')} (${ses.insumos.length})</h2>
                     <div style="display:flex; gap:4px;">
                         <button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button>
                         <button class="btn-action-sm emerald" onclick="exportarInsumosASheet()">${t('exportSheetBtn')}</button>
@@ -2070,14 +2093,14 @@
                 <div id="listaInsumos" style="flex-grow:1; overflow-y:auto;">
             `;
 
-            const filtrados = (ses.insumos || []).filter(item => {
+            const filtrados = ses.insumos.filter(item => {
                 if (insumoFiltroCategoria === 'TODOS') return true;
                 const catItem = item.cat[currentLang] || item.cat.es || item.cat || "";
                 return catItem.trim().toLowerCase() === insumoFiltroCategoria.trim().toLowerCase();
             });
 
             if (filtrados.length === 0) {
-                html += `<p style="text-align:center; color:#94a3b8; margin-top:20px; font-size:11px;">${currentLang === 'es' ? 'Sin insumos registrados. Toca el botón <b>+</b> abajo para agregar.' : 'No ingredients registered. Tap the <b>+</b> button below to add.'}</p>`;
+                html += `<p style="text-align:center; color:#94a3b8; margin-top:20px; font-size:11px;">${currentLang === 'es' ? 'Sin insumos en esta categoría.' : 'No ingredients in this category.'}</p>`;
             } else {
                 filtrados.forEach((item) => {
                     const idx = ses.insumos.indexOf(item);
@@ -2112,7 +2135,7 @@
         function exportarInsumosASheet() {
             const ses = getActiveSession();
             let csvContent = "Nombre,Categoria,Unidad,Contenido,CostoCompra\n";
-            (ses.insumos || []).forEach(item => {
+            ses.insumos.forEach(item => {
                 const nom = (item.nombre[currentLang] || item.nombre.es || "").replace(/"/g, '""');
                 const cat = (item.cat[currentLang] || item.cat.es || "").replace(/"/g, '""');
                 const und = (item.unidad[currentLang] || item.unidad.es || "").replace(/"/g, '""');
@@ -2123,7 +2146,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `Insumos_${(ses.brandName || 'BarCraft').replace(/\s+/g, '_')}.csv`;
+            a.download = `Insumos_${ses.brandName.replace(/\s+/g, '_')}.csv`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -2152,7 +2175,7 @@
             if (!lista) return;
             let html = '';
             
-            const filtrados = (ses.insumos || []).filter(item => {
+            const filtrados = ses.insumos.filter(item => {
                 if (insumoFiltroCategoria !== 'TODOS') {
                     const catItem = item.cat[currentLang] || item.cat.es || item.cat || "";
                     if (catItem.trim().toLowerCase() !== insumoFiltroCategoria.trim().toLowerCase()) return false;
@@ -2244,7 +2267,6 @@
 
         function guardarInsumoModal() {
             const ses = getActiveSession();
-            if (!ses.insumos) ses.insumos = [];
             const editIdx = parseInt(document.getElementById('editInsumoIndex').value);
             const nombre = document.getElementById('nuevoInsumoNombre').value.trim();
             const cat = document.getElementById('labelCatInsumo').innerText;
@@ -2276,7 +2298,7 @@
             actualizarBotonFlotante();
             const ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
-            if (!ses.cocteles || ses.cocteles.length === 0) {
+            if (ses.cocteles.length === 0) {
                 vistaDetalleReceta = false;
                 container.innerHTML = `
                     <div class="module-header-bar">
@@ -2286,7 +2308,7 @@
                             <button class="btn-action-sm cyan" onclick="dispararSelectorArchivo('recetas')">${t('importBtn')}</button>
                         </div>
                     </div>
-                    <p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:11px;">${currentLang === 'es' ? 'Sin recetas registradas. Toca el botón <b>+</b> abajo para agregar.' : 'No recipes registered. Tap the <b>+</b> button below to add.'}</p>
+                    <p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:11px;">${currentLang === 'es' ? 'Sin recetas en este negocio. Toca el botón <b>+</b> abajo para agregar.' : 'No recipes in this business. Tap the <b>+</b> button below to add.'}</p>
                 `;
                 return;
             }
@@ -2311,15 +2333,15 @@
             }
 
             const c = ses.cocteles[coctelSeleccionadoIdx];
-            const calc = calcularDatosCoctel(c, ses.insumos || []);
+            const calc = calcularDatosCoctel(c, ses.insumos);
 
             const colorEstado = calc.drinkCost <= 25 ? '#10b981' : (calc.drinkCost <= 30 ? '#f59e0b' : '#ef4444');
             const textoEstado = calc.drinkCost <= 25 ? t('optimo') : (calc.drinkCost <= 30 ? t('revisar') : t('costoAlto'));
             const barWidth = Math.min(calc.drinkCost * 2, 100);
 
             let listaIngHTML = '';
-            (c.ingredientes || []).forEach((ing, ingIdx) => {
-                const ins = (ses.insumos || []).find(x => x.id === ing.id);
+            c.ingredientes.forEach((ing, ingIdx) => {
+                const ins = ses.insumos.find(x => x.id === ing.id);
                 if (ins) {
                     const costoUnit = ins.contenido > 0 ? (ins.costo / ins.contenido) : 0;
                     const costoLinea = costoUnit * ing.cant;
@@ -2407,7 +2429,7 @@
                 .toString()
                 .toLowerCase()
                 .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[̀-ͯ]/g, "")
                 .trim();
         }
 
@@ -2417,14 +2439,14 @@
             if (!listaEl) return;
 
             const q = normalizarTextoBusqueda(query);
-            const coincidencias = (ses.cocteles || []).filter((item) => {
+            const coincidencias = ses.cocteles.filter((item) => {
                 if (!q) return true;
                 const nombre = normalizarTextoBusqueda(item.nombre?.[currentLang] || item.nombre?.es || item.nombre || "");
                 const crist = normalizarTextoBusqueda(item.cristaleria?.[currentLang] || item.cristaleria?.es || item.cristaleria || "");
                 const metodo = normalizarTextoBusqueda(item.metodo?.[currentLang] || item.metodo?.es || item.metodo || "");
                 const desc = normalizarTextoBusqueda(item.descripcion || "");
                 const coincideIng = Array.isArray(item.ingredientes) && item.ingredientes.some((ing) => {
-                    const ins = (ses.insumos || []).find(x => x.id === ing.id);
+                    const ins = ses.insumos.find(x => x.id === ing.id);
                     const nomIns = ins ? normalizarTextoBusqueda(ins.nombre?.[currentLang] || ins.nombre?.es || ins.nombre || "") : "";
                     return nomIns.includes(q);
                 });
@@ -2439,7 +2461,7 @@
             let html = '';
             coincidencias.forEach((item) => {
                 const idx = ses.cocteles.indexOf(item);
-                const calcItem = calcularDatosCoctel(item, ses.insumos || []);
+                const calcItem = calcularDatosCoctel(item, ses.insumos);
                 const nombreItem = item.nombre[currentLang] || item.nombre.es || item.nombre;
                 const cristItem = item.cristaleria[currentLang] || item.cristaleria.es || item.cristaleria;
                 const colorEst = calcItem.drinkCost <= 25 ? '#10b981' : (calcItem.drinkCost <= 30 ? '#f59e0b' : '#ef4444');
@@ -2593,7 +2615,6 @@
             let importados = 0;
 
             if (tipoImportacionActual === 'insumos') {
-                if (!ses.insumos) ses.insumos = [];
                 lineas.forEach((linea, index) => {
                     if (index === 0 && linea.toLowerCase().includes('nombre')) return;
                     const partes = linea.split(/[,	]+/).map(p => p.replace(/^["']|["']$/g, '').trim());
@@ -2605,7 +2626,7 @@
                             unidad: { es: partes[2], en: partes[2] },
                             contenido: parseFloat(partes[3]) || 750,
                             costo: parseFloat(partes[4]) || 0.00,
-                            stockIni: 0, ent: 0, sal: 0
+                            stockIni: 5, ent: 0, sal: 0
                         });
                         importados++;
                     }
@@ -2614,7 +2635,6 @@
                 mostrarConfirmacion("Importación Exitosa", currentLang === 'es' ? `✅ Se importaron ${importados} insumos correctamente.` : `✅ Imported ${importados} ingredients successfully.`, () => {});
                 abrirInsumos();
             } else if (tipoImportacionActual === 'recetas') {
-                if (!ses.cocteles) ses.cocteles = [];
                 lineas.forEach((linea, index) => {
                     if (index === 0 && linea.toLowerCase().includes('nombre')) return;
                     const partes = linea.split(/[,	]+/).map(p => p.replace(/^["']|["']$/g, '').trim());
@@ -2630,8 +2650,8 @@
                             cristaleria: { es: partes[1], en: partes[1] },
                             metodo: { es: partes[2], en: partes[2] },
                             descripcion: partes[3] || "",
-                            pvp: parseFloat(partes[4]) || 0.00,
-                            ingredientes: ingredientes
+                            pvp: parseFloat(partes[4]) || 5.00,
+                            ingredientes: ingredientes.length > 0 ? ingredientes : [{ id: ses.insumos[0]?.id || "INS-001", cant: 30, unid: "ml" }]
                         });
                         importados++;
                     }
@@ -2642,10 +2662,8 @@
             } else if (tipoImportacionActual === 'backup') {
                 try {
                     const parsed = JSON.parse(text);
-                    if (parsed && typeof parsed === 'object') {
+                    if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
                         appSessions = parsed;
-                        const keys = Object.keys(appSessions);
-                        currentSessionId = keys.length > 0 ? keys[0] : '';
                         guardarDatosSesionActual();
                         mostrarConfirmacion("Restauración", currentLang === 'es' ? "✅ ¡Backup restaurado con éxito!" : "✅ Backup restored successfully!", () => {
                             mostrarSelectorSesiones();
@@ -2663,7 +2681,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `BarCraft_Backup_${currentSessionId || 'virgin'}_${new Date().toISOString().slice(0,10)}.json`;
+            a.download = `BarCraft_Backup_${currentSessionId}_${new Date().toISOString().slice(0,10)}.json`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -2677,7 +2695,7 @@
 
         function abrirModalCoctel() {
             const ses = getActiveSession();
-            if (!ses.insumos || ses.insumos.length === 0) {
+            if (ses.insumos.length === 0) {
                 mostrarConfirmacion("Aviso", currentLang === 'es' ? "Primero debes crear al menos un insumo." : "You must create at least one ingredient first.", () => { abrirInsumos(); });
                 return;
             }
@@ -2712,7 +2730,7 @@
 
             const container = document.getElementById('contenedorIngredientesModal');
             container.innerHTML = '';
-            (c.ingredientes || []).forEach(ing => { agregarFilaIngredienteModal(ing.id, ing.cant, ing.unid); });
+            c.ingredientes.forEach(ing => { agregarFilaIngredienteModal(ing.id, ing.cant, ing.unid); });
             document.getElementById('modalNuevoCoctel').style.display = 'flex';
         }
 
@@ -2723,9 +2741,9 @@
             const dropId = 'drop-ing-' + rowId;
             const dropUnidId = 'drop-unid-' + rowId;
             
-            const insObj = (ses.insumos || []).find(i => i.id === defId) || (ses.insumos || [])[0];
+            const insObj = ses.insumos.find(i => i.id === defId) || ses.insumos[0];
             const insName = insObj ? (insObj.nombre[currentLang] || insObj.nombre.es) : (currentLang === 'es' ? 'Seleccionar insumo...' : 'Select ingredient...');
-            const insPairs = (ses.insumos || []).map(i => `${i.id}:${i.nombre[currentLang] || i.nombre.es}`).join('|');
+            const insPairs = ses.insumos.map(i => `${i.id}:${i.nombre[currentLang] || i.nombre.es}`).join('|');
 
             const div = document.createElement('div');
             div.className = 'event-recipe-row';
@@ -2767,7 +2785,6 @@
 
         function guardarCoctelModal() {
             const ses = getActiveSession();
-            if (!ses.cocteles) ses.cocteles = [];
             const editIdx = parseInt(document.getElementById('editCoctelIndex').value);
             const nombre = document.getElementById('nuevoCoctelNombre').value.trim();
             const glass = document.getElementById('nuevoCoctelGlass').value.trim() || (currentLang === 'es' ? "Vaso Highball" : "Highball Glass");
@@ -2848,11 +2865,11 @@
             } else {
                 filtrados.forEach((lab) => {
                     const realIdx = ses.labPrep.indexOf(lab);
-                    const calcLab = calcularDatosLab(lab, ses.insumos || []);
+                    const calcLab = calcularDatosLab(lab, ses.insumos);
                     let listaIngHTML = '';
                     if (lab.ingredientes && Array.isArray(lab.ingredientes)) {
                         lab.ingredientes.forEach(ing => {
-                            const ins = (ses.insumos || []).find(x => x.id === ing.id);
+                            const ins = ses.insumos.find(x => x.id === ing.id);
                             if (ins) {
                                 const costoUnit = ins.contenido > 0 ? (ins.costo / ins.contenido) : 0;
                                 const costoLin = costoUnit * ing.cant;
@@ -2894,7 +2911,7 @@
 
         function abrirModalLab() {
             const ses = getActiveSession();
-            if (!ses.insumos || ses.insumos.length === 0) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Crea insumos primero." : "Create ingredients first.", () => { abrirInsumos(); }); return; }
+            if (ses.insumos.length === 0) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Crea insumos primero." : "Create ingredients first.", () => { abrirInsumos(); }); return; }
             document.getElementById('modalLabTitle').innerText = currentLang === 'es' ? "🔬 Nueva Preparación" : "🔬 New Preparation";
             document.getElementById('editLabIndex').value = "-1";
             document.getElementById('labNombre').value = "";
@@ -2926,7 +2943,7 @@
             
             const container = document.getElementById('contenedorIngredientesLab');
             container.innerHTML = '';
-            (lab.ingredientes || []).forEach(ing => { agregarFilaIngredienteLab(ing.id, ing.cant, ing.unid); });
+            lab.ingredientes.forEach(ing => { agregarFilaIngredienteLab(ing.id, ing.cant, ing.unid); });
             document.getElementById('modalLabPrep').style.display = 'flex';
         }
 
@@ -2937,9 +2954,9 @@
             const dropId = 'drop-lab-' + rowId;
             const dropUnidId = 'drop-unid-lab-' + rowId;
 
-            const insObj = (ses.insumos || []).find(i => i.id === defId) || (ses.insumos || [])[0];
+            const insObj = ses.insumos.find(i => i.id === defId) || ses.insumos[0];
             const insName = insObj ? (insObj.nombre[currentLang] || insObj.nombre.es) : (currentLang === 'es' ? 'Seleccionar...' : 'Select...');
-            const insPairs = (ses.insumos || []).map(i => `${i.id}:${i.nombre[currentLang] || i.nombre.es}`).join('|');
+            const insPairs = ses.insumos.map(i => `${i.id}:${i.nombre[currentLang] || i.nombre.es}`).join('|');
 
             const div = document.createElement('div');
             div.className = 'event-recipe-row';
@@ -3036,13 +3053,13 @@
             actualizarBotonFlotante();
             const ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
-            if (!ses.cocteles || ses.cocteles.length === 0) {
+            if (ses.cocteles.length === 0) {
                 container.innerHTML = `<div class="module-header-bar"><h2 class="module-title-h2">${t('titleResumen')}</h2><button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button></div><p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:11px;">${currentLang === 'es' ? 'Sin recetas.' : 'No recipes.'}</p>`;
                 return;
             }
             let sumaDc = 0, sumaMargen = 0, tarjetasHTML = '';
             ses.cocteles.forEach((c, idx) => {
-                const calc = calcularDatosCoctel(c, ses.insumos || []);
+                const calc = calcularDatosCoctel(c, ses.insumos);
                 sumaDc += calc.drinkCost; sumaMargen += calc.margen;
                 const colorEstado = calc.drinkCost <= 25 ? '#10b981' : (calc.drinkCost <= 30 ? '#f59e0b' : '#ef4444');
                 const barWidth = Math.min(calc.drinkCost * 2, 100);
@@ -3139,7 +3156,7 @@
             const critInv = getStockCriteria(ses);
             let totalValor = 0, totalAlertas = 0;
             
-            (ses.insumos || []).forEach(i => {
+            ses.insumos.forEach(i => {
                 const stockActual = (i.stockIni || 0) + (i.ent || 0) - (i.sal || 0);
                 totalValor += (stockActual * i.costo);
                 if (stockActual <= critInv.reponerMax) totalAlertas++;
@@ -3162,7 +3179,7 @@
                 <div id="listaInventario" style="flex-grow:1; overflow-y:auto;">
             `;
 
-            if (!ses.insumos || ses.insumos.length === 0) {
+            if (ses.insumos.length === 0) {
                 html += `<p style="text-align:center; color:#94a3b8; margin-top:20px; font-size:11px;">${currentLang === 'es' ? 'Sin insumos.' : 'No ingredients.'}</p>`;
             } else {
                 ses.insumos.forEach((item, idx) => {
@@ -3245,21 +3262,21 @@
             actualizarBotonFlotante();
             const ses = getActiveSession();
             const container = document.getElementById('moduleContainer');
-            if (!ses.cocteles || ses.cocteles.length === 0) {
+            if (ses.cocteles.length === 0) {
                 container.innerHTML = `<div class="module-header-bar"><h2 class="module-title-h2">${t('titleEventos')}</h2><button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button></div><p style="text-align:center; color:#94a3b8; margin-top:25px; font-size:11px;">${currentLang === 'es' ? 'Crea recetas primero.' : 'Create recipes first.'}</p>`;
                 return;
             }
             eventCarta = eventCarta.filter(item => item.coctelIdx >= 0 && item.coctelIdx < ses.cocteles.length);
-            if (eventCarta.length === 0) eventCarta = [{ coctelIdx: 0, servicios: 1 }];
+            if (eventCarta.length === 0) eventCarta = [{ coctelIdx: 0, servicios: 40 }];
 
             let totalServicios = 0, costoMat = 0, reqMap = {};
             eventCarta.forEach(item => {
                 totalServicios += item.servicios;
                 const c = ses.cocteles[item.coctelIdx];
                 if (c) {
-                    const calc = calcularDatosCoctel(c, ses.insumos || []);
+                    const calc = calcularDatosCoctel(c, ses.insumos);
                     costoMat += calc.costoTotal * item.servicios;
-                    (c.ingredientes || []).forEach(ing => {
+                    c.ingredientes.forEach(ing => {
                         if (!reqMap[ing.id]) reqMap[ing.id] = 0;
                         reqMap[ing.id] += ing.cant * item.servicios;
                     });
@@ -3271,7 +3288,7 @@
 
             let listaComprasHTML = '';
             for (const id in reqMap) {
-                const ins = (ses.insumos || []).find(x => x.id === id);
+                const ins = ses.insumos.find(x => x.id === id);
                 if (ins) {
                     const totalConMerma = reqMap[id] * 1.03;
                     const cantComprar = ins.contenido > 0 ? Math.ceil(totalConMerma / ins.contenido) : Math.ceil(totalConMerma);
@@ -3310,7 +3327,7 @@
                 <div class="event-param-box">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                         <span style="font-size:11px; font-weight:700; color:var(--primary-light);">${t('configServicios')} (${totalServicios} ${copasLabel})</span>
-                        <button class="btn-action-sm" onclick="eventCarta.push({coctelIdx:0, servicios:1}); abrirEventos();">${t('addCocktail')}</button>
+                        <button class="btn-action-sm" onclick="eventCarta.push({coctelIdx:0, servicios:30}); abrirEventos();">${t('addCocktail')}</button>
                     </div>
                     ${cartaRowsHTML}
                     <div class="event-param-row" style="margin-top:4px; border-top:1px dashed rgba(255,255,255,0.1); padding-top:4px;">
@@ -3348,11 +3365,11 @@
             const cartaLabel = currentLang === 'es' ? 'CARTA SELECCIONADA' : 'SELECTED MENU';
             const serviceFooter = currentLang === 'es' ? '¡Servicio profesional garantizado!' : 'Professional service guaranteed!';
 
-            let texto = `🍸 ${headerTitle} - ${(ses.brandName || '').toUpperCase()}
+            let texto = `🍸 ${headerTitle} - ${ses.brandName.toUpperCase()}
 `;
             texto += `=====================================
 `;
-            texto += `${respLabel}: ${ses.brandRole || ''}
+            texto += `${respLabel}: ${ses.brandRole}
 ${dateLabel}: ${new Date().toLocaleDateString()}
 
 `;
@@ -3393,7 +3410,7 @@ ${serviceFooter}`;
             container.innerHTML = `
                 <div class="config-card">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <h3 style="color:var(--primary-light); font-size:12px;">${t('configTitle')} (${ses.brandName || ''})</h3>
+                        <h3 style="color:var(--primary-light); font-size:12px;">${t('configTitle')} (${ses.brandName})</h3>
                         <button class="btn-action-sm" onclick="renderHome()">${t('backBtn')}</button>
                     </div>
                     
@@ -3426,12 +3443,12 @@ ${serviceFooter}`;
 
                     <div class="config-group">
                         <span class="config-label">${t('bizNameLbl')}</span>
-                        <input type="text" class="config-input" id="cfgName" value="${ses.brandName || ''}">
+                        <input type="text" class="config-input" id="cfgName" value="${ses.brandName}">
                     </div>
                     
                     <div class="config-group">
                         <span class="config-label">${t('bizRoleLbl')}</span>
-                        <input type="text" class="config-input" id="cfgRole" value="${ses.brandRole || ''}">
+                        <input type="text" class="config-input" id="cfgRole" value="${ses.brandRole}">
                     </div>
 
                     <div class="config-group">
@@ -3479,68 +3496,36 @@ ${serviceFooter}`;
             const pinVal = document.getElementById('cfgPin').value.trim();
 
             if (!nuevoId || !nombre) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "El ID y Nombre son obligatorios." : "ID and Name are required.", () => {}); return; }
-            if (pinVal.length !== 4 || isNaN(pinVal)) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "El PIN debe ser de 4 dígitos." : "PIN must be 4 digits.", () => {}); return; }
-
-            ses.brandName = nombre;
-            ses.brandRole = rol || "";
-            ses.whatsapp = wpp;
-            ses.pin = pinVal;
-            if (draftBgTheme) ses.bgTheme = draftBgTheme;
-            if (draftFontScale !== null) ses.fontScale = draftFontScale;
+            if (pinVal.length > 0 && pinVal.length !== 4) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "⚠️ El PIN debe ser de 4 dígitos." : "⚠️ PIN must be 4 digits.", () => {}); return; }
 
             if (nuevoId !== currentSessionId) {
-                if (appSessions[nuevoId]) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ya existe un negocio con ese ID." : "A business with that ID already exists.", () => {}); return; }
-                appSessions[nuevoId] = ses;
+                if (appSessions[nuevoId]) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ese ID ya está en uso." : "ID in use.", () => {}); return; }
+                appSessions[nuevoId] = appSessions[currentSessionId];
                 delete appSessions[currentSessionId];
                 currentSessionId = nuevoId;
             }
-            draftBgTheme = null;
-            draftFontScale = null;
+
+            ses = getActiveSession();
+            ses.brandName = nombre;
+            ses.brandRole = rol;
+            ses.whatsapp = wpp;
+            if (pinVal) ses.pin = pinVal;
+            if (draftFontScale !== null) {
+                ses.fontScale = draftFontScale;
+                draftFontScale = null;
+            }
+            if (draftBgTheme !== null) {
+                ses.bgTheme = draftBgTheme;
+                draftBgTheme = null;
+            }
+
             guardarDatosSesionActual();
             applyBranding();
-            mostrarConfirmacion("Guardado", currentLang === 'es' ? "✅ ¡Cambios guardados con éxito!" : "✅ Changes saved successfully!", () => { renderBranding(); });
-        }
-
-        function cambiarEscalaTexto(escala) {
-            draftFontScale = escala;
-            applyBranding();
             renderBranding();
         }
 
-        function cambiarTemaNegocio(themeKey) {
-            draftBgTheme = themeKey;
-            applyBranding();
-            renderBranding();
-        }
-
-        function eliminarSesionActual() {
-            const keys = Object.keys(appSessions);
-            if (keys.length <= 1) {
-                mostrarConfirmacion(
-                    "Eliminar Negocio",
-                    currentLang === 'es'
-                        ? "¿Deseas eliminar este último negocio y dejar la aplicación sin sesiones?"
-                        : "Do you want to delete this last business and leave the app with no sessions?",
-                    () => {
-                        delete appSessions[currentSessionId];
-                        currentSessionId = '';
-                        draftBgTheme = null;
-                        draftFontScale = null;
-                        guardarDatosSesionActual();
-                        mostrarSelectorSesiones();
-                    }
-                );
-                return;
-            }
-            mostrarConfirmacion("Eliminar Negocio", currentLang === 'es' ? `¿Estás seguro de eliminar "${getActiveSession().brandName}"?` : `Are you sure you want to delete "${getActiveSession().brandName}"?`, () => {
-                delete appSessions[currentSessionId];
-                currentSessionId = Object.keys(appSessions)[0];
-                draftBgTheme = null;
-                draftFontScale = null;
-                guardarDatosSesionActual();
-                seleccionarSesion(currentSessionId);
-            });
-        }
+        function cambiarEscalaTexto(scaleVal) { draftFontScale = scaleVal; applyBranding(); renderBranding(); }
+        function cambiarTemaNegocio(kVal) { draftBgTheme = kVal; applyBranding(); renderBranding(); }
 
         function abrirModalNuevoNegocio() {
             document.getElementById('txtNewBizModalTitle').innerText = t('newBizTitle');
@@ -3558,199 +3543,261 @@ ${serviceFooter}`;
         }
 
         function crearNuevaSesionNegocio() {
-            let key = document.getElementById('sesionIdKey').value.trim().toLowerCase().replace(/\s+/g, '_');
+            const key = document.getElementById('sesionIdKey').value.trim().toLowerCase().replace(/\s+/g, '_');
             const nombre = document.getElementById('sesionNombreNegocio').value.trim();
-            const rol = document.getElementById('sesionRolNegocio').value.trim();
-            const pinVal = document.getElementById('sesionPinNegocio').value.trim() || "1234";
-
-            if (!key) key = nombre.toLowerCase().replace(/[^a-z0-9]/g, '_');
-            if (!key || !nombre) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ingresa ID y Nombre." : "Enter ID and Name.", () => {}); return; }
-            if (appSessions[key]) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ese ID ya existe." : "That ID already exists.", () => {}); return; }
+            const rol = document.getElementById('sesionRolNegocio').value.trim() || "GUSTAVO SUÁREZ • BARTENDER";
+            const pin = document.getElementById('sesionPinNegocio').value.trim() || "1234";
+            if (!key || !nombre) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ingresa ID y nombre." : "Enter ID and name.", () => {}); return; }
+            if (appSessions[key]) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "Ese ID ya existe." : "ID exists.", () => {}); return; }
 
             appSessions[key] = {
-                brandName: nombre, brandRole: rol || "",
-                whatsapp: "", instagram: "", logoData: "",
-                bgTheme: "obsidian", fontScale: 0.85, pin: pinVal,
-                stockCriteria: { reponerMax: 1, observarMax: 2 },
-                calendario: {},
-                insumos: [], cocteles: [], labPrep: []
+                brandName: nombre, brandRole: rol, whatsapp: "", instagram: "", logoData: "",
+                bgTheme: "mokalounge", fontScale: 0.85, pin: pin, stockCriteria: { reponerMax: 1, observarMax: 2 },
+                calendario: {}, insumos: [], cocteles: [], labPrep: []
             };
             guardarDatosSesionActual();
             cerrarModal('modalNuevoNegocio');
             seleccionarSesion(key);
         }
 
+        function eliminarSesionActual() {
+            const keys = Object.keys(appSessions);
+            if (keys.length <= 1) { mostrarConfirmacion("Aviso", currentLang === 'es' ? "⚠️ Debes tener al menos un negocio." : "⚠️ At least one business required.", () => {}); return; }
+            const ses = getActiveSession();
+            mostrarConfirmacion("Eliminar Empresa", currentLang === 'es' ? `¿Eliminar "${ses.brandName}"?` : `Delete "${ses.brandName}"?`, () => {
+                delete appSessions[currentSessionId];
+                guardarDatosSesionActual();
+                currentSessionId = Object.keys(appSessions)[0];
+                document.getElementById('dashboard').style.display = 'none';
+                mostrarSelectorSesiones();
+            });
+        }
+
         function cerrarModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            initApp();
-            const betaInput = document.getElementById("betaCodeInput");
-            if (betaInput) {
-                betaInput.addEventListener("keydown", function(e) {
-                    if (e.key === "Enter") validarCodigoBeta();
-                });
-            }
-        });
+        window.addEventListener('DOMContentLoaded', function() { initApp(); enlazarGestosCincoToquesNombre(); });
     </script>
 
     <script>
-        (function configurarAccesoBeta() {
-            const CODIGO_MAESTRO_BETA = "BAR-MASTER-999";
-            const ENDPOINT_ACTIVACION = "";
+        const BETA_ENDPOINT = "https://script.google.com/macros/s/AKfycbyRYGG6AuZXiO0D3K493M2u7LZ2_ujdLkUe0Did0862gNOxos5ADsqaTRrzBpAuP-Aw/exec";
+        const BETA_STORAGE_KEY = "barcraft_beta_unlocked";
+        const BETA_DEVICE_KEY = "barcraft_device_id";
+        const MASTER_BETA_CODE = "0101-1987-GUGA";
+        const CODIGOS_BETA_RESPALDO = [];
 
-            function setBetaMensaje(msg, esError = true) {
-                const el = document.getElementById("betaStatusMsg");
-                if (el) {
-                    el.style.color = esError ? "#fca5a5" : "#6ee7b7";
-                    el.textContent = msg;
-                }
+        function getDeviceId() {
+            let id = localStorage.getItem(BETA_DEVICE_KEY);
+            if (!id) {
+                id = "DEV-" + (crypto?.randomUUID ? crypto.randomUUID() : (Date.now() + "-" + Math.random().toString(36).slice(2, 10)));
+                localStorage.setItem(BETA_DEVICE_KEY, id);
             }
+            return id;
+        }
 
-            function ocultarBetaGate() {
+        function verificarEstadoBeta() {
+            const modal = document.getElementById("betaGateModal");
+            if (!modal) return;
+            const desbloqueado = localStorage.getItem(BETA_STORAGE_KEY) === "true";
+            if (desbloqueado) {
+                modal.style.display = "none";
+            } else {
+                modal.style.display = "flex";
+                modal.style.zIndex = "999999";
+            }
+        }
+
+        function activarBetaLocalmente(codigo, mensaje) {
+            const deviceId = getDeviceId();
+            try {
+                localStorage.setItem(BETA_STORAGE_KEY, "true");
+                localStorage.setItem("barcraft_beta_code_used", codigo);
+                localStorage.setItem("barcraft_beta_activated_at", new Date().toISOString());
+                localStorage.setItem("barcraft_beta_device_used", deviceId);
+            } catch (e) {}
+
+            const msg = document.getElementById("betaStatusMsg");
+            if (msg) {
+                msg.style.color = "#34d399";
+                msg.textContent = mensaje || "¡Acceso beta activado!";
+            }
+            setTimeout(() => {
                 const modal = document.getElementById("betaGateModal");
                 if (modal) modal.style.display = "none";
+            }, 450);
+        }
+
+        function notificarActivacionSilenciosa(targetUrl) {
+            try {
+                const beacon = new Image();
+                beacon.src = targetUrl;
+            } catch (e) {}
+        }
+
+        async function validarCodigoBeta() {
+            const input = document.getElementById("betaCodeInput");
+            const btn = document.getElementById("betaActivateBtn");
+            const msg = document.getElementById("betaStatusMsg");
+            const code = (input.value || "").trim().toUpperCase().replace(/\s+/g, "");
+
+            if (!code) {
+                msg.style.color = "#fca5a5";
+                msg.textContent = "Por favor ingresa un código de invitación.";
+                return;
             }
 
-            function mostrarBetaGate() {
-                const modal = document.getElementById("betaGateModal");
-                if (modal) {
-                    modal.style.display = "flex";
-                    modal.style.zIndex = "999999";
-                }
+            if (code === MASTER_BETA_CODE) {
+                activarBetaLocalmente(code, "¡Código maestro activado!");
+                return;
             }
 
-            function normalizarCodigo(codigo) {
-                return (codigo || "").toString().trim().toUpperCase();
+            btn.disabled = true;
+            btn.textContent = "Validando...";
+            msg.style.color = "#fbeeb8";
+            msg.textContent = "Verificando código...";
+
+            const deviceId = getDeviceId();
+            const url = `${BETA_ENDPOINT}?code=${encodeURIComponent(code)}&deviceId=${encodeURIComponent(deviceId)}&_t=${Date.now()}`;
+
+            function probarViaScriptJSONP(targetUrl) {
+                return new Promise((resolve, reject) => {
+                    const cbName = "__barcraftBetaCb_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
+                    const script = document.createElement("script");
+                    const timer = setTimeout(() => {
+                        cleanup();
+                        reject(new Error("TIMEOUT_JSONP"));
+                    }, 8000);
+
+                    function cleanup() {
+                        clearTimeout(timer);
+                        try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
+                        if (script.parentNode) script.parentNode.removeChild(script);
+                    }
+
+                    window[cbName] = function (payload) {
+                        cleanup();
+                        resolve(payload);
+                    };
+
+                    script.onerror = function () {
+                        cleanup();
+                        reject(new Error("NETWORK_OR_NON_JSON"));
+                    };
+
+                    script.src = `${targetUrl}&callback=${encodeURIComponent(cbName)}`;
+                    document.head.appendChild(script);
+                });
             }
 
-            window.validarCodigoBeta = async function() {
-                const input = document.getElementById("betaCodeInput");
-                const btn = document.getElementById("betaActivateBtn");
-                const code = normalizarCodigo(input ? input.value : "");
-
-                if (!code) {
-                    setBetaMensaje("Por favor ingresa un código de acceso.", true);
-                    if (input) input.focus();
-                    return;
-                }
-
-                if (btn) {
-                    btn.disabled = true;
-                    btn.textContent = "Validando...";
-                }
-                setBetaMensaje("", false);
+            try {
+                let data = null;
 
                 try {
-                    if (code === normalizarCodigo(CODIGO_MAESTRO_BETA)) {
-                        localStorage.setItem("barcraft_beta_unlocked", "true");
-                        localStorage.setItem("barcraft_beta_code", code);
-                        setBetaMensaje("Acceso concedido.", false);
-                        ocultarBetaGate();
-                        return;
-                    }
-
-                    if (!ENDPOINT_ACTIVACION) {
-                        setBetaMensaje("Código no válido o sin conexión al servidor de activación.", true);
-                        return;
-                    }
-
-                    const resp = await fetch(ENDPOINT_ACTIVACION, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            code: code,
-                            app: "BarCraft_Elite",
-                            timestamp: new Date().toISOString()
-                        })
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 8000);
+                    const res = await fetch(url, {
+                        method: "GET",
+                        cache: "no-store",
+                        redirect: "follow",
+                        credentials: "omit",
+                        signal: controller.signal
                     });
+                    clearTimeout(timeoutId);
 
-                    let data = {};
-                    try {
-                        data = await resp.json();
-                    } catch (_) {}
-
-                    if (resp.ok && (data.valid === true || data.activated === true || data.ok === true)) {
-                        localStorage.setItem("barcraft_beta_unlocked", "true");
-                        localStorage.setItem("barcraft_beta_code", code);
-                        setBetaMensaje("¡Beta activada con éxito!", false);
-                        ocultarBetaGate();
-                    } else {
-                        setBetaMensaje(data.message || "Código inválido, expirado o ya utilizado.", true);
-                    }
-                } catch (err) {
-                    setBetaMensaje("Error de red al validar el código. Revisa tu conexión.", true);
-                } finally {
-                    if (btn) {
-                        btn.disabled = false;
-                        btn.textContent = "Activar Beta";
-                    }
+                    const rawText = await res.text();
+                    data = JSON.parse(rawText);
+                } catch (errPrimary) {
+                    data = await probarViaScriptJSONP(url);
                 }
-            };
 
-            window.bloquearBetaNuevamente = function() {
-                localStorage.removeItem("barcraft_beta_unlocked");
-                localStorage.removeItem("barcraft_beta_code");
-                const input = document.getElementById("betaCodeInput");
-                if (input) input.value = "";
-                setBetaMensaje("", false);
-                mostrarBetaGate();
-            };
-
-            window.verificarEstadoBeta = function() {
-                if (localStorage.getItem("barcraft_beta_unlocked") === "true") {
-                    ocultarBetaGate();
+                if (data && (data.ok === true || data.ok === "true")) {
+                    activarBetaLocalmente(code, data.message || data.mensaje || "¡Acceso concedido!");
                 } else {
-                    mostrarBetaGate();
+                    msg.style.color = "#fca5a5";
+                    msg.textContent = (data && (data.message || data.mensaje)) || "Código no válido o ya utilizado.";
                 }
-            };
-
-            let toquesNombre = 0;
-            let timerToquesNombre = null;
-
-            function registrarToqueNombreBeta(e) {
-                if (e) e.stopPropagation();
-                toquesNombre++;
-                clearTimeout(timerToquesNombre);
-                timerToquesNombre = setTimeout(() => {
-                    toquesNombre = 0;
-                }, 1400);
-
-                if (toquesNombre >= 5) {
-                    toquesNombre = 0;
-                    clearTimeout(timerToquesNombre);
-                    window.bloquearBetaNuevamente();
+            } catch (err) {
+                if (CODIGOS_BETA_RESPALDO.includes(code)) {
+                    notificarActivacionSilenciosa(url);
+                    activarBetaLocalmente(code, "¡Acceso beta activado!");
+                } else {
+                    msg.style.color = "#fca5a5";
+                    msg.textContent = "No se pudo confirmar con Google Sheets. Verifica tu conexión o el despliegue del Apps Script.";
                 }
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Activar Beta";
+            }
+        }
+
+        let betaTapCount = 0;
+        let betaTapTimer = null;
+
+        function reabrirModalBetaDesdeGesto() {
+            try {
+                localStorage.removeItem(BETA_STORAGE_KEY);
+            } catch (e) {}
+            const input = document.getElementById("betaCodeInput");
+            const msg = document.getElementById("betaStatusMsg");
+            const btn = document.getElementById("betaActivateBtn");
+            if (input) input.value = "";
+            if (msg) {
+                msg.style.color = "#fbeeb8";
+                msg.textContent = "Modo beta reactivado por gesto. Ingresa un código.";
+            }
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = "Activar Beta";
+            }
+            const modal = document.getElementById("betaGateModal");
+            if (modal) {
+                modal.style.display = "flex";
+                modal.style.zIndex = "999999";
+            }
+        }
+
+        function registrarToqueNombreBeta(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            betaTapCount += 1;
+            if (betaTapTimer) {
+                clearTimeout(betaTapTimer);
+            }
+            if (betaTapCount >= 5) {
+                betaTapCount = 0;
+                betaTapTimer = null;
+                reabrirModalBetaDesdeGesto();
+                return;
+            }
+            betaTapTimer = setTimeout(() => {
+                betaTapCount = 0;
+                betaTapTimer = null;
+            }, 1800);
+        }
+
+        function enlazarGestosCincoToquesNombre() {
+            const splashNameEl = document.getElementById("splashName");
+            if (splashNameEl && !splashNameEl.dataset.betaTapBound) {
+                splashNameEl.dataset.betaTapBound = "true";
+                splashNameEl.style.cursor = "pointer";
+                splashNameEl.addEventListener("click", registrarToqueNombreBeta);
             }
 
-            function enlazarGestosCincoToquesNombre() {
-                const targets = document.querySelectorAll(".hero-signature, #splashName");
-                targets.forEach((el) => {
-                    if (!el.dataset.betaTapBound) {
-                        el.dataset.betaTapBound = "1";
-                        el.addEventListener("click", registrarToqueNombreBeta);
-                    }
-                });
-            }
-
-            window.enlazarGestosCincoToquesNombre = enlazarGestosCincoToquesNombre;
-
-            if (document.readyState === "loading") {
-                document.addEventListener("DOMContentLoaded", () => {
-                    window.verificarEstadoBeta();
-                    enlazarGestosCincoToquesNombre();
-                });
-            } else {
-                window.verificarEstadoBeta();
-                enlazarGestosCincoToquesNombre();
-            }
-
-            const obs = new MutationObserver(() => {
-                enlazarGestosCincoToquesNombre();
+            document.querySelectorAll(".hero-signature").forEach((el) => {
+                if (!el.dataset.betaTapBound) {
+                    el.dataset.betaTapBound = "true";
+                    el.style.cursor = "pointer";
+                    el.addEventListener("click", registrarToqueNombreBeta);
+                }
             });
-            if (document.body) {
-                obs.observe(document.body, { childList: true, subtree: true });
+        }
+
+        document.getElementById("betaCodeInput")?.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                validarCodigoBeta();
             }
-        })();
+        });
     </script>
 </body>
 </html>
