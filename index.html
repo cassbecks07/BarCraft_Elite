@@ -3507,13 +3507,7 @@ ${serviceFooter}`;
         const BETA_STORAGE_KEY = "barcraft_beta_unlocked";
         const BETA_DEVICE_KEY = "barcraft_device_id";
         const MASTER_BETA_CODE = "0101-1987-GUGA";
-        const CODIGOS_BETA_RESPALDO = [
-            "BAR-BETA-01",
-            "BAR-BETA-02",
-            "BAR-BETA-03",
-            "BAR-BETA-04",
-            "BAR-BETA-05"
-        ];
+        const CODIGOS_BETA_RESPALDO = [];
 
         function getDeviceId() {
             let id = localStorage.getItem(BETA_DEVICE_KEY);
@@ -3651,7 +3645,7 @@ ${serviceFooter}`;
                     activarBetaLocalmente(code, "¡Acceso beta activado!");
                 } else {
                     msg.style.color = "#fca5a5";
-                    msg.textContent = "Código no válido o sin conexión con el servidor.";
+                    msg.textContent = "No se pudo confirmar con Google Sheets. Verifica tu conexión o el despliegue del Apps Script.";
                 }
             } finally {
                 btn.disabled = false;
