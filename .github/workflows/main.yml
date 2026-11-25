@@ -350,6 +350,11 @@ jobs:
           include ':app'
           EOF
 
+          cat << 'EOF' > gradle.properties
+          android.useAndroidX=true
+          android.nonTransitiveRClass=true
+          EOF
+
           cat << 'EOF' > build.gradle
           buildscript {
               repositories {
