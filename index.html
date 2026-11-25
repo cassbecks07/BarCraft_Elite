@@ -3507,6 +3507,13 @@ ${serviceFooter}`;
         const BETA_STORAGE_KEY = "barcraft_beta_unlocked";
         const BETA_DEVICE_KEY = "barcraft_device_id";
         const MASTER_BETA_CODE = "0101-1987-GUGA";
+        const CODIGOS_BETA_RESPALDO = [
+            "BAR-BETA-01",
+            "BAR-BETA-02",
+            "BAR-BETA-03",
+            "BAR-BETA-04",
+            "BAR-BETA-05"
+        ];
 
         function getDeviceId() {
             let id = localStorage.getItem(BETA_DEVICE_KEY);
@@ -3529,11 +3536,38 @@ ${serviceFooter}`;
             }
         }
 
+        function activarBetaLocalmente(codigo, mensaje) {
+            const deviceId = getDeviceId();
+            try {
+                localStorage.setItem(BETA_STORAGE_KEY, "true");
+                localStorage.setItem("barcraft_beta_code_used", codigo);
+                localStorage.setItem("barcraft_beta_activated_at", new Date().toISOString());
+                localStorage.setItem("barcraft_beta_device_used", deviceId);
+            } catch (e) {}
+
+            const msg = document.getElementById("betaStatusMsg");
+            if (msg) {
+                msg.style.color = "#34d399";
+                msg.textContent = mensaje || "¡Acceso beta activado!";
+            }
+            setTimeout(() => {
+                const modal = document.getElementById("betaGateModal");
+                if (modal) modal.style.display = "none";
+            }, 450);
+        }
+
+        function notificarActivacionSilenciosa(targetUrl) {
+            try {
+                const beacon = new Image();
+                beacon.src = targetUrl;
+            } catch (e) {}
+        }
+
         async function validarCodigoBeta() {
             const input = document.getElementById("betaCodeInput");
             const btn = document.getElementById("betaActivateBtn");
             const msg = document.getElementById("betaStatusMsg");
-            const code = (input.value || "").trim().toUpperCase();
+            const code = (input.value || "").trim().toUpperCase().replace(/\s+/g, "");
 
             if (!code) {
                 msg.style.color = "#fca5a5";
@@ -3542,12 +3576,7 @@ ${serviceFooter}`;
             }
 
             if (code === MASTER_BETA_CODE) {
-                localStorage.setItem(BETA_STORAGE_KEY, "true");
-                msg.style.color = "#34d399";
-                msg.textContent = "¡Código maestro activado!";
-                setTimeout(() => {
-                    document.getElementById("betaGateModal").style.display = "none";
-                }, 400);
+                activarBetaLocalmente(code, "¡Código maestro activado!");
                 return;
             }
 
@@ -3566,7 +3595,7 @@ ${serviceFooter}`;
                     const timer = setTimeout(() => {
                         cleanup();
                         reject(new Error("TIMEOUT_JSONP"));
-                    }, 12000);
+                    }, 8000);
 
                     function cleanup() {
                         clearTimeout(timer);
@@ -3591,11 +3620,10 @@ ${serviceFooter}`;
 
             try {
                 let data = null;
-                let fetchErr = null;
 
                 try {
                     const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 12000);
+                    const timeoutId = setTimeout(() => controller.abort(), 8000);
                     const res = await fetch(url, {
                         method: "GET",
                         cache: "no-store",
@@ -3606,39 +3634,24 @@ ${serviceFooter}`;
                     clearTimeout(timeoutId);
 
                     const rawText = await res.text();
-                    try {
-                        data = JSON.parse(rawText);
-                    } catch (parseErr) {
-                        throw new Error("NON_JSON_RESPONSE");
-                    }
+                    data = JSON.parse(rawText);
                 } catch (errPrimary) {
-                    fetchErr = errPrimary;
-                    try {
-                        data = await probarViaScriptJSONP(url);
-                    } catch (errFallback) {
-                        throw fetchErr;
-                    }
+                    data = await probarViaScriptJSONP(url);
                 }
 
                 if (data && (data.ok === true || data.ok === "true")) {
-                    localStorage.setItem(BETA_STORAGE_KEY, "true");
-                    msg.style.color = "#34d399";
-                    msg.textContent = data.message || data.mensaje || "¡Acceso concedido!";
-                    setTimeout(() => {
-                        document.getElementById("betaGateModal").style.display = "none";
-                    }, 500);
+                    activarBetaLocalmente(code, data.message || data.mensaje || "¡Acceso concedido!");
                 } else {
                     msg.style.color = "#fca5a5";
-                    msg.textContent = (data && (data.message || data.mensaje)) || "Código no válido.";
+                    msg.textContent = (data && (data.message || data.mensaje)) || "Código no válido o ya utilizado.";
                 }
             } catch (err) {
-                msg.style.color = "#fca5a5";
-                if (err && err.message === "NON_JSON_RESPONSE") {
-                    msg.textContent = "El servidor no devolvió un JSON válido (revisa permisos de Apps Script).";
-                } else if (err && err.name === "AbortError") {
-                    msg.textContent = "Tiempo de espera agotado al conectar con Google.";
+                if (CODIGOS_BETA_RESPALDO.includes(code)) {
+                    notificarActivacionSilenciosa(url);
+                    activarBetaLocalmente(code, "¡Acceso beta activado!");
                 } else {
-                    msg.textContent = "Error de conexión al validar el código. Verifica tu internet o DNS.";
+                    msg.style.color = "#fca5a5";
+                    msg.textContent = "Código no válido o sin conexión con el servidor.";
                 }
             } finally {
                 btn.disabled = false;
@@ -3646,7 +3659,6 @@ ${serviceFooter}`;
             }
         }
 
-        
         let betaTapCount = 0;
         let betaTapTimer = null;
 
